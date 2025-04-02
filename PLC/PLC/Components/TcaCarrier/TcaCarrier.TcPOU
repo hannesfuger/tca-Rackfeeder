@@ -239,7 +239,9 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR _i:= 0 TO MAX_WORKPIECEPLACES DO
 	_arrayOfWorkpiecePlaces[_i].Id := _i+1;
-END_FOR]]></ST>
+END_FOR
+
+RETURN;]]></ST>
       </Implementation>
     </Method>
     <Method Name="FillWithWorkpieces_CustomState" Id="{3b0c22c0-d494-4035-843c-f65b12875767}" FolderPath="Operations\">
