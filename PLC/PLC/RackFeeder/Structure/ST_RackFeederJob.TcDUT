@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_RackFeederJob" Id="{a5bf97cb-7367-4bc5-afb1-ff2ea4824f97}">
+    <Declaration><![CDATA[TYPE ST_RackFeederJob :
+STRUCT
+	stStorage			: ST_StorageDock;
+	
+	bDropJob			: BOOL;
+	bFetchJob			: BOOL;
+	
+	sAssignTo			: STRING; 				
+	sRequired			: STRING;
+		
+	nPriority			: INT;
+	bForce				: BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

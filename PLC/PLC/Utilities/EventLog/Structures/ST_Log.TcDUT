@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Log" Id="{18ae8a89-c40f-43c5-b81a-69a570944928}">
+    <Declaration><![CDATA[TYPE ST_Log :
+STRUCT
+	sText: T_MaxString;
+	sSource: STRING;
+	bSaveRequest: BOOL;
+	bSaved: BOOL;
+	///	eLogLevelNone, eLogLevelError, eLogLevelWarning, eLogLevelInformation	
+	eLevel: E_LogLevel;
+	sTime: STRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

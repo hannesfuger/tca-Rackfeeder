@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaCarrier" Id="{cb4cb05c-8cc6-4c4e-b4d4-2bd8871ee7cb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaCarrier EXTENDS TcoCore.TcoComponent IMPLEMENTS ITcaCarrier
+VAR CONSTANT
+	MAX_WORKPIECEPLACES : INT := 127;
+END_VAR
+
+VAR PERSISTENT
+	_carrierID : INT;	
+	_config : TcaCarrierConfig;
+	_arrayOfWorkpiecePlaces : ARRAY[0..MAX_WORKPIECEPLACES] OF TcaWorkpiecePlace(THIS^);
+END_VAR
+
+VAR
+	_ModifyTask : TcaCarrierModifyTask(THIS^);	
+	_modifyId : INT := 0;
+	_status : TcaCarrierStatus;
+	_i : INT;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[THIS^._ModifyTask(inoArrayOfWorkpiecePlaces := _arrayOfWorkpiecePlaces);
+
+FOR _i:= 0 TO MAX_WORKPIECEPLACES DO
+	_arrayOfWorkpiecePlaces[_i]();
+END_FOR]]></ST>
+    </Implementation>
+    <Folder Name="Config" Id="{5b12d6a7-75e3-4cf0-aa63-45d3948de01c}" />
+    <Folder Name="Functions" Id="{e179f35a-15b1-4e1d-a2be-a3074b0e5c68}" />
+    <Folder Name="Operations" Id="{56bebb71-64cc-4645-900b-db953e179838}" />
+    <Method Name="ChangeConfig" Id="{37e814ce-5f8e-4579-82af-1e56bc0379a9}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD ChangeConfig : ITcoTaskStatus 
+VAR_INPUT
+	inConfig : TcaCarrierConfig;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ChangeConfig := _ModifyTask.InvokeCarrierConfig(inConfig);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Config" Id="{0b637409-5dac-454c-a9f4-fecac0e37b62}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaCarrierConfig]]></Declaration>
+      <Get Name="Get" Id="{ab74dee8-334b-41f7-bc4b-9e9037b7b554}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config REF= _config;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{50763702-5518-4251-99e4-1a8258f10eb0}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_config := Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="CoordinatesOf" Id="{fb9ca07f-d465-4155-b936-ffa9ed3dcdea}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD CoordinatesOf : ST_Coordinate
+VAR_INPUT
+	WorkpiecePlace		: INT;
+END_VAR
+
+VAR
+	tmpConfig			: TcaCarrierConfig;
+	
+	tmpOffset 			: REAL;
+	tmpOddRow			: INT;
+	tmpEvenRow			: INT;
+	tmpWorkpieceCount	: INT;
+	
+	tmpPos		 		: INT;
+	tmpLoc		 		: INT;		
+	tmpRow 				: INT;
+	//tmpLvl				: INT;
+	
+	nRowNumber			: INT;
+	nLocationNumber		: INT; 
+	
+	tmpCoordinate 		: ST_Coordinate;		
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF WorkpiecePlace = 0 OR WorkpiecePlace > Status.WorkpiecePlaces OR Status.ConfigError THEN
+	RETURN;
+END_IF
+
+tmpConfig := _Config;
+
+CASE tmpConfig.eConfiguration OF
+	eTcaCarrierConfig.Layout1 : 
+		tmpOffset := 0;
+		tmpOddRow := tmpConfig.PositionsInRow;
+        tmpEvenRow := tmpConfig.PositionsInRow;
+        tmpWorkpieceCount := tmpConfig.PositionsInRow*tmpConfig.PositionsInColumn;
+		
+    eTcaCarrierConfig.Layout2 :
+		tmpOffset := 0.5;
+		tmpOddRow := tmpConfig.PositionsInRow;
+		tmpEvenRow := tmpConfig.PositionsInRow;
+        tmpWorkpieceCount := tmpConfig.PositionsInRow*tmpConfig.PositionsInColumn;
+		 
+    eTcaCarrierConfig.Layout3 :
+		 tmpOffset := -0.5;
+		 tmpOddRow := tmpConfig.PositionsInRow;
+         tmpEvenRow := tmpConfig.PositionsInRow;
+         tmpWorkpieceCount := tmpConfig.PositionsInRow*tmpConfig.PositionsInColumn;	
+		 
+	eTcaCarrierConfig.Layout4 :
+		 tmpOffset := -0.5;
+		 tmpOddRow := tmpConfig.PositionsInRow;
+         tmpEvenRow := tmpConfig.PositionsInRow + 1;
+         tmpWorkpieceCount := tmpConfig.PositionsInRow*tmpConfig.PositionsInColumn + tmpConfig.PositionsInColumn/2;
+		
+	eTcaCarrierConfig.Layout5 :
+		 tmpOffset := 0.5;
+		 tmpOddRow := tmpConfig.PositionsInRow;
+         tmpEvenRow := tmpConfig.PositionsInRow - 1;
+         tmpWorkpieceCount := tmpConfig.PositionsInRow*tmpConfig.PositionsInColumn - tmpConfig.PositionsInColumn/2;
+		 
+END_CASE
+
+// Bestimmen des Reihen und Spaltenndex und der x und y-Koordinate
+tmpPos := (WorkpiecePlace - 1) MOD tmpWorkpieceCount;
+tmpRow := tmpPos/(tmpOddRow + tmpEvenRow);	
+tmpLoc := tmpPos MOD (tmpOddRow + tmpEvenRow);
+//tmpLvl := (Position - 1)/tmpWorkpieceCount;
+
+
+IF tmpLoc >= tmpOddRow THEN
+    // gerade Reihe
+    nRowNumber := tmpRow*2 + 1;
+    nLocationNumber := tmpLoc - tmpOddRow;
+    tmpCoordinate.fX := tmpConfig.ColumnDistance*(nLocationNumber + tmpOffset);
+    tmpCoordinate.fY := tmpConfig.RowDistance*nRowNumber;
+ELSE
+    // ungerade Reihe
+    nRowNumber := tmpRow*2;
+    nLocationNumber := tmpLoc;
+    tmpCoordinate.fX := tmpConfig.ColumnDistance*nLocationNumber;
+    tmpCoordinate.fY := tmpConfig.RowDistance*nRowNumber;
+END_IF
+		
+
+//tmpCoordinate.fZ := tmpLvl*fLevelDistance;
+
+// Koordinaten zurückgeben
+tmpCoordinate.nOriginId := 0;
+CoordinatesOf := tmpCoordinate;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CountEmptyPlaces" Id="{180bc4e3-ba20-47fb-92c1-8b8a99e6818d}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD CountEmptyPlaces : INT
+
+VAR
+	tmp				: INT;
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CountEmptyPlaces := 0;
+
+FOR ni := 0 TO Status.WorkpiecePlaces-1 DO
+	
+	IF _arrayOfWorkpiecePlaces[ni].Error THEN
+		CONTINUE;
+	END_IF
+
+	IF _arrayOfWorkpiecePlaces[ni].Lock THEN
+		CONTINUE;
+	END_IF
+
+	IF NOT _arrayOfWorkpiecePlaces[ni].WorkpiecePresent THEN
+		tmp := tmp + 1;	
+	END_IF
+
+END_FOR
+
+CountEmptyPlaces := tmp;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CountPlacesByStatus" Id="{d8fa782e-a592-4393-b541-142317da77e8}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD CountPlacesByStatus : INT
+VAR_INPUT
+	nStatus			: INT;
+END_VAR
+
+VAR
+	tmp				: INT;
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CountPlacesByStatus := 0;
+
+FOR ni := 0 TO Status.WorkpiecePlaces-1 DO
+	
+	IF _arrayOfWorkpiecePlaces[ni].Error THEN
+		CONTINUE;
+	END_IF
+
+	IF _arrayOfWorkpiecePlaces[ni].Lock THEN
+		CONTINUE;
+	END_IF
+
+	IF _arrayOfWorkpiecePlaces[ni].Status.Progress = nStatus THEN
+			tmp := tmp + 1;
+	END_IF
+	
+END_FOR
+
+CountPlacesByStatus := tmp;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmptyPlaces" Id="{307a9545-981c-48e2-95fa-478ceeb8faec}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD EmptyPlaces : ITcoTaskStatus 
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EmptyPlaces := _ModifyTask.InvokeWorkpieceCommand(eTcaCarrierCmd.emptyPlaces, eTcaWorkpiecePlaceProgress.blank);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_Init" Id="{a39378d3-a146-42e4-81d7-513f20fa6674}">
+      <Declaration><![CDATA[//FB_Init ist immer implizit verfügbar und wird primär für die Initialisierung verwendet.
+//Der Rückgabewert wird nicht ausgewertet. Für gezielte Einflussnahme können Sie
+//die Methoden explizit deklarieren und darin mit dem Standard-Initialisierungscode 
+//zusätzlichen Code bereitstellen. Sie können den Rückgabewert auswerten.
+METHOD FB_Init: BOOL
+VAR_INPUT    
+bInitRetains: BOOL; // TRUE: Die Retain-Variablen werden initialisiert (Reset warm / Reset kalt)    
+bInCopyCode: BOOL;  // TRUE: Die Instanz wird danach in den Kopiercode kopiert (Online-Change)
+ParentObject : ITcoObject;
+END_VAR
+VAR
+	_i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR _i:= 0 TO MAX_WORKPIECEPLACES DO
+	_arrayOfWorkpiecePlaces[_i].Id := _i+1;
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FillWithWorkpieces_CustomState" Id="{3b0c22c0-d494-4035-843c-f65b12875767}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD FillWithWorkpieces_CustomState : ITcoTaskStatus
+VAR_INPUT
+	Status		: eTcaWorkpiecePlaceProgress;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FillWithWorkpieces_CustomState := _ModifyTask.InvokeWorkpieceCommand(eTcaCarrierCmd.fillPlaces, Status);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FillWithWorkpieces_FinalState" Id="{41c8d7c9-26de-4ec8-80c0-2da1719e22de}" FolderPath="Operations\">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD FillWithWorkpieces_FinalState : ITcoTaskStatus
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Config.eFinalState = eTcaWorkpiecePlaceProgress.undefined THEN
+	RETURN;
+END_IF
+
+FillWithWorkpieces_FinalState := _ModifyTask.InvokeWorkpieceCommand(eTcaCarrierCmd.fillPlaces, Config.eFinalState);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FillWithWorkpieces_InitialState" Id="{8f51a660-10db-4072-8773-021604a9acb8}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD FillWithWorkpieces_InitialState : ITcoTaskStatus
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Config.eFinalState = eTcaWorkpiecePlaceProgress.undefined THEN
+	RETURN;
+END_IF
+
+FillWithWorkpieces_InitialState := _ModifyTask.InvokeWorkpieceCommand(eTcaCarrierCmd.fillPlaces, Config.eInitialState);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FinalState" Id="{a9d116ea-9b1e-4fa9-9bc2-641207b5540c}">
+      <Declaration><![CDATA[PROPERTY FinalState : eTcaWorkpiecePlaceProgress]]></Declaration>
+      <Get Name="Get" Id="{13d13370-6282-4360-bfec-38b264fb8263}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FinalState := Config.eFinalState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ecc5f7c6-ef16-4cc4-bfe9-d4529123d750}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config.eFinalState := FinalState;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="FindPlace" Id="{6021ca1e-a1ef-4ea5-9e46-c898a3806339}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD FindPlace : REFERENCE TO TcaWorkpiecePlace //-1..no Position found
+
+VAR_INPUT
+	Status		: eTcaWorkpiecePlaceStatus;
+END_VAR
+
+VAR
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FindPlace REF= 0;
+FOR ni := 0 TO THIS^.Status.WorkpiecePlaces-1 DO
+	IF NOT _arrayOfWorkpiecePlaces[ni].Error 
+	   AND NOT _arrayOfWorkpiecePlaces[ni].Lock 
+       AND (_arrayOfWorkpiecePlaces[ni].Status.PlaceStatus = Status OR Status < eTcaWorkpiecePlaceStatus.undefined) THEN
+	   
+		FindPlace REF= _arrayOfWorkpiecePlaces[ni];
+		EXIT;
+		
+	END_IF	
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetPlaceReference" Id="{c781c58b-59de-49f8-ac75-8ffb97aab0ac}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD GetPlaceReference : REFERENCE TO TcaWorkpiecePlace
+VAR_INPUT
+	nIndexNr		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF nIndexNr < 0 OR nIndexNr > MAX_WORKPIECEPLACES THEN
+	RETURN;
+END_IF
+
+GetPlaceReference REF= _arrayOfWorkpiecePlaces[nIndexNr];]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InitialState" Id="{bf6848df-442f-4b63-9f1d-fe6a13da345e}">
+      <Declaration><![CDATA[PROPERTY InitialState : eTcaWorkpiecePlaceProgress]]></Declaration>
+      <Get Name="Get" Id="{9da4bb88-8967-4f68-a769-9abfaf59e8ef}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InitialState := Config.eInitialState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{013a6002-b5d6-4353-8b59-74a706e2aed7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config.eInitialState := InitialState;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Layout" Id="{3b05a680-4427-40f2-baf3-c7000d9bb89c}" FolderPath="Config\">
+      <Declaration><![CDATA[METHOD Layout : REFERENCE TO TcaCarrier
+VAR_INPUT
+	inLayout : eTcaCarrierConfig;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._config.eConfiguration:= inLayout;
+Layout REF= THIS^; ]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ModifyTask" Id="{b22af8ee-20cc-436b-969e-549731099c33}">
+      <Declaration><![CDATA[PROPERTY ModifyTask : TcoCore.ITcoTaskStatus]]></Declaration>
+      <Get Name="Get" Id="{bf44bf0d-eaa6-4038-a146-905b63014044}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ModifyTask := _ModifyTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="PositionsInColumn" Id="{7377dbc3-f6fd-42e2-8707-de70abea79c5}" FolderPath="Config\">
+      <Declaration><![CDATA[METHOD PositionsInColumn : REFERENCE TO TcaCarrier
+VAR_INPUT
+	inPositionsInColumn : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._config.PositionsInColumn:= inPositionsInColumn;
+PositionsInColumn REF= THIS^; ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PositionsInRow" Id="{1465c2a1-a580-4c76-a912-36bd2f7017f1}" FolderPath="Config\">
+      <Declaration><![CDATA[METHOD PositionsInRow : REFERENCE TO TcaCarrier
+VAR_INPUT
+	inPositionsInRow : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._config.PositionsInRow:= inPositionsInRow;
+PositionsInRow REF= THIS^; ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RefreshStatus" Id="{45b28ecb-4270-41ad-aa1b-7502953923ca}">
+      <Declaration><![CDATA[METHOD RefreshStatus : BOOL
+VAR
+	ni			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE _config.eConfiguration OF	
+	eTcaCarrierConfig.Layout1 : _status.WorkpiecePlaces := _config.PositionsInRow*_config.PositionsInColumn;		
+    eTcaCarrierConfig.Layout2 : _status.WorkpiecePlaces := _config.PositionsInRow*_config.PositionsInColumn;		 
+    eTcaCarrierConfig.Layout3 : _status.WorkpiecePlaces := _config.PositionsInRow*_config.PositionsInColumn;		 
+	eTcaCarrierConfig.Layout4 : _status.WorkpiecePlaces := _config.PositionsInRow*_config.PositionsInColumn + _config.PositionsInColumn/2;		
+	eTcaCarrierConfig.Layout5 : _status.WorkpiecePlaces := _config.PositionsInRow*_config.PositionsInColumn - _config.PositionsInColumn/2;		
+	ELSE
+		 _status.WorkpiecePlaces := 0;
+END_CASE
+
+MEMSET(ADR(_status.ArrayOfCarrierStatus), 0, SIZEOF(_status.ArrayOfCarrierStatus));
+_status.PrimaryWorkpieceStatus := 0;
+_status.SecondaryWorkpieceStatus := 0;
+
+FOR ni := 0 TO _status.WorkpiecePlaces DO
+		
+	IF _arrayOfWorkpiecePlaces[ni].Status.Progress = eTcaWorkpiecePlaceProgress.undefined THEN
+		CONTINUE;
+	END_IF
+
+	_status.ArrayOfCarrierStatus[_arrayOfWorkpiecePlaces[ni].Status.Progress] := _status.ArrayOfCarrierStatus[_arrayOfWorkpiecePlaces[ni].Status.Progress] + 1;
+	
+	IF _status.ArrayOfCarrierStatus[_arrayOfWorkpiecePlaces[ni].Status.Progress] >= _status.ArrayOfCarrierStatus[_status.PrimaryWorkpieceStatus] THEN
+		_status.SecondaryWorkpieceStatus := _status.PrimaryWorkpieceStatus;
+		_status.PrimaryWorkpieceStatus := _arrayOfWorkpiecePlaces[ni].Status.Progress;
+	END_IF
+
+
+END_FOR
+
+IF _status.PrimaryWorkpieceStatus = _status.SecondaryWorkpieceStatus THEN
+	_status.SecondaryWorkpieceStatus := 0;
+END_IF
+
+_modifyId := _modifyId + 1;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetPlaces" Id="{45ff1fc1-1dfa-4f9b-8fb9-b331aaefea82}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD ResetPlaces : ITcoTaskStatus
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetPlaces := _ModifyTask.InvokeWorkpieceCommand(eTcaCarrierCmd.fillPlaces, eTcaWorkpiecePlaceProgress.undefined);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restore" Id="{3b14de8e-b3fb-407e-8523-ab59c2b6b5a1}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Restores this instance to the Ready state. Can be called explicitly or from within one of the restore mechanisms.	
+		</summary>			
+	</docu>	
+~*)
+METHOD Restore : TcoCore.ITcoRestorable
+
+VAR
+	_i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR _i:= 0 TO MAX_WORKPIECEPLACES DO
+	_arrayOfWorkpiecePlaces[_i].Restore();
+END_FOR
+
+RefreshStatus();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{210a8b18-6f62-4d7f-977f-4f3cf935d237}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+VAR
+	_i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR _i:= 0 TO MAX_WORKPIECEPLACES DO
+	_arrayOfWorkpiecePlaces[_i].Service();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Status" Id="{14535b80-8544-4b5c-b46c-52fec6e6c4f6}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaCarrierStatus]]></Declaration>
+      <Get Name="Get" Id="{8f511891-98a7-4369-8bb4-605ff91c3d4e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Task" Id="{37cb437b-8616-4f31-b387-1db1769d082a}">
+      <Declaration><![CDATA[PROPERTY Task : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{15638a30-b372-459a-96e3-0012ed9625d7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Task := _ModifyTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

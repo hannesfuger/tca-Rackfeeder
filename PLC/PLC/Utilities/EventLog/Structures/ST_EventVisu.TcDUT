@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_EventVisu" Id="{8b5b18c8-0aae-47f3-a30b-eb050f874f5c}">
+    <Declaration><![CDATA[/// Event structure
+TYPE ST_EventVisu :
+STRUCT
+	ucTable				: Uc_EventLogTable;
+	ucControl			: Uc_EventLogControl;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

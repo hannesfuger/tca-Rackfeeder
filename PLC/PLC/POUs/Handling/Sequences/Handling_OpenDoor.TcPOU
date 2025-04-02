@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling_OpenDoor" Id="{6cd2743c-9659-4381-b601-a96cde5e2f9d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling_OpenDoor EXTENDS TcoCore.TcoSequencer
+VAR
+	_o : TcoCore.TcoSequencerObserver(THIS^);	
+	_dialog : TcoCore.TcoDialog(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Components" Id="{063f985b-99a5-4c28-90f4-a17775237da4}">
+      <Declaration><![CDATA[PROPERTY Components : REFERENCE TO Handling_Components]]></Declaration>
+      <Get Name="Get" Id="{67043472-c4c4-47ab-b58f-d71dda53cd66}">
+        <Declaration><![CDATA[VAR
+    _parent : POINTER TO Handling;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(_ParentObject,_parent) THEN // Check if _Parent is Station001
+	Components REF= _parent^._components;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Main" Id="{875c6135-85bb-45d4-aae6-4f686eae5dfc}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of InstanceName.Run() method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED  Main : BOOL
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Observer := _o;
+
+IF (Step(0, TRUE, 'STEP 0')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------	
+END_IF;
+
+IF (Step(100, TRUE, 'STEP 100')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(101, TRUE, 'STEP 101')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(102, TRUE, 'STEP 102')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(103, TRUE, 'STEP 103')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(104, TRUE, 'STEP 104')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(105, TRUE, 'STEP 105')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(106, TRUE, 'STEP 106')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('PINNED').As().AsInfo().Pin();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(107, TRUE, 'STEP 107')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(108, TRUE, 'STEP 108')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(109, TRUE, 'STEP 109')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(110, TRUE, 'STEP 110')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(_StepElapsedTime > T#2S);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(300, TRUE, 'SEQUENCE COMPLETE')) THEN
+    //--------------------------------------------
+	THIS^.CompleteSequence();
+    //--------------------------------------------	
+END_IF;
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

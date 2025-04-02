@@ -1,0 +1,83 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-primaryworkpiecestatuscount",
+      "displayName": "PrimaryWorkpieceStatusCount",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "PrimaryWorkpieceStatusCount",
+      "propertySetterName": "setPrimaryWorkpieceStatusCount",
+      "propertyGetterName": "getPrimaryWorkpieceStatusCount",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-secondaryworkpiecestatuscount",
+      "displayName": "SecondaryWorkpieceStatusCount",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:general#/definitions/Integer",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "SecondaryWorkpieceStatusCount",
+      "propertySetterName": "setSecondaryWorkpieceStatusCount",
+      "propertyGetterName": "getSecondaryWorkpieceStatusCount",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-primaryworkpiecestatuscolor",
+      "displayName": "PrimaryWorkpieceStatusColor",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:framework#/definitions/Color",
+      "category": "",
+      "description": "",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "color": "rgba(105, 182, 55, 1)"
+      },
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "PrimaryWorkpieceStatusColor",
+      "propertySetterName": "setPrimaryWorkpieceStatusColor",
+      "propertyGetterName": "getPrimaryWorkpieceStatusColor",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-secondaryworkpiecestatuscolor",
+      "displayName": "SecondaryWorkpieceStatusColor",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:framework#/definitions/Color",
+      "category": "",
+      "description": "",
+      "defaultValue": null,
+      "defaultValueInternal": {
+        "color": "rgba(161, 25, 25, 1)"
+      },
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "SecondaryWorkpieceStatusColor",
+      "propertySetterName": "setSecondaryWorkpieceStatusColor",
+      "propertyGetterName": "getSecondaryWorkpieceStatusColor",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.2.110/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

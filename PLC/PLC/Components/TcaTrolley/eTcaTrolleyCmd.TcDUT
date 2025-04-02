@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="eTcaTrolleyCmd" Id="{2c6c198f-4b5b-4094-83d5-14b539057647}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE eTcaTrolleyCmd :
+(
+	noCmd := 0,
+	FillTrolley,
+	RemoveTrolley,
+	EmptyTrolley
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

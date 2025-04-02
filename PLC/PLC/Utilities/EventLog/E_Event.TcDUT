@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_Event" Id="{b497e8fb-8161-4cb7-a553-24fcb3312d8f}">
+    <Declaration><![CDATA[/// enumeration of all possible notifications
+TYPE E_Event :
+(
+	/// notification not set
+	eEvent_none := 0,
+	
+	eEvent_generalError := 1,
+	eEvent_generalWarning := 2,
+	eEvent_generalInfo := 3,
+	
+	/// - code errors -
+	/// code error (e.g.: check bounds, check div, ...) -> additional info (error details/index/location) in dynamic content var
+	eEvent_codeError := 11,
+	/// - system errors -
+	/// system error (e.g.: (re)started, cycletime exceeded, ...) -> additional info (index/location) in dynamic content var
+	eEvent_systemError := 12,
+	/// - HW errors -
+	/// hardware error -> additional info (error details/index/location) in dynamic content var
+	eEvent_hardwareError := 13,
+	/// hardware warning -> additional info (error details/index/location) in dynamic content var
+	eEvent_hardwareWarning := 14,
+	/// EtherCAT Master Fehler
+	eEvent_EcMasterError := 15,
+	/// EtherCAT Slave Fehler
+	eEvent_EcSlaveError := 16,
+    
+	// - Safety system errors -
+	/// safety error -> additional info (error details/index/location) in dynamic content var
+	eEvent_safetyError := 17,
+	
+	// - Unit Test Meldungen
+	v_unitTest := 18,
+	
+	// bis 09
+	
+	// Cabinet errors
+	/// Feld01 - xxx
+	eEvent_Cabinet01 := 100,
+	/// Feld02 - xxx
+	eEvent_Cabinet02 := 110,
+	/// Feld03 - xxx
+	eEvent_Cabinet03 := 120,
+	
+	
+	
+	// bis 40
+	
+	// 40 -> Transfer System
+	eEvent_transferSystemError := 40,
+	
+	// 50 -> Safety Fehler Schutztüre, Not-Halt, ...
+	eEvent_safetyNotHalt := 50,
+	eEvent_safetyArea_Machine := 51,
+	eEvent_safetyArea_Robo1 := 52,
+	eEvent_safetyArea_SAA := 53,
+	eEvent_safetyArea_Robo2 := 54,
+	eEvent_safetyArea_PA := 55
+
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

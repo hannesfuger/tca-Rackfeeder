@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling_TeachRack" Id="{05549526-3c84-42f8-afde-867f1465d614}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling_TeachRack EXTENDS TcoCore.TcoSequencer
+VAR	
+	_o : TcoCore.TcoSequencerObserver(THIS^);	
+	
+	_dialog : TcoCore.TcoDialog(THIS^);
+	_dialogWithInput        : TcoCore.TcoInputDialog(THIS^);
+	
+    _customizedContentInput	: Handling_TeachRack_DlgContent(THIS^);
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Components" Id="{97aff87a-6aa4-4947-a72c-edd581b09f38}">
+      <Declaration><![CDATA[PROPERTY Components : REFERENCE TO Handling_Components]]></Declaration>
+      <Get Name="Get" Id="{cf383356-d962-478b-9eb7-b21a7844b25d}">
+        <Declaration><![CDATA[VAR
+    _parent : POINTER TO Handling;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(_ParentObject,_parent) THEN // Check if _Parent is Station001
+	Components REF= _parent^._components;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Main" Id="{b27962e1-d045-4212-a015-ab341012e1aa}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of InstanceName.Run() method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED  Main : BOOL
+VAR	
+	ErrorStep				: INT := 1000; 
+	FinishStep				: INT := 1000;	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Observer := _o;
+
+IF (Step(0, TRUE, 'STEP 0')) THEN
+	
+	_dialogWithInput.Show(refContent:=_customizedContentInput)
+         .WithType(eDialogType.Question)
+         .WithOk()
+         .WithCaption('Set Data for teaching Rack')
+         .WithText('Check or Change Values for teaching the Rack');
+   
+	IF(_dialogWithInput.Answer = TcoCore.eInputDialogAnswer.OK) THEN RequestStep(100); _dialog.Restore(); END_IF;
+    IF(_dialogWithInput.Answer = TcoCore.eInputDialogAnswer.No) THEN RequestStep(3000); _dialog.Restore(); END_IF;
+
+END_IF;
+
+
+
+
+
+
+
+IF (Step(100, TRUE, 'STEP 100')) THEN
+    //--------------------------------------------
+    StepCompleteWhen(TRUE);
+	Messenger.OnCondition(_StepElapsedTime > T#1S).Build().Append('Time is 1s').As().AsInfo();
+    //--------------------------------------------		
+END_IF;
+
+
+IF (Step(ErrorStep, TRUE, 'STEP 110')) THEN
+    //--------------------------------------------
+	;
+    //--------------------------------------------		
+END_IF;
+
+
+IF (Step(FinishStep, TRUE, 'SEQUENCE COMPLETE')) THEN
+    //--------------------------------------------
+	THIS^.CompleteSequence();
+    //--------------------------------------------	
+END_IF;
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

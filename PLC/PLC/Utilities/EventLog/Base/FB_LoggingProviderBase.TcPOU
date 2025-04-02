@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LoggingProviderBase" Id="{ba8a05cf-3ede-489d-a288-e08807c89249}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LoggingProviderBase IMPLEMENTS ITFLoggingProvider
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddLog" Id="{6649431e-b6a2-457d-81ab-85dfcb06d5cd}">
+      <Declaration><![CDATA[/// Add log method
+{attribute 'object_name' := 'AddLog'}
+METHOD AddLog : BOOL
+VAR_INPUT
+	/// log message 
+	sText: T_MaxString;
+	/// log source
+	sSource: STRING;
+	///	level: eLogLevelNone, eLogLevelError, eLogLevelWarning, eLogLevelInformation	
+	eLevel: E_LogLevel;
+END_VAR
+VAR
+	idx: INT;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[///
+/// Funktionen zum Hinzufuegen einer Log-Nachricht
+/// Rueckgabe: TRUE, bei Erfolg, anderenfalls FALSE
+/// 17.05.2010		www.rmth.at
+///
+
+idx := iLogArraySize;
+REPEAT
+	arLoggs[idx] := arLoggs[idx - 1];
+    idx:= idx - 1;
+UNTIL
+    	idx = 0
+END_REPEAT
+
+arLoggs[0].sText:= sText;
+arLoggs[0].sSource:= sSource;
+arLoggs[0].bSaveRequest := TRUE;
+arLoggs[0].bSaved  := FALSE;
+arLoggs[0].eLevel := eLevel;
+arLoggs[0].sTime := sTimeString;
+
+//	Return Result
+AddLog := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{65969ba0-5d75-465c-b231-2d136b8fabec}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'Run'}
+METHOD Run
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

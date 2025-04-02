@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITFLoggingProvider" Id="{d243c429-a89c-47b6-9f05-cc3d571a859b}">
+    <Declaration><![CDATA[INTERFACE ITFLoggingProvider
+]]></Declaration>
+    <Method Name="AddLog" Id="{38f0b6ec-65a4-4189-9644-75514e750fde}">
+      <Declaration><![CDATA[/// Add log method
+{attribute 'object_name' := 'AddLog'}
+METHOD AddLog : BOOL
+VAR_INPUT
+	/// log message 
+	sText: T_MaxString;
+	/// log source
+	sSource: STRING;
+	///	level: eLogLevelNone, eLogLevelError, eLogLevelWarning, eLogLevelInformation	
+	eLevel: E_LogLevel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Run" Id="{2e2fa1d8-9f8f-4441-afb9-d1d885893511}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'Run'}
+METHOD Run
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

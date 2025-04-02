@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-movevelocity",
+      "displayName": "MoveVelocity",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:server#/definitions/ADS-PLC1.TcoDrivesBeckhoff.MoveVelocityTask",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "MoveVelocity",
+      "propertySetterName": "setMoveVelocity",
+      "propertyGetterName": "getMoveVelocity",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

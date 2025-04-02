@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Schnittstellenprotokoll" Id="{d402bfb7-df7c-4696-b11e-ac9eb7fb2ae1}">
+    <Declaration><![CDATA[//Schnittstellenprotokoll :
+TYPE TcaEngelCastingCarrierInput : // ENGEL SPS -> ASMA SPS
+STRUCT	
+	// Modus bzw Status der Gießmaschine und Roboter
+	CycleMode : BOOL;		// Roboter und Gießmaschine im zyklischen Automatikbetrieb
+	SequenceMode : BOOL;	// Roboter und Gießmaschine im sequentiellen Halb-Automatikbetrieb
+	ProductionEnd : BOOL;	// Roboter und Gießmaschine befinden sich nicht in der Produktion
+	Error : BOOL;			// Roboter bzw. Gießmaschine hat Error
+	ErrorID : INT;			// ErrorID
+	
+	// Überwachung und Kontrolle der Roboterposition
+	Moving : BOOL;				// Roboter in Bewegung
+	ParkPosition : BOOL;		// Roboter in Wartepostion
+	OutsideStorage_1 : BOOL;	// Roboter außerhalb Ablage 1
+	OutsideStorage_2 : BOOL;	// Roboter außerhalb Ablage 2
+
+	// Allgemeine Sicherheit                    	
+	SafetyAreaSafe : BOOL;		// Schutztüren geschlossen & quittiert		
+
+	// Anforderung eines Werkstückträgers
+	// Wird ein leerer Werkstückablageplatz oder ein Einleigeteil benötigt muss für den jeweiligen Ablageplatz
+	// ein Job angefrgt werden.
+	// Wenn kein Werkstückträger benötigt wird, kann auch dieser Job erteilt werden (z.B. bei Produktionsende)
+	
+	JobForStorage_1 : TcaEngelCastingCarrierJob;	// Anforderung eines Werkstückträgers für Ablage 1
+	JobForStorage_2 : TcaEngelCastingCarrierJob;	// Anforderung eines Werkstückträgers für Ablage 2
+	
+	// Status des Werkstückträgers
+	// Beim Entnehmen und Bestücken eines Werkstückes durch den Engel Roboter wird die Statusstruktur aktualisiert
+	
+	Storage_1 : TcaEngelCastingCarrierStatus;	// aktueller Status des Werkstückträgers in Ablage 1
+	Storage_2 : TcaEngelCastingCarrierStatus;	// aktueller Status des Werkstückträgers in Ablage 2
+	
+END_STRUCT
+END_TYPE
+
+
+TYPE TcaEngelCastingCarrierOutput :	// ASMA SPS -> ENGEL SPS
+STRUCT	
+	// Status der Peripherie
+	Ready : BOOL;			// Bereit zum Entgegennehmen von Jobs
+	Busy : BOOL;			// Peripherie ist in Arbeit/ Bewegung
+	Error : BOOL;			// Peripherie hat Error
+	ErrorID : INT;			// ErrorID
+	
+	// Überwachung und Kontrolle der Ablageposition und des Handlings
+	PermitRoboterHandling : BOOL; 	// Bewegungen des Engel Roboters erlauben (freie Fahrt im gesamten Bewgungsbereich)(
+	PermitStorage_1 : BOOL;			// Zugriff auf Ablage 1 erlauben (aufnehmen und ablegen)
+	PermitStorage_2 : BOOL;			// Zugriff auf Ablage 1 erlauben (aufnehmen und ablegen)
+	                    	
+	// Allgemeine Sicherheit						
+	SafetyAreaRequest : BOOL; 	// Anforderung Schutztüre
+	SafetyDoorRelease : BOOL;	// freigabe zum öffnen der Schutztüre
+	
+	// Status der Jobs
+	JobStatusForStorage_1 : TcaEngelCastingCarrierJobStatus;	// Status des Jobs für Ablage 1
+	JobStatusForStorage_2 : TcaEngelCastingCarrierJobStatus;	// Status des Jobs für Ablage 2
+END_STRUCT
+END_TYPE
+
+
+TYPE TcaEngelCastingCarrierStatus : 
+STRUCT
+	CarrierId : INT;		// ID vom Werkstückträger, Geometrischen Daten werden auf der Engel Steuerung verwaltet
+	CountMax : INT;			// maximale Anzahl an Werkstücken die am Werkstückträger abgelegt werden können
+	CountUnfinished : INT;	// Anzahl der nicht gegossenen Rohlinge am Werkstückträger
+	CountFinished : INT;	// Anzahl der fertigen Werkstücke am Werkstückträger
+	CountEmpty : INT;		// Anzahl der leeren Plätze am Werkstückträger
+END_STRUCT
+END_TYPE
+
+
+TYPE TcaEngelCastingCarrierJob : 
+STRUCT
+	RequestNoCarrier : BOOL;	// TRUE wenn kein neuer Werkstückträger benötigt wird -> Ablage wird leer gemacht
+	RequestCarrier : BOOL;		// TRUE wenn ein neuer Werkstückträger benötigt wird
+	CarrierId : INT;			// ID vom Werkstückträger, Geometrischen Daten werden auf der Engel Steuerung verwaltet
+	Empty : BOOL;				// TRUE wenn ein Werkstückträger mir leeren Plätzen benötigt wird
+	Unfinished : BOOL;			// TRUE wenn ein Werkstückträger mit unfertigen Werkstücken benötigt wird
+END_STRUCT
+END_TYPE
+
+
+TYPE TcaEngelCastingCarrierJobStatus :
+STRUCT
+	CarrierPresent : BOOL;						// TRUE wenn ein Werkstückträger abgelegt wurde
+	Carrier : TcaEngelCastingCarrierStatus;		// Status des Carriers der abgelegt wurde
+	Done : BOOL;								// Job wurde erfolgreich ausgeführt
+	Busy : BOOL;								// Job wird ausgeführt
+	Error : BOOL;								// Job endet mit Fehler
+	ErrorID : INT;								// TODO: Welche unterschiedlichen Fehler sollen berücksichtigt werden? z.b: kein Blech, Ofentür offen, Wagen ist zum wechseln, ...								
+END_STRUCT
+END_TYPE
+
+
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

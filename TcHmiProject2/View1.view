@@ -1,0 +1,25 @@
+<div id="View1_1"
+     data-tchmi-type="TcHmi.Controls.System.TcHmiView"
+     data-tchmi-top="0" data-tchmi-left="0"
+     data-tchmi-width-mode="Content"
+     data-tchmi-min-width="100" data-tchmi-min-width-unit="%"
+     data-tchmi-height-mode="Content"
+     data-tchmi-min-height="100" data-tchmi-min-height-unit="%"
+     data-tchmi-background-image-height="100" data-tchmi-background-image-width="100"
+     data-tchmi-background-image-height-unit="%" data-tchmi-background-image-width-unit="%">
+<div id="TcaCarrier_object" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="160" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcaItems/TcaCarrier_object.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-workpiecestatuscount_1="%i%test%/i%" data-tchmi-workpiecestatuscount_2="%i%test%/i%">
+<script data-tchmi-target-attribute="data-tchmi-workpiecestatuscolor_1" type="application/json">
+
+</script>
+<script data-tchmi-target-attribute="data-tchmi-workpiecestatuscolor_2" type="application/json">
+
+</script>
+
+</div>
+<div id="TcHmiTextblock_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Carrier" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_6" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Trolley" data-tchmi-top="40" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcaTrolley_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="303" data-tchmi-height-unit="px" data-tchmi-left="160" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcaItems/TcaTrolley.usercontrol" data-tchmi-top="40" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px">
+</div>
+</div>

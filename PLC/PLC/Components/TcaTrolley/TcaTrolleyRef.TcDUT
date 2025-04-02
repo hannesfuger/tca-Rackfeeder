@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaTrolleyRef" Id="{a334b748-4b7a-4e04-8e56-b4a81f775b6c}">
+    <Declaration><![CDATA[TYPE TcaTrolleyRef :
+STRUCT
+	Sensor AT%I* : BOOL;	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

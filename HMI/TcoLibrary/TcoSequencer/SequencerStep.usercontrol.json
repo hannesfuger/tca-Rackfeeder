@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-stepdetails",
+      "displayName": "StepDetails",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:project#/definitions/PLC1.TcoCore.StepDetails",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "StepDetails",
+      "propertySetterName": "setStepDetails",
+      "propertyGetterName": "getStepDetails",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

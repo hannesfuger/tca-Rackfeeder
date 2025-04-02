@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_WorkpieceType" Id="{a044e4e3-786a-4f22-a750-8e1637cb9472}">
+    <Declaration><![CDATA[TYPE ST_WorkpieceType EXTENDS ST_ComboboxEntry:
+STRUCT
+	aColor				: COLOR;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

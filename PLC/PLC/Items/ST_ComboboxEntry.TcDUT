@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_ComboboxEntry" Id="{08af3126-3438-46cc-8175-7bf5eb347fdf}">
+    <Declaration><![CDATA[TYPE ST_ComboboxEntry :
+STRUCT    
+	id : INT;
+    text : STRING;
+    value : INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

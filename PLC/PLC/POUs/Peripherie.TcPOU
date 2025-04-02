@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Peripherie" Id="{edd53b5b-305a-41c6-a427-c69c2645d9db}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Peripherie EXTENDS TcoCore.TcoContext
+VAR
+	_Handling : Handling(THIS^);
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Main" Id="{e000c12e-ec6a-47f9-a04b-64bef24da208}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the TcoContext. This is the entry point of any control logic that belongs to this context. 
+			The call of this method is ensured by calling the <c>InstanceName.Run()</c> method, and it must not be called explicitly.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED  Main]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.RtcSynchronize(TRUE, '', 60);
+_Handling();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_PlcSystemInfo" Id="{4dfe89dc-4944-458b-b78a-7b8246e33a6a}">
+    <Declaration><![CDATA[TYPE ST_PlcSystemInfo :
+STRUCT
+	/// system info structure
+	stPlcAppSystemInfo: PlcAppSystemInfo;
+	/// tast info structure
+	stPlcTaskSystemInfo: PlcTaskSystemInfo;
+	/// cycle time from task configuration in [s]
+	fCycleTime: LREAL;
+	/// needed cycletime for the last cycle in [s]
+	fLastExecTime: LREAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

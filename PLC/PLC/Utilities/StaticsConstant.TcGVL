@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="StaticsConstant" Id="{ad4eed7d-3ba3-49b1-b1a1-3ff22750288f}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	sEmpty: STRING(0) := '';
+	dtMinValue: DT := DATE_AND_TIME#1970-1-1-0:0;
+	dtMaxValue: DT := DATE_AND_TIME#2106-2-6-6:28:15;
+	iLogArraySize: INT := 500;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

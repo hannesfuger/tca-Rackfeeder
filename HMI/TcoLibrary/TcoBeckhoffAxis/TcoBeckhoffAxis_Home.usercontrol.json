@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-home",
+      "displayName": "Home",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:project#/definitions/TcoBeckhoffAxis_Home",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Home",
+      "propertySetterName": "setHome",
+      "propertyGetterName": "getHome",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

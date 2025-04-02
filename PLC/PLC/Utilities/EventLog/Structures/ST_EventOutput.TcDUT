@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_EventOutput" Id="{1e6d29e2-4794-4cc6-acff-be121e24a707}">
+    <Declaration><![CDATA[/// Event structure
+TYPE ST_EventOutput :
+STRUCT
+	/// INDEX in global event-Array
+	nIdx				: INT;		
+	sPriority			: WSTRING;	
+	nPriorityColor		: DWORD;
+	sPosition			: T_MaxString;
+	sDescription		: T_MaxString;
+	sRaiseInfo			: STRING;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

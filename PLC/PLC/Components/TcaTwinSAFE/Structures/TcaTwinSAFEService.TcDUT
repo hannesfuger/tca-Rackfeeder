@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaTwinSAFEService" Id="{76179687-f2ce-429a-a7e9-ff251c7a7379}">
+    <Declaration><![CDATA[TYPE TcaTwinSAFEService :
+STRUCT
+	QuittButton : TcaPushButtonService;
+	Safe : BOOL;
+	Error : BOOL;
+	Running : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

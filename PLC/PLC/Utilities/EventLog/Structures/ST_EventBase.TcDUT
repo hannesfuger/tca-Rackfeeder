@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_EventBase" Id="{b8830108-c3ed-4f3c-87d5-1acdc35db95c}">
+    <Declaration><![CDATA[/// Event structure
+TYPE ST_EventBase :
+STRUCT
+	eMachineArea		: E_MachineArea;
+	eComponent			: E_ComponentType;
+	nComponentID		: INT;
+	refComponent		: REFERENCE TO FB_Component;
+	
+	eEventID			: E_Event;
+	
+	ePriority			: E_Priority;
+	bSignalize			: BOOL;
+	
+	sPosition			: T_MaxString;
+	sDescription		: T_MaxString;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

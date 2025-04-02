@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaLaserDistanceSenorStatus" Id="{0321329e-083a-4947-a873-ff9645cee8a8}">
+    <Declaration><![CDATA[(*~
+<docu>
+	<summary>
+		`TcoAi` status structure.								
+	</summary>				
+</docu>	
+~*)
+TYPE
+    TcaLaserDistanceSenorStatus :
+    STRUCT
+		{attribute addProperty Name "<#Raw range#>"}
+        RawRange : REAL;
+		{attribute addProperty Name "<#Real range#>"}
+        RealRange : REAL;
+		{attribute addProperty Name "<#Scaled value#>"}
+        Scaled : REAL;
+    END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

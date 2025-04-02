@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaPushButtonRef" Id="{f5896e44-9448-4821-87d6-90bc34c4bdca}">
+    <Declaration><![CDATA[TYPE TcaPushButtonRef :
+STRUCT
+	Button AT%I* : BOOL;
+	Light AT%Q* : BOOL;	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

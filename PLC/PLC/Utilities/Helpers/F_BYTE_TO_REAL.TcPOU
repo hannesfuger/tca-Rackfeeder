@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_BYTE_TO_REAL" Id="{03556380-be63-4ca9-82d4-6199857e8d87}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_BYTE_TO_REAL : REAL
+VAR_INPUT
+    BY1 : BYTE;
+    BY2 : BYTE;
+    BY3 : BYTE;
+    BY4 : BYTE;
+END_VAR
+VAR
+   OutVAR : DWORD; 
+   OutVarREAL : REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[OutVar := BY1;
+OutVar := SHL(OutVar, 8) OR BY2;
+OutVar := SHL(OutVar, 8) OR BY3;
+OutVar := SHL(OutVar, 8) OR BY4;
+
+MEMCPY(ADR(OutVarREAL), ADR(OutVar), SIZEOF(REAL));
+F_BYTE_TO_REAL := OutVarREAL;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

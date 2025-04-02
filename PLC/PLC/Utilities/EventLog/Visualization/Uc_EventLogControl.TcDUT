@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Uc_EventLogControl" Id="{30841851-4366-4249-a95e-95da4f7f99d1}">
+    <Declaration><![CDATA[TYPE Uc_EventLogControl :
+STRUCT	
+	eAreaFilter 		: E_MachineArea := E_MachineArea.none;                   	
+	bInfoFilter			: BOOL := TRUE;
+	bWarningFilter		: BOOL := TRUE;
+	bErrorFilter		: BOOL := TRUE;
+		
+	nErrorCount			: INT;
+	nWarningCount		: INT;
+	nInfoCount			: INT;
+	
+	bFilterChanged		: BOOL;
+	
+	nErrorColor			: DWORD;	
+	nWarningColor		: DWORD;
+	nInfoColor			: DWORD;
+	
+	bQuittAll			: BOOL;
+	bMute				: BOOL;
+	
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

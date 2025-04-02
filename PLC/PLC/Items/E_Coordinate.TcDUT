@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_Coordinate" Id="{b1377bc9-3eb6-4945-93e4-c9796464f88e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+TYPE E_Coordinate :
+(
+	undefined := -1,
+	x_axis := 0,
+	y_axis := 1,
+	z_axis := 2,
+	u_axis := 3,
+	v_axis := 4,
+	w_axis := 5
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

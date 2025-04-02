@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_DT_TO_STRING" Id="{0e1b1c73-5746-4a57-be3e-614719d9d625}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_DT_TO_STRING : STRING
+VAR_INPUT
+	dtTime			: DT;
+END_VAR
+VAR
+	timeStruct		: TIMESTRUCT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_DT_TO_STRING := SYSTEMTIME_TO_STRING(DT_TO_SYSTEMTIME(dtTime));
+
+//F_DT_TO_STRING := CONCAT6(F_TO_STRING(timeStruct.wDay), '.', F_TO_STRING(timeStruct.wMonth), '.', F_TO_STRING(timeStruct.wYear), ' - ');
+//F_DT_TO_STRING := CONCAT6(F_DT_TO_STRING, F_TO_STRING(timeStruct.wHour), ':', F_TO_STRING(timeStruct.wMinute), ':', F_TO_STRING(timeStruct.wSecond));
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

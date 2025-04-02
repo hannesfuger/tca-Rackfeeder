@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_ComponentState" Id="{ba2c4754-2c03-4e6a-8041-14c3886f45e5}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_ComponentState :
+(
+	none := 0,				/// Component state not set
+	resetting := 1,			/// Component is resetting
+	ready := 2,				/// Component is ready
+	running := 3,			/// Component is running
+	stopped := 4,			/// Component stopped
+	error := 5				/// Component has error
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

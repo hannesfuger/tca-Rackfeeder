@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaWorkpiecePlaceService" Id="{ded92dee-93a4-47f7-90ae-411824dbb7b3}">
+    <Declaration><![CDATA[TYPE TcaWorkpiecePlaceService :
+STRUCT
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

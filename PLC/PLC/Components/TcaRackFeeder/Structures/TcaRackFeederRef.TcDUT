@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaRackFeederRef" Id="{b9923929-e324-4efe-9604-f05240fa15af}">
+    <Declaration><![CDATA[TYPE TcaRackFeederRef :
+STRUCT
+	// Components
+	VerticalAxis : TcoAxisRef;	
+	HorizontalAxis: TcoAxisRef;
+	TelescopeAxis : TcoAxisRef;
+	
+	// Sensor
+	ReferenceSensor_Vertical AT%I* : BOOL;
+	ReferenceSensor_Horizontal AT%I* : BOOL;
+	ReferenceSensor_Telescope AT%I* : BOOL;
+	
+	// LaserDistanceSensor
+	SensorLeftRef : TcaLaserDistanceSenorRef;	
+	SensorRightRef : TcaLaserDistanceSenorRef;	
+	
+	// Safety
+	tsSS1 AT%I* : BOOL;
+	tsSTO AT%I* : BOOL;
+	tsAckReq AT%I* : BOOL;
+	tsAck AT%Q* : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

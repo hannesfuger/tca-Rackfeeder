@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/misc/report</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <line x1="47" y1="47" x2="57" y2="47" id="Line-2-Copy-4" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <line x1="47" y1="44" x2="57" y2="44" id="Line-2-Copy-5" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <line x1="47" y1="41" x2="57" y2="41" id="Line-2-Copy-6" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <line x1="23" y1="32" x2="33" y2="32" id="Line-2-Copy" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <line x1="23" y1="29" x2="33" y2="29" id="Line-2-Copy-2" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <line x1="23" y1="26" x2="33" y2="26" id="Line-2-Copy-3" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <path d="M52,35 C54.7614237,35 57,32.7614237 57,30 C57,27.2385763 54.7614237,25 52,25 C49.2385763,25 47,27.2385763 47,30 L52,30 L52,35 Z" id="Path" stroke="#4794DA"></path>
+        <path d="M50,32 L45,32 C45,34.7614237 47.2385763,37 50,37 L50,32 Z" id="Path" stroke="#4794DA"></path>
+        <polyline id="Line" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round" points="24 43.4251371 25.4769107 40.9155074 26.9275203 45.0422658 28.5 39.4531992 30.7650782 42.8689973 33 37"></polyline>
+        <line x1="23" y1="47" x2="33" y2="47" id="Line-2" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round"></line>
+        <polygon id="Rectangle" stroke="#4794DA" stroke-width="2" stroke-linejoin="round" points="17 21 36.8647612 21 40 22 40 54 36.8647612 53 17 53"></polygon>
+        <polyline id="Path" stroke="#4794DA" stroke-linecap="round" stroke-linejoin="round" points="66 24 66 56 42.8099298 56 40.0333393 57 36.7702256 56 14 56 14 24"></polyline>
+        <polygon id="Rectangle-Copy" stroke="#4794DA" stroke-width="2" stroke-linejoin="round" transform="translate(51.5, 37.5) scale(-1, 1) translate(-51.5, -37.5)" points="40 21 59.8647612 21 63 22 63 54 59.8647612 53 40 53"></polygon>
+    </g>
+</svg>

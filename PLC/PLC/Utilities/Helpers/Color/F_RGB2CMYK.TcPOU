@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_RGB2CMYK" Id="{7e836091-62f3-4ea2-b517-361559c1d3f4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_RGB2CMYK : ST_ColorCMYK
+VAR_INPUT
+	Color					: ST_Color;
+END_VAR
+
+VAR
+	stColor					: ST_COLOR;
+	tmpArray				: ARRAY[0..3] OF BYTE;
+	
+	Rc						: REAL;
+	Gc						: REAL;
+	Bc						: REAL;
+
+	K						: REAL;
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[stColor := Color;
+
+Rc := stColor.nRed / 255;
+Gc := stColor.nGreen / 255;
+Bc := stColor.nBlue / 255;
+
+IF (Rc + Gc + Bc) = 0 THEN
+	F_RGB2CMYK.nCyan := 0;
+	F_RGB2CMYK.nMagenta := 0;
+	F_RGB2CMYK.nYellow := 0;
+	F_RGB2CMYK.nKey := 100;	
+	RETURN;
+END_IF
+
+K := TO_BYTE(1 - MAX(Rc, MAX(Gc, Bc)));
+
+F_RGB2CMYK.nCyan := TO_BYTE((1-Rc-K)/(1-K));
+F_RGB2CMYK.nMagenta := TO_BYTE((1-Gc-K)/(1-K));
+F_RGB2CMYK.nYellow := TO_BYTE((1-Bc-K)/(1-K));
+F_RGB2CMYK.nKey := TO_BYTE(K);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

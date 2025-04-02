@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_ComponentVisu" Id="{6c5249ce-4a17-4379-aa00-249f9406ce52}">
+    <Declaration><![CDATA[TYPE ST_ComponentVisu :
+STRUCT
+	sName				: STRING;
+	bError				: BOOL;
+	bRunning			: BOOL;
+	bReset				: BOOL;
+	bEnable				: BOOL;
+	bAccessPermit		: BOOL;
+	eState				: E_ComponentState;
+	colBackground		: DWORD;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MachineSetting" Id="{8f809027-6a1f-4e9a-b552-63efee118c54}">
+    <Declaration><![CDATA[TYPE ST_MachineSetting :
+STRUCT
+	astWorkpiecePlaceStates					: ARRAY[0..GVL.nMaxWorkpiecePlaceStatus] OF TcaWorkpiecePlaceStatus;
+	astWorkpieceType						: ARRAY[0..GVL.nMaxWorkpieceTyp] OF ST_WorkpieceType;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

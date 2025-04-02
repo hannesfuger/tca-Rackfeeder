@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Uc_EventLogTable" Id="{4a173722-3366-4944-b612-c29006197e34}">
+    <Declaration><![CDATA[TYPE Uc_EventLogTable :
+STRUCT
+	astEvents			: ARRAY[0..nMaxEvents] OF ST_EventOutput;
+
+	bQuitt				: BOOL;
+	nIdx				: INT;	
+	
+	bAckn				: BOOL;
+	bMute				: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

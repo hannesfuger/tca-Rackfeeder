@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaLaserDistanceSensorDataArrayEntry" Id="{f65edd29-4a2a-49df-8602-69b9d89e747c}">
+    <Declaration><![CDATA[TYPE TcaLaserDistanceSensorDataArrayEntry :
+STRUCT
+	x			: DINT;
+	y			: DINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaTrolley" Id="{29602bca-9850-4607-b08b-905aae3f993f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaTrolley EXTENDS TcoCore.TcoObject
+
+VAR CONSTANT
+	nMaxWorkpieceCarrier : INT := 31;
+END_VAR
+
+VAR_INPUT
+	ref : REFERENCE TO TcaTrolleyRef;
+END_VAR
+
+VAR
+	
+	bDock					: BOOL;
+	fbTrolleyPresent		: TcoDi(THIS^);	
+	bTrolleyPresent			: BOOL;
+	
+	
+	// Trolley Setting	
+	nStoragePerRack			: INT;
+	fStorageDivision		: LREAL;
+	stOrigin				: ST_Coordinate; //mirrored for the Right side
+	
+	// Carrier Setting	
+	fbCarrierTemplate		: TcaCarrier_(THIS^);	
+	
+END_VAR
+
+VAR_OUTPUT PERSISTENT
+	aLeftRack				: ARRAY[0..nMaxWorkpieceCarrier] OF TcaWorkpieceCarrier(THIS^);
+	aRightRack				: ARRAY[0..nMaxWorkpieceCarrier] OF TcaWorkpieceCarrier(THIS^);
+	bLeftRackPresent		: ARRAY[0..nMaxWorkpieceCarrier] OF BOOL;	
+	bRightRackPresent		: ARRAY[0..nMaxWorkpieceCarrier] OF BOOL;	
+END_VAR
+
+VAR_INPUT
+	cmd						: CMD_Trolley;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref) THEN
+	bDock := FALSE;
+ELSE
+	bDock := TRUE;
+	fbTrolleyPresent(inoSignal := ref.Sensor);
+END_IF
+
+]]></ST>
+    </Implementation>
+    <Folder Name="Administration" Id="{751a4c36-677e-4b51-b416-c37d7e467308}" />
+    <Folder Name="Carrier" Id="{a18c5403-01be-41a2-9364-e10d1f121ba1}" />
+    <Folder Name="Trolley" Id="{95da38b1-823d-4799-9bd7-946b49d3c3e3}" />
+    <Method Name="AddCarrier" Id="{e4926d2d-ab71-45d6-8df5-20ee02f35867}" FolderPath="Carrier\">
+      <Declaration><![CDATA[METHOD AddCarrier : TcoCore.ITcoTaskStatus
+VAR_IN_OUT
+	WorkpieceCarrier			: TcaWorkpieceCarrier;
+END_VAR
+VAR_INPUT	
+	bLeft						: BOOL;
+	bRight						: BOOL;
+	nId							: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bLeft THEN
+	MEMCPY(ADR(aLeftRack[nId]), ADR(WorkpieceCarrier), SIZEOF(TcaWorkpieceCarrier));
+	bLeftRackPresent[nId] := TRUE;	
+	aLeftRack[nId].RefreshCounter();
+END_IF
+
+IF bRight THEN
+	MEMCPY(ADR(aRightRack[nId]), ADR(WorkpieceCarrier), SIZEOF(TcaWorkpieceCarrier));
+	bRightRackPresent[nId] := TRUE;
+	aRightRack[nId].RefreshCounter();
+END_IF	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DefineCarrier" Id="{b1104976-6a97-494f-81eb-cde3f8430a9f}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD DefineCarrier
+VAR_INPUT
+	eConfiguration				: eTcaCarrierConfig;	
+    nPosInRow					: INT;			// Numbers of Positions in first Row
+    fRowDistance				: REAL;		// Distance from one Row to the other 
+    nPosInColumn				: INT;			// Numbers of Positions in one Column
+    fColumnDistance				: REAL;		// Distance from one Column to the other
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbCarrierTemplate.PositionInColumn :=	nPosInColumn;
+fbCarrierTemplate.PositionInRow := nPosInRow;
+fbCarrierTemplate.ColumnDistance := fColumnDistance;
+fbCarrierTemplate.RowDistance := fRowDistance;
+fbCarrierTemplate.Configuration := eConfiguration;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DefineTrolley" Id="{99156019-8408-4324-89a8-a3f3c0e1de35}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD DefineTrolley
+VAR_INPUT
+	StoragePerRack		: INT;
+	StorageDivision		: LREAL;
+	//Origin				: ST_Coordinate; //mirrored for the Right side
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nStoragePerRack := StoragePerRack;
+fStorageDivision := StorageDivision;
+//stOrigin := Origin;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmptyCarrier" Id="{a246746f-efc9-4c24-ba01-5524f58e269b}" FolderPath="Carrier\">
+      <Declaration><![CDATA[METHOD EmptyCarrier : BOOL
+VAR_INPUT
+	bLeft			: BOOL;
+	bRight			: BOOL;
+	nState			: INT;
+	nId				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bLeft THEN
+	IF aLeftRack[nId].CarrierId = -1 THEN
+		EmptyCarrier := TRUE;
+	END_IF	
+
+	aLeftRack[nId].LoadTemplate(fbCarrierTemplate);
+	aLeftRack[nId].EmptyPlaces(nState);
+	aLeftRack[nId].CarrierId := nId+1;
+	aLeftRack[nId].RefreshCounter();
+	bLeftRackPresent[nId] := FALSE;
+END_IF
+
+IF bRight THEN
+	IF aRightRack[nId].CarrierId = -1 THEN
+		EmptyCarrier := TRUE;
+	END_IF	
+	
+	aRightRack[nId].LoadTemplate(fbCarrierTemplate);
+	aRightRack[nId].EmptyPlaces(nState);
+	aRightRack[nId].CarrierId := nId+1;
+	aRightRack[nId].RefreshCounter();
+	bRightRackPresent[nId] := FALSE;
+END_IF	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmptyTrolley" Id="{1ec0821a-eac0-4392-823c-e82699e7bc5b}" FolderPath="Trolley\">
+      <Declaration><![CDATA[METHOD EmptyTrolley : BOOL
+VAR_INPUT
+	bLeft			: BOOL;
+	bRight			: BOOL;
+END_VAR
+
+VAR
+	tmpNew			: BOOL;
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR ni:= 0 TO nMaxWorkpieceCarrier DO
+
+	IF EmptyCarrier(bLeft, bRight, -1, ni) THEN
+		tmpNew := TRUE;
+	END_IF
+
+END_FOR
+
+IF tmpNew THEN
+	ChangeToggle();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NewCarrier" Id="{b51aba8c-2890-4a2b-ac0d-62d012cfd448}" FolderPath="Carrier\">
+      <Declaration><![CDATA[METHOD NewCarrier : BOOL
+VAR_INPUT
+	bLeft			: BOOL;
+	bRight			: BOOL;
+	nId				: INT;
+	nState			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bLeft THEN
+	IF aLeftRack[nId].CarrierId = -1 THEN
+		NewCarrier := TRUE;
+	END_IF
+
+	aLeftRack[nId].LoadTemplate(fbCarrierTemplate);
+	aLeftRack[nId].FillPlaces(nState);
+	aLeftRack[nId].CarrierId := nId+1;
+	aLeftRack[nId].RefreshCounter();
+	bLeftRackPresent[nId] := TRUE;
+END_IF
+
+IF bRight THEN
+	IF aRightRack[nId].CarrierId = -1 THEN
+		NewCarrier := TRUE;
+	END_IF	
+
+	aRightRack[nId].LoadTemplate(fbCarrierTemplate);
+	aRightRack[nId].FillPlaces(nState);
+	aRightRack[nId].CarrierId := nId+1;
+	aRightRack[nId].RefreshCounter();
+	bRightRackPresent[nId] := TRUE;
+END_IF	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NewTrolley" Id="{112ecaf7-d953-4269-a8bd-1a929070b73d}" FolderPath="Trolley\">
+      <Declaration><![CDATA[METHOD NewTrolley : BOOL
+VAR_INPUT
+	bLeft			: BOOL;
+	bRight			: BOOL;
+	nState			: INT;
+END_VAR
+
+VAR
+	tmpNew			: BOOL;
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR ni:= 0 TO nMaxWorkpieceCarrier DO
+
+	IF NewCarrier(bLeft, bRight, ni, nState) THEN
+		tmpNew := TRUE;
+	END_IF
+	
+END_FOR
+
+IF tmpNew THEN
+	ChangeToggle();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RefreshTrolley" Id="{7a7931f5-887f-4b38-899c-46a2e4d152d2}">
+      <Declaration><![CDATA[METHOD RefreshTrolley
+VAR
+	ni	: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR ni:= 0 TO nMaxWorkpieceCarrier DO
+	aLeftRack[ni].RefreshCounter();
+	aRightRack[ni].RefreshCounter();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveCarrier" Id="{10012596-84b4-4734-82a0-1b45fc65d417}" FolderPath="Carrier\">
+      <Declaration><![CDATA[METHOD RemoveCarrier : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	bLeft			: BOOL;
+	bRight			: BOOL;
+	nId				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bLeft THEN
+	aLeftRack[nId].ResetPlaces();
+	aLeftRack[nId].CarrierId := -1;
+	bLeftRackPresent[nId] := FALSE;
+	aLeftRack[nId].RefreshCounter();
+END_IF
+
+IF bRight THEN
+	aRightRack[nId].ResetPlaces();
+	aRightRack[nId].CarrierId := -1;
+	bRightRackPresent[nId] := FALSE;
+	aRightRack[nId].RefreshCounter();
+END_IF	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveTrolley" Id="{a532c257-0623-4dd0-8c36-0631f3abee89}" FolderPath="Trolley\">
+      <Declaration><![CDATA[METHOD RemoveTrolley : BOOL
+VAR_INPUT
+	bLeft			: BOOL;
+	bRight			: BOOL;
+END_VAR
+
+VAR
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR ni:= 0 TO nMaxWorkpieceCarrier DO
+
+	RemoveCarrier(bLeft, bRight, ni);
+
+END_FOR
+
+ChangeToggle();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restore" Id="{06474f08-4b5d-4bce-bef8-552f7458a00f}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Restores this instance to the Ready state. Can be called explicitly or from within one of the restore mechanisms.	
+		</summary>			
+	</docu>	
+~*)
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{2eec05ae-893b-477c-ad44-1082baa560ac}">
+      <Declaration><![CDATA[/// RunSuper component logic
+{attribute 'object_name' := 'Run'}
+METHOD  Run
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{1b0ce0f4-359f-4bec-813e-074e7853a5c7}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Visu" Id="{ea2f2b3d-91b0-4769-a9aa-edec912753eb}">
+      <Declaration><![CDATA[/// Visu component logic
+{attribute 'object_name' := 'Visu'}
+METHOD  Visu
+
+VAR
+	ni			:INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE cmd.cmd OF
+	eTcaTrolleyCmd.FillTrolley:
+		NewTrolley(TRUE, TRUE, cmd.nId);
+	
+	eTcaTrolleyCmd.EmptyTrolley:
+		EmptyTrolley(TRUE, TRUE);
+	
+	eTcaTrolleyCmd.RemoveTrolley:
+		RemoveTrolley(TRUE, TRUE);
+		
+END_CASE
+
+IF cmd.cmd <> eTcaTrolleyCmd.noCmd THEN
+	cmd.cmd := eTcaTrolleyCmd.noCmd; 
+END_IF
+
+FOR ni:= 0 TO nMaxWorkpieceCarrier DO
+	IF aLeftRack[ni].Cmd = eTcaCarrierCmd.changeState THEN
+		NewCarrier(TRUE, FALSE, ni, cmd.nId);
+		aLeftRack[ni].Cmd := eTcaCarrierCmd.noCmd;
+	END_IF
+	
+	IF aRightRack[ni].Cmd = eTcaCarrierCmd.changeState THEN
+		NewCarrier(FALSE, TRUE, ni, cmd.nId);
+		aRightRack[ni].Cmd := eTcaCarrierCmd.noCmd;
+	END_IF
+	
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

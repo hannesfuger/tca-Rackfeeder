@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="eTcaStorageCmd" Id="{d4b4f0ca-750b-4159-a9c0-0df2992c88b5}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE eTcaStorageCmd :
+(
+	noCmd := 0,
+	FillCarrier,
+	RemoveCarrier,
+	EmptyCarrier
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

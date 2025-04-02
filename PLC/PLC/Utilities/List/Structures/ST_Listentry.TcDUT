@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Listentry" Id="{4d62ebaf-c98c-475b-8e15-f14fdd584cf7}">
+    <Declaration><![CDATA[TYPE ST_Listentry :
+STRUCT
+	nRawId		: INT;
+	nId			: INT;
+	bEnable		: BOOL;
+	sName		: STRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

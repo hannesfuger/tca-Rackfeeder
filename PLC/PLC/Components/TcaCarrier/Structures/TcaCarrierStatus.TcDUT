@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaCarrierStatus" Id="{7f561e39-db64-406d-92fe-c6dddfbcdc12}">
+    <Declaration><![CDATA[TYPE TcaCarrierStatus :
+STRUCT
+	WorkpiecePlaces : INT; // starts with 1
+	PrimaryWorkpieceStatus : eTcaWorkpiecePlaceProgress;
+	SecondaryWorkpieceStatus : eTcaWorkpiecePlaceProgress;
+	PrimaryWorkpieceStatusCount : INT;
+	SecondaryWorkpieceStatusCount : INT;
+	ArrayOfCarrierStatus : ARRAY[0..eTcaWorkpiecePlaceProgress.MAXSIZE] OF INT;
+	ConfigError	: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

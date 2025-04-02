@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="eTcaPushButtonColor" Id="{a9265641-fd3c-49a7-8120-5dcd2c22bf12}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eTcaPushButtonColor :
+(
+	none := 0,
+	Green := 1,
+	Red := 2,
+	Yellow := 3,
+	Blue := 4,
+	Orange := 5,
+	custom := 6,
+	white := 7
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

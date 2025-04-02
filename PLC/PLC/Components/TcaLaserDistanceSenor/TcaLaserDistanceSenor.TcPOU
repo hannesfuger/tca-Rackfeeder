@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaLaserDistanceSenor" Id="{e97f60ae-aa56-48ab-98cd-d235b4e1d922}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaLaserDistanceSenor EXTENDS TcoCore.TcoComponent
+VAR CONSTANT
+	_dataArraylength : INT := 127;
+END_VAR
+
+VAR_INPUT
+	ref : REFERENCE TO TcaLaserDistanceSenorRef;
+END_VAR
+
+VAR	
+    _signalRef : REFERENCE TO TcaLaserDistanceSenorRef;
+	_externalXSignal : REFERENCE TO DINT;
+    _recordDataTask : TcoCore.TcoTask(THIS^);	
+	_signal : DINT;	
+	_signalInfo : TcoCore.TcoSignalInfo;
+	_status : TcaLaserDistanceSenorStatus;
+	_config : TcaLaserDistanceSenorConfig;
+	_curveSketcher : FB_ALY_CurveSketcher_1Ch; 
+	_recordtime	: TIME := T#50S;
+	_recordintervall : TIME := T#200MS;
+	_stopRecord	: BOOL;
+	_PeakCount : INT := 0;	
+	_ValleyCount : INT := 0;
+	_DistanceCount : INT := 0;
+	_ValleyArray : ARRAY[0.._dataArraylength] OF TcaLaserDistanceSensorDataArrayEntry;
+	_PeakArray : ARRAY[0.._dataArraylength] OF TcaLaserDistanceSensorDataArrayEntry;	
+	_DistanceArray : ARRAY[0.._dataArraylength] OF TcaLaserDistanceSensorDataArrayEntry;	
+	_SumDistance : DINT;
+	_MaxDistance : TcaLaserDistanceSensorDataArrayEntry;
+	_MinDistance : TcaLaserDistanceSensorDataArrayEntry;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref)  THEN
+    Messenger.Post('<#Invalid reference signal #>', TcoCore.eMessageCategory.ProgrammingError);
+    RETURN;
+END_IF
+
+_signalRef REF= ref;
+
+// Signal Postprocessing
+_signalInfo.GetSignalInfo(SIZEOF(_signalRef), ADR(_signalRef));
+_signal := MIN(MAX(0,(_signalRef.Sensor/100)*100), 350000);
+
+
+// Tasks
+RecordDataTask();
+
+
+]]></ST>
+    </Implementation>
+    <Folder Name="Functions" Id="{52e857f6-781b-4b2b-b674-9429e94cb9fb}" />
+    <Folder Name="Operations" Id="{08476e32-6e69-46a6-b0d9-d96b2c2deaef}" />
+    <Folder Name="Results" Id="{15aaba78-7afa-4742-b3fc-8802249b3cb4}" />
+    <Folder Name="Tasks" Id="{ba7bcf7b-0eda-4e9e-b5f9-7052df2c8b9e}" />
+    <Property Name="AvgDistance" Id="{f595e98c-926d-403c-bf0b-00d92bafb6bd}" FolderPath="Results\">
+      <Declaration><![CDATA[PROPERTY AvgDistance : LREAL]]></Declaration>
+      <Get Name="Get" Id="{848da3b4-1eb3-4aef-b182-3f83826aca4f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AvgDistance := _SumDistance/_DistanceCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Config" Id="{9f54ec7c-2b67-44bb-accb-c7b7c760d698}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaLaserDistanceSenorConfig]]></Declaration>
+      <Get Name="Get" Id="{a7d1298e-7b64-4ba6-bbc1-83e90bbd8307}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config REF= _config;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{9d227d47-bb1f-4e2d-86fe-8ff12bfca3da}">
+      <Declaration><![CDATA[{attribute 'hide'}
+METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	ParentObject : ITcoObject;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FirstPeak" Id="{555f84b0-24a1-4e9e-b5f3-3385dabb5ec0}" FolderPath="Results\">
+      <Declaration><![CDATA[PROPERTY FirstPeak : TcaLaserDistanceSensorDataArrayEntry]]></Declaration>
+      <Get Name="Get" Id="{ea8ab745-6295-4854-949a-6c485dbd0659}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FirstPeak := _PeakArray[0];]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="FirstValley" Id="{c355f45c-3eab-4b4d-bd31-468fd9e3c023}" FolderPath="Results\">
+      <Declaration><![CDATA[PROPERTY FirstValley : TcaLaserDistanceSensorDataArrayEntry]]></Declaration>
+      <Get Name="Get" Id="{ba58feea-9dc0-43a3-a4f9-1fc474f6d1af}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FirstValley := _ValleyArray[0];]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="insideArea" Id="{ebde25d2-8967-471a-bc07-739a2f914e04}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD insideArea : BOOL
+VAR_INPUT
+	lowLimit			: DINT;
+	highLimit			: DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[insideArea := _signal < highLimit AND _signal > lowLimit;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="isValue" Id="{4af7223a-477c-4866-b0a6-7c8cd54a2284}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD isValue : BOOL
+VAR_INPUT
+	Value			: DINT;
+	Epsilon			: DINT := 1000;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[isValue := insideArea(Value-Epsilon, Value+Epsilon);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MaxDistance" Id="{7dfaa8ce-a007-4803-aae7-fc3e4fb95c81}" FolderPath="Results\">
+      <Declaration><![CDATA[PROPERTY MaxDistance : TcaLaserDistanceSensorDataArrayEntry]]></Declaration>
+      <Get Name="Get" Id="{ae7b3f51-f93c-475a-874e-265a388219bd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MaxDistance := _MaxDistance;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="MinDistance" Id="{abe9d706-d5ae-4441-9bee-4fab7af1734e}" FolderPath="Results\">
+      <Declaration><![CDATA[PROPERTY MinDistance : TcaLaserDistanceSensorDataArrayEntry]]></Declaration>
+      <Get Name="Get" Id="{a82525f8-cd14-41b5-b9dd-e1cd9db9744d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MinDistance := _MinDistance;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RecordData" Id="{719fb47c-87ba-4d8b-8943-df14a5173fac}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD RecordData : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	Recordtime			: TIME;
+	RecordIntervall		: TIME;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[RecordData := _recordDataTask.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecordDataTask" Id="{7ea8545c-98cb-43b8-903f-b2e980f5258f}" FolderPath="Tasks\">
+      <Declaration><![CDATA[METHOD RecordDataTask : BOOL
+VAR	
+	tmpX 		: DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_recordDataTask.Enabled := TRUE;
+_recordDataTask.Execute();
+
+IF _recordDataTask.State = eTaskState.Ready THEN
+	;
+END_IF
+
+
+IF _recordDataTask.State = eTaskState.Done OR _recordDataTask.Done THEN
+	;
+END_IF
+
+
+IF _recordDataTask.State = eTaskState.Error THEN
+	;
+END_IF
+
+// First STEP - Settings - Requested State was not possible
+IF _recordDataTask.ElapsedTime = T#0MS THEN
+	_curveSketcher.Reset();
+	_curveSketcher.Configure(10000, TRUE, 1000);
+	
+	MEMSET(ADR(_PeakArray), 0, SIZEOF(_PeakArray));
+	MEMSET(ADR(_ValleyArray), 0, SIZEOF(_ValleyArray));
+	MEMSET(ADR(_MaxDistance), 0, SIZEOF(_MaxDistance));
+	MEMSET(ADR(_MinDistance), 0, SIZEOF(_MinDistance));
+	_PeakCount := 0;	
+	_ValleyCount := 0;
+	_DistanceCount := 0;
+END_IF
+
+IF NOT _recordDataTask.Busy THEN
+	RETURN;
+END_IF
+
+// Write Senor value into Array
+_curveSketcher.SetChannelValue(_signal);
+_curveSketcher.Call(TIME_TO_ULINT(_recordDataTask.ElapsedTime));
+
+IF __ISVALIDREF(_externalXSignal) THEN
+	tmpX := _externalXSignal;
+ELSE
+	tmpX := TIME_TO_DINT(_recordDataTask.ElapsedTime);	
+END_IF
+	
+IF  ULINT_TO_INT(_curveSketcher.nCountPeaks) > _PeakCount THEN
+	_PeakArray[_PeakCount].x := tmpX;	
+	_PeakArray[_PeakCount].y := LREAL_TO_DINT(_curveSketcher.fLastPeak);
+	_PeakCount := ULINT_TO_INT(_curveSketcher.nCountPeaks);
+END_IF
+
+IF ULINT_TO_INT(_curveSketcher.nCountValleys) > _ValleyCount THEN
+	_ValleyArray[_ValleyCount].x := tmpX;	
+	_ValleyArray[_ValleyCount].y := LREAL_TO_DINT(_curveSketcher.fLastValley);
+	_ValleyCount := ULINT_TO_INT(_curveSketcher.nCountValleys);
+END_IF
+
+IF  _PeakCount - _ValleyCount > 0 AND (TIME_TO_DINT(_recordDataTask.ElapsedTime) MOD TIME_TO_DINT(_recordintervall)) = 0 THEN
+	_DistanceArray[_DistanceCount].x := tmpX;
+	_DistanceArray[_DistanceCount].y := _signal;
+	
+	IF _MinDistance.y > _signal THEN
+		_MinDistance := _DistanceArray[_DistanceCount];
+	END_IF
+	
+	IF _MaxDistance.y < _signal THEN
+		_MaxDistance := _DistanceArray[_DistanceCount];
+	END_IF
+	
+	_SumDistance := _SumDistance + _signal;			// during the Measurement sum of all Signals
+	_DistanceCount := _DistanceCount + 1;
+END_IF
+	
+IF _DistanceCount > _dataArraylength THEN
+	_recordDataTask.Abort();
+	_recordDataTask.Messenger.Error('Data Overflow');
+END_IF
+
+IF _PeakCount > _dataArraylength THEN
+	_recordDataTask.Abort();
+	_recordDataTask.Messenger.Error('Data Overflow');
+END_IF
+
+IF _ValleyCount > _dataArraylength THEN
+	_recordDataTask.Abort();
+	_recordDataTask.Messenger.Error('Data Overflow');
+END_IF
+
+	
+// Task Done	
+_recordDataTask.DoneWhen(_stopRecord);
+_stopRecord := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restore" Id="{85ebf541-3087-44d9-8902-a334bc4a920d}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Restores this instance to the Ready state. Can be called explicitly or from within one of the restore mechanisms.	
+		</summary>			
+	</docu>	
+~*)
+METHOD  Restore : ITcoRestorable
+
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// No implementation needed for this componet.]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{17ffb845-58d8-420b-bd02-82ae64007e94}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED  ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SetExternalXSignal" Id="{a739a81e-9883-4936-b81f-109180fcf212}">
+      <Declaration><![CDATA[PROPERTY SetExternalXSignal : DINT]]></Declaration>
+      <Set Name="Set" Id="{efa5b2c3-2acc-4cbd-accd-dccf2e2f4fb7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_externalXSignal REF= SetExternalXSignal;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{efe14116-c1d8-4104-b592-a390ae42fa4c}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaLaserDistanceSenorStatus]]></Declaration>
+      <Get Name="Get" Id="{1859d032-4767-4293-9029-4b9467d8a683}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="StopRecordData" Id="{dc681c94-88bf-4c1d-9b44-8f08c04351d9}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD StopRecordData
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_stopRecord := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

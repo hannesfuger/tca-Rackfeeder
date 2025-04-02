@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_LogLevel" Id="{3f57b2fd-4772-4454-a899-f7b07d7b0c48}">
+    <Declaration><![CDATA[TYPE E_LogLevel :
+(
+	///kein Loglevel (nichts wird geloggt)
+	eLogLevelNone := 0,
+	///nur Fehler werden geloggt
+	eLogLevelError := 1,
+	///Fehler und Warnungen werden geloggt
+	eLogLevelWarning := 2,
+	///Fehler, Warnungen und Informationen werden geloggt
+	eLogLevelInformation := 3
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

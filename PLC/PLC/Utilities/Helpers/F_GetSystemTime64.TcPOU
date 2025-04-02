@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_GetSystemTime64" Id="{929f964a-9994-4094-bab7-3f8e8237fa54}" SpecialFunc="None">
+    <Declaration><![CDATA[/// returns the current system time as a 64 bit integer (one unit is equivalent to 100ns)
+FUNCTION F_GetSystemTime64 : ULINT
+VAR
+	/// lower 32 bit of the current time
+	nLow: UDINT;
+	/// higher 32 bit of the current time value
+	nHigh: UDINT;
+	/// FB that returns the current time as 2 x 32 bit 
+	fbGetTime: GETSYSTEMTIME;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// get the time
+fbGetTime( timeLoDW => nLow, timeHiDW => nHigh );
+
+// build a 64 bit integer 
+F_GetSystemTime64 := nHigh;
+F_GetSystemTime64 := SHL( F_GetSystemTime64, 32 ) OR nLow;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_RackFeeder" Id="{9e1585f4-2e58-440e-a441-8d622afd11fb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_RackFeeder EXTENDS FB_Component
+
+VAR CONSTANT
+	nTrolleyDockCount				: INT := 3;
+	nStorageDockCount				: INT := 5;
+END_VAR
+
+VAR
+	bSimulation						: BOOL;
+	
+	fbAxisTraverse					: FB_AxisDriver;
+	fbAxisLift						: FB_AxisDriver;
+	fbAxisTelescope					: FB_AxisDriver;	
+	
+	fEndposTraverse					: LREAL;
+	fEndposLift						: LREAL;
+	fEndposTelescope				: LREAL;
+	
+	fbCarrierPresent				: FB_DigitalInput;
+
+	aTrolleyDocks					: ARRAY[0..nTrolleyDockCount] OF ST_TrolleyDock;	
+	aStorageDocks					: ARRAY[0..nStorageDockCount] OF ST_StorageDock;
+	
+	aJobs							: ARRAY[0..127] OF ST_RackFeederJob;	
+END_VAR
+
+VAR_OUTPUT
+	Carrier							: FB_WorkpieceCarrier;
+END_VAR
+
+VAR_INPUT
+	cmd								: CMD_RackFeeder;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Administration" Id="{0802217d-a627-4a62-b05e-3d65321b8767}" />
+    <Folder Name="Motion" Id="{a474ba25-17a5-48b9-92b4-77ef59586f07}" />
+    <Method Name="DropCarrier" Id="{360eae8e-482e-4c15-81ee-e0dd6ed7f57e}" FolderPath="Motion\">
+      <Declaration><![CDATA[METHOD DropCarrier : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FetchCarrier" Id="{fd3a6d87-4199-4b0c-bc00-993e2a6701c2}" FolderPath="Motion\">
+      <Declaration><![CDATA[METHOD FetchCarrier : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FindCarrier" Id="{1923d1de-fff7-4941-a18b-3bead3939e46}">
+      <Declaration><![CDATA[METHOD FindCarrier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterStorageDock" Id="{1c0ab9f2-4706-46b0-87b6-d4e80fb066b7}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD RegisterStorageDock
+VAR_IN_OUT
+	Storage				: FB_Storage;
+END_VAR
+
+
+VAR
+	ni						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Search if Reference is already in List
+FOR ni := 0 TO nStorageDockCount DO
+
+	IF NOT __ISVALIDREF(aTrolleyDocks[ni].refTrolley) THEN
+		aStorageDocks[ni].refStorage REF= Storage;	
+		EXIT;
+	END_IF
+	
+	IF ADR(aStorageDocks[ni].refStorage) <> ADR(Storage) THEN
+		CONTINUE;
+	ELSE
+		EXIT;
+	END_IF
+
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterTrolleyDock" Id="{62c3863f-4062-4f68-81df-e668493983ec}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD RegisterTrolleyDock
+VAR_IN_OUT
+	Trolley				: FB_Trolley;
+END_VAR
+
+VAR
+	ni						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Search if Reference is already in List
+FOR ni := 0 TO nTrolleyDockCount DO
+
+	IF NOT __ISVALIDREF(aTrolleyDocks[ni].refTrolley) THEN
+		aTrolleyDocks[ni].refTrolley REF= Trolley;	
+		EXIT;
+	END_IF
+	
+	IF ADR(aTrolleyDocks[ni].refTrolley) <> ADR(Trolley) THEN
+		CONTINUE;
+	ELSE
+		EXIT;
+	END_IF
+
+END_FOR
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{711bfb1d-5d59-4925-a55e-34f7b9bb4d3c}">
+      <Declaration><![CDATA[/// RunSuper component logic
+{attribute 'object_name' := 'Run'}
+METHOD  Run
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Component Run
+fbAxisTraverse.Run();
+fbAxisLift.Run();
+fbAxisTelescope.Run();
+
+fEndposTraverse := 3000;
+fEndposLift := 900;
+fEndposTelescope := 1800;
+
+// Axis Run
+fbAxisTraverse.Enable := TRUE;
+fbAxisTraverse.EnableCtrl := TRUE;
+fbAxisTraverse.EnableNeg := TRUE;
+fbAxisTraverse.EnablePos := TRUE;
+fbAxisTraverse.Override := 100; //TODO: Höher stellen
+fbAxisTraverse.TorqueLimit := 10; //TODO: Höher stellen
+
+// Axis Run
+fbAxisLift.Enable := TRUE;
+fbAxisLift.EnableCtrl := TRUE;
+fbAxisLift.EnableNeg := TRUE;
+fbAxisLift.EnablePos := TRUE;
+fbAxisLift.Override := 100; //TODO: Höher stellen
+fbAxisLift.TorqueLimit := 10; //TODO: Höher stellen
+
+// Axis Run
+fbAxisTelescope.Enable := TRUE;
+fbAxisTelescope.EnableCtrl := TRUE;
+fbAxisTelescope.EnableNeg := TRUE;
+fbAxisTelescope.EnablePos := TRUE;
+fbAxisTelescope.Override := 100; //TODO: Höher stellen
+fbAxisTelescope.TorqueLimit := 10; //TODO: Höher stellen
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetReferences" Id="{60ffb90c-44f7-4a34-a4f7-b9bd01bcf357}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD SetReferences : E_OperationResult
+VAR_IN_OUT
+	stIO				: ST_RackFeederIO;
+END_VAR
+
+VAR_INPUT
+	Simulation			: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bSimulation := Simulation;
+
+fbAxisTraverse.SetReferences(stIO.ioAxisTraverse);
+fbAxisTraverse.Name := 'Achse Traverse';
+fbAxisTraverse.AxisType := E_AxisType.Virtual;
+fbAxisTraverse.BMK := CONCAT3(THIS^.sName,' | ',fbAxisTraverse.Name);
+{region "Default Parameter Traverse"}
+fbAxisTraverse.DefaultParameter.stMovAbsPrm.fVelocity := 10;
+fbAxisTraverse.DefaultParameter.stMovModPrm.fVelocity := 10;
+fbAxisTraverse.DefaultParameter.stMovModPrm.eDirection := MC_Direction.MC_Shortest_Way;
+fbAxisTraverse.DefaultParameter.stHomingPrm.fPosition := 0;
+fbAxisTraverse.DefaultParameter.stHomingPrm.stOptions.SearchDirection := MC_Direction.MC_Positive_Direction;
+fbAxisTraverse.DefaultParameter.stHomingPrm.stOptions.SearchVelocity := 10;
+fbAxisTraverse.DefaultParameter.stHomingPrm.stOptions.SyncVelocity := 5;
+fbAxisTraverse.DefaultParameter.stHomingPrm.stOptions.SyncDirection := MC_Direction.MC_Positive_Direction;
+{endregion}
+
+fbAxisLift.SetReferences(stIO.ioAxisLift);
+fbAxisLift.Name := 'Achse Lift';
+fbAxisLift.AxisType := E_AxisType.Virtual;
+fbAxisLift.BMK := CONCAT3(THIS^.sName,' | ',fbAxisLift.Name);
+{region "Default Parameter Lift"}
+fbAxisLift.DefaultParameter.stMovAbsPrm.fVelocity := 10;
+fbAxisLift.DefaultParameter.stMovModPrm.fVelocity := 10;
+fbAxisLift.DefaultParameter.stMovModPrm.eDirection := MC_Direction.MC_Shortest_Way;
+fbAxisLift.DefaultParameter.stHomingPrm.fPosition := 0;
+fbAxisLift.DefaultParameter.stHomingPrm.stOptions.SearchDirection := MC_Direction.MC_Positive_Direction;
+fbAxisLift.DefaultParameter.stHomingPrm.stOptions.SearchVelocity := 10;
+fbAxisLift.DefaultParameter.stHomingPrm.stOptions.SyncVelocity := 5;
+fbAxisLift.DefaultParameter.stHomingPrm.stOptions.SyncDirection := MC_Direction.MC_Positive_Direction;
+{endregion}
+
+fbAxisTelescope.SetReferences(stIO.ioAxisTelescope);
+fbAxisTelescope.Name := 'Achse Telescope';
+fbAxisTelescope.AxisType := E_AxisType.Virtual;
+fbAxisTelescope.BMK := CONCAT3(THIS^.sName,' | ',fbAxisTelescope.Name);
+{region "Default Parameter Telescope"}
+fbAxisTelescope.DefaultParameter.stMovAbsPrm.fVelocity := 10;
+fbAxisTelescope.DefaultParameter.stMovModPrm.fVelocity := 10;
+fbAxisTelescope.DefaultParameter.stMovModPrm.eDirection := MC_Direction.MC_Shortest_Way;
+fbAxisTelescope.DefaultParameter.stHomingPrm.fPosition := 0;
+fbAxisTelescope.DefaultParameter.stHomingPrm.stOptions.SearchDirection := MC_Direction.MC_Positive_Direction;
+fbAxisTelescope.DefaultParameter.stHomingPrm.stOptions.SearchVelocity := 10;
+fbAxisTelescope.DefaultParameter.stHomingPrm.stOptions.SyncVelocity := 5;
+fbAxisTelescope.DefaultParameter.stHomingPrm.stOptions.SyncDirection := MC_Direction.MC_Positive_Direction;
+{endregion}
+
+fbCarrierPresent.SetReferences(stIo.ioCarrierPresent);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TeachStorageDock" Id="{c9a4bbf2-8d49-4ae8-b29f-e9e339502efa}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD TeachStorageDock
+VAR_IN_OUT
+	Storage				: FB_Storage;
+END_VAR
+VAR_INPUT
+	TeachPos				: BOOL;
+END_VAR
+
+
+VAR
+	ni						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Search if Reference is already in List
+FOR ni := 0 TO nStorageDockCount DO
+
+	IF NOT __ISVALIDREF(aTrolleyDocks[ni].refTrolley) THEN
+		aStorageDocks[ni].refStorage REF= Storage;	
+		EXIT;
+	END_IF
+	
+	IF ADR(aStorageDocks[ni].refStorage) <> ADR(Storage) THEN
+		CONTINUE;
+	ELSE
+		EXIT;
+	END_IF
+
+END_FOR
+
+
+IF TeachPos THEN
+// get Coordinate of Axis
+	aStorageDocks[ni].posOrigin.fX := fbAxisTraverse.ActPos;
+	aStorageDocks[ni].posOrigin.fY := fbAxisLift.ActPos;
+	aStorageDocks[ni].posOrigin.fZ := fbAxisTelescope.ActPos;
+	
+
+	// set teched flag if Top an Buttom Value valid	
+	aStorageDocks[ni].bTeached := TRUE;
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TeachTrolleyDock" Id="{1e11fa96-c863-4b3f-8b0e-cea58a94cb55}" FolderPath="Administration\">
+      <Declaration><![CDATA[METHOD TeachTrolleyDock
+VAR_IN_OUT
+	Trolley				: FB_Trolley;
+END_VAR
+
+VAR_INPUT
+	TeachPosButtom			: BOOL;
+	TeachPosTop				: BOOL;
+END_VAR
+
+VAR
+	ni						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Check Input
+IF TeachPosButtom AND TeachPosTop THEN
+	RETURN;
+END_IF
+
+
+// Search if Reference is already in List
+FOR ni := 0 TO nTrolleyDockCount DO
+
+	IF NOT __ISVALIDREF(aTrolleyDocks[ni].refTrolley) THEN
+		aTrolleyDocks[ni].refTrolley REF= Trolley;	
+		EXIT;
+	END_IF
+	
+	IF ADR(aTrolleyDocks[ni].refTrolley) <> ADR(Trolley) THEN
+		CONTINUE;
+	ELSE
+		EXIT;
+	END_IF
+
+END_FOR
+
+
+// get Coordinate of Axis
+IF TeachPosButtom THEN	
+	aTrolleyDocks[ni].posButtom.fX := fbAxisTraverse.ActPos;
+	aTrolleyDocks[ni].posButtom.fY := fbAxisLift.ActPos;
+	aTrolleyDocks[ni].posButtom.fZ := fbAxisTelescope.ActPos;
+	aTrolleyDocks[ni].bTeached := TRUE;
+END_IF
+
+IF TeachPosTop THEN
+	aTrolleyDocks[ni].posTop.fX := fbAxisTraverse.ActPos;
+	aTrolleyDocks[ni].posTop.fY := fbAxisLift.ActPos;
+	aTrolleyDocks[ni].posTop.fZ := fbAxisTelescope.ActPos;
+	aTrolleyDocks[ni].bTeached := TRUE;
+END_IF
+
+
+// set teched flag if Top an Buttom Value valid
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Visu" Id="{83d3c374-c9b9-4cc4-84ce-985043bf5df8}">
+      <Declaration><![CDATA[/// Visu component logic
+{attribute 'object_name' := 'Visu'}
+METHOD  Visu
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE cmd.cmd OF
+	E_RackFeederCmd.TeachTrolleyDock:
+		;//TeachTrolleyDock(TRUE, TRUE, cmd.nId);
+	
+	E_RackFeederCmd.TeachStorageDock:
+		;//TeachStorageDock(TRUE, TRUE);
+	
+		
+END_CASE
+
+IF cmd.cmd <> E_RackFeederCmd.noCmd THEN
+	cmd.cmd := E_RackFeederCmd.noCmd; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

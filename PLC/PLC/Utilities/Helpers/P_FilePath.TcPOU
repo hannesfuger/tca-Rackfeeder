@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="P_FilePath" Id="{4b2c568c-e791-427c-b22f-b131fa942f67}" SpecialFunc="None">
+    <Declaration><![CDATA[///Programm für die Verzeichnisverwaltung
+PROGRAM P_FilePath
+VAR_INPUT
+	///	path name	
+	sPathName: STRING;
+	/// 	file name		
+	sFileName: STRING;
+	///	flag create folder	
+	bCreateDIR: BOOL;
+	///	flag remove folder	
+	bRemoveDIR: BOOL;
+END_VAR
+VAR_OUTPUT
+	///	folder exists flag	
+	bFolderExist: BOOL;
+END_VAR
+VAR
+	bBootFolder: BOOL;
+	/// 	folders root path 	
+	ePath: E_OpenPath;
+	///	create DIR	
+	fbCreateDir: FB_CreateDir;
+	bCreate_Busy: BOOL;
+	bCreate_Error: BOOL;
+	iCreate_ErrID: UDINT;
+	///	delete DIR	
+	fbRemoveDir: FB_RemoveDir;
+	bRemove_Busy: BOOL;
+	bRemove_Error: BOOL;
+	iRemove_ErrID: UDINT;
+	///	loop		
+	iDIR: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// Programm für die Verzeichnisverwaltung
+/// 11.05.2012	www.rmth.at
+///
+(*
+	File access program.
+	This program is responsible for creating or deleting files.
+
+	Christian Kalser / www.rmth.at / 05.2010
+	
+	Version:
+		0.0.0.1 - Initial Version
+*)
+(****************************************************************************************)
+
+(*	run program file path	*)
+ePath := SEL( bBootFolder, PATH_GENERIC, PATH_BOOTPATH );
+
+CASE iDIR OF
+
+0:
+	IF bCreateDIR THEN
+		bFolderExist := FALSE;
+		bCreateDIR := FALSE;
+		fbCreateDir( bExecute := FALSE );
+		iDIR := 10;
+	ELSIF bRemoveDIR THEN
+		bRemoveDIR := FALSE;
+		fbRemoveDir( bExecute := FALSE );
+		iDIR := 20;
+	ELSE
+		fbCreateDir( bExecute := FALSE, bBusy=>bCreate_Busy, bError=>bCreate_Error, nErrId=>iCreate_ErrID );
+		fbRemoveDir( bExecute := FALSE, bBusy=>bRemove_Busy, bError=>bRemove_Error, nErrId=>iRemove_ErrID );
+	END_IF
+
+(*	CREATE DIR		*)
+10:
+	fbCreateDir(sNetId:= '',
+		sPathName:= sPathName,
+		ePath:= ePath,
+		bExecute:= TRUE,
+		tTimeout:= DEFAULT_ADS_TimeOUT,
+		bBusy=>bCreate_Busy, bError=>bCreate_Error, nErrId=>iCreate_ErrID );
+		iDIR := 12;
+
+12: 	(*	catch error	*)
+	fbCreateDir( bExecute := FALSE, bBusy=>bCreate_Busy, bError=>bCreate_Error, nErrId=>iCreate_ErrID );
+	IF NOT fbCreateDir.bBusy THEN
+		IF NOT fbCreateDir.bError THEN
+			bFolderExist := TRUE;
+			iDIR := 0;
+		ELSE
+			CASE iCreate_ErrID OF
+				1804: 	(*	folder allready exist	*)
+				bFolderExist := TRUE;
+				iDIR := 0;
+			ELSE
+				bFolderExist := FALSE;
+				iDIR := 0;
+			END_CASE
+		END_IF
+	END_IF
+
+(*	REMOVE DIR	*)
+20:
+	fbRemoveDir(sNetId:= '',
+		sPathName:= sPathName,
+		ePath:= ePath,
+		bExecute:= TRUE,
+		tTimeout:= DEFAULT_ADS_TimeOUT,
+		bBusy=>bRemove_Busy, bError=>bRemove_Error, nErrId=>iRemove_ErrID );
+		iDIR := 22;
+
+22: (*	catch error	*)
+	fbRemoveDir( bExecute := FALSE, bBusy=>bRemove_Busy, bError=>bRemove_Error, nErrId=>iRemove_ErrID );
+	IF NOT fbRemoveDir.bBusy THEN
+		IF NOT fbRemoveDir.bError THEN
+			bFolderExist := FALSE;
+			iDIR := 0;
+		ELSE
+			CASE iRemove_ErrID OF
+				1804:	(*	folder not found	*)
+				bFolderExist := FALSE;
+				iDIR := 0;
+			ELSE
+				;
+			END_CASE
+		END_IF
+	END_IF
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

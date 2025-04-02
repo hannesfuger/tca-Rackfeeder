@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSafetyGateService" Id="{a81d2014-8416-49c4-b17f-c115b073b6cf}">
+    <Declaration><![CDATA[TYPE TcaSafetyGateService :
+STRUCT
+	StartButton : TcaPushButtonService;
+	RequestButton : TcaPushButtonService;
+	LockButton : TcaPushButtonService;
+	
+	Safe : BOOL;
+	Open : BOOL;
+	ComponentsAreService : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

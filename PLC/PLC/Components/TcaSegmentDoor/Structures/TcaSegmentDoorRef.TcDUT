@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSegmentDoorRef" Id="{a4ec8632-a27d-46d7-a4cb-cf6da1be0624}">
+    <Declaration><![CDATA[TYPE TcaSegmentDoorRef :
+STRUCT
+	// Components
+	VertikalAxis : TcoAxisRef;	
+	LatchLeft : TcoAxisRef;
+	LatchRight : TcoAxisRef;
+	
+	// Sensor
+	ReferenceSensor AT%I* : BOOL;
+	
+	// Safety
+	tsSS1 AT%I* : BOOL;
+	tsSTO AT%I* : BOOL;
+	tsAckReq AT%I* : BOOL;
+	tsAck AT%Q* : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

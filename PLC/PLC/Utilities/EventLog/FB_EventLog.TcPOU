@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_EventLog" Id="{a47cbf6a-d8eb-4f5e-95b6-206a15d0ca75}" SpecialFunc="None">
+    <Declaration><![CDATA[/// HMI access provider (host for sub hmi provider)
+FUNCTION_BLOCK  FB_EventLog IMPLEMENTS ITF_EventLog
+
+VAR		
+	stVisu						: ST_EventVisu;
+	
+	aRaisedEvents				: ARRAY[0..nMaxEvents] OF ST_Event;
+	aQuitEvents					: ARRAY[0..nMaxEvents] OF ST_Event;
+
+	
+	eLogLevel					: E_LogLevel;	
+	bMute						: BOOL;
+
+	nErrorCount					: INT;
+	nWarningCount				: INT;
+	nInfoCount					: INT;
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// Event Log
+/// Hannes Fuger /www.asma.at/01.2016
+/// ]]></ST>
+    </Implementation>
+    <Folder Name="Commands" Id="{198d014b-a903-48ec-9f0c-4d8028470cc2}" />
+    <Folder Name="Properties" Id="{a9bc165b-0b49-4867-8cc8-38e2e83a9149}" />
+    <Folder Name="Visualization" Id="{c1579553-a54a-4d10-8eca-fb7002b645fd}" />
+    <Property Name="ErrorCount" Id="{757d4626-90ce-4c33-bb44-a8e970d50922}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorCount : INT]]></Declaration>
+      <Get Name="Get" Id="{0e9586cb-46a4-411c-86d0-c3b6a1535313}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorCount := nErrorCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ErrorLevel" Id="{e4af6e06-573b-4b0a-a35e-d29f09fb5765}">
+      <Declaration><![CDATA[/// System error level
+PROPERTY ErrorLevel : E_Priority
+]]></Declaration>
+      <Get Name="Get" Id="{394d5780-9819-4c28-9d56-af87ac4b91a7}">
+        <Declaration><![CDATA[INTERNAL
+
+VAR
+	ni			: INT;
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FOR ni:= 0 TO nMaxEvents DO
+	
+	IF aRaisedEvents[ni].ePriority = E_Priority.ePriority_none OR ErrorLevel = E_Priority.ePriority_faultEmergency THEN
+		RETURN;
+	END_IF
+
+	ErrorLevel := MAX(ErrorLevel, aRaisedEvents[ni].ePriority);
+	
+END_FOR]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="InfoCount" Id="{5e8dd14a-5ac9-4add-bad1-cf8f75435497}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY InfoCount : INT]]></Declaration>
+      <Get Name="Get" Id="{356a955c-36d1-4f25-8c1b-e6966244659a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InfoCount := nInfoCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="LogLevel" Id="{e0768fd5-097c-4b85-b912-c0841d1e5491}">
+      <Declaration><![CDATA[PROPERTY LogLevel : E_LogLevel]]></Declaration>
+      <Get Name="Get" Id="{efedefd4-0da3-4b37-b399-2619e9c6cf18}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LogLevel := eLogLevel;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c3a44471-1a00-4302-952a-72fd6b73a165}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eLogLevel := LogLevel;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Mute" Id="{09196f64-7871-4f3a-a07d-45fe0759dee1}">
+      <Declaration><![CDATA[PROPERTY Mute : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0c2a491c-3b62-4132-954b-7ff0bc25e977}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Mute := bMute;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{eaaa7adb-74dd-4943-98f4-66460e4f19ed}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bMute := Mute;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Quitt" Id="{e8f99447-a672-4da9-ae89-620d9bf06e8f}" FolderPath="Commands\">
+      <Declaration><![CDATA[/// sets the corresponding notification item flag raised
+{attribute 'object_name' := 'Quitt'}
+METHOD Quitt
+VAR_INPUT
+	Index			: INT;
+END_VAR
+VAR
+	ni				: INT;
+	cmpEvent		: ST_Event;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE aRaisedEvents[Index].ePriority OF
+	
+	E_Priority.ePriority_fault, E_Priority.ePriority_faultEmergency, E_Priority.ePriority_faultFastStop:
+		nErrorCount := nErrorCount - 1;
+	
+	E_Priority.ePriority_info:
+		nInfoCount := nInfoCount - 1;
+	
+	E_Priority.ePriority_warning:
+		nWarningCount := nWarningCount - 1;
+
+END_CASE
+
+// Reset Component
+IF __ISVALIDREF(aRaisedEvents[Index].refComponent) THEN
+	aRaisedEvents[Index].refComponent.Reset();
+END_IF
+
+// Copy Event from Raised to Quit Table
+MEMMOVE(ADR(aQuitEvents[1]), ADR(aQuitEvents[0]), TO_UDINT(nMaxEvents-1)*SIZEOF(aQuitEvents[1]));
+aQuitEvents[0] := aRaisedEvents[Index];
+aQuitEvents[0].dtQuitTime := Statics.dtNow;	
+
+
+// Delete Event from Raised Table
+MEMMOVE(ADR(aRaisedEvents[Index]), ADR(aRaisedEvents[Index+1]), TO_UDINT(nMaxEvents-Index)*SIZEOF(aRaisedEvents[Index]));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="QuittAll" Id="{89c100b4-98fa-43b1-ae43-d0f30e928ec6}" FolderPath="Commands\">
+      <Declaration><![CDATA[/// sets the corresponding notification item flag raised
+{attribute 'object_name' := 'QuittAll'}
+METHOD QuittAll
+VAR_INPUT
+	eMachineArea	: E_MachineArea;
+END_VAR
+VAR
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR ni := 0 TO nMaxEvents DO	
+	
+	IF aRaisedEvents[0].ePriority = E_Priority.ePriority_none THEN
+		RETURN;
+	END_IF
+	
+	IF aRaisedEvents[0].eMachineArea = eMachineArea OR eMachineArea = E_MachineArea.none THEN
+		Quitt(0);
+	END_IF
+	
+END_FOR
+	
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="QuittEvent" Id="{bcc9fd09-646f-4150-acf3-bdb5cf9a1677}" FolderPath="Commands\">
+      <Declaration><![CDATA[/// sets the corresponding notification item flag raised
+{attribute 'object_name' := 'QuittEvent'}
+METHOD QuittEvent
+VAR_INPUT
+	stEvent			: ST_Event;
+END_VAR
+VAR
+	ni				: INT;
+	cmpEvent		: ST_Event;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[cmpEvent := stEvent;
+
+FOR ni := 0 TO nMaxEvents DO	
+			
+	IF MEMCMP(ADR(cmpEvent), ADR(aRaisedEvents[ni]), SIZEOF(St_EventBase)) = 0 THEN
+		
+		// Copy Event from Raised to Quit Table
+		MEMMOVE(ADR(aQuitEvents[1]), ADR(aQuitEvents[0]), TO_UDINT(nMaxEvents-1)*SIZEOF(ST_Event));
+		aQuitEvents[0] := aRaisedEvents[ni];
+		aQuitEvents[0].dtQuitTime := Statics.dtNow;	
+
+		// Delete Event from Raised Table
+		MEMMOVE(ADR(aRaisedEvents[ni]), ADR(aRaisedEvents[ni+1]), TO_UDINT(nMaxEvents-ni)*SIZEOF(ST_Event));
+	
+	END_IF
+	
+END_FOR
+	
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{9b207930-4880-4b44-9377-44297813bd32}">
+      <Declaration><![CDATA[/// resets all notification flags and reset-needed state 
+{attribute '' := ''}
+{attribute 'object_name' := 'Reset'}
+METHOD Reset
+VAR
+	ResetEvent	: st_Event;
+	ii: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// reset all items in default notification array
+MEMSET(ADR(aRaisedEvents), 0, SIZEOF(aRaisedEvents));
+MEMSET(ADR(aQuitEvents), 0, SIZEOF(aQuitEvents));
+
+nErrorCount		:= 0;
+nWarningCount	:= 0;
+nInfoCount		:= 0;
+
+eLogLevel			:= eLogLevelInformation;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{42c9ae08-3004-49e9-90e7-ac363a167446}">
+      <Declaration><![CDATA[METHOD Run
+VAR	/// private variabe
+	ii			: INT;	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Visu();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEvent" Id="{579baa7a-c985-434a-9d2c-3e9d8adb5209}" FolderPath="Commands\">
+      <Declaration><![CDATA[/// sets the corresponding notification item flag raised
+{attribute 'object_name' := 'SetEvent'}
+METHOD SetEvent 
+VAR_INPUT
+	/// item to set
+	stEvent			: ST_Event;
+END_VAR
+
+VAR
+	ni				: INT;
+	cmpEvent		: ST_EventBase;
+	presentEvent	: ST_EventBase;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF TO_INT(stEvent.ePriority) < TO_INT(eLogLevel) THEN
+	RETURN;
+END_IF
+
+IF stEvent.eEventID = E_Event.eEvent_none THEN
+
+	IF 	stEvent.ePriority = E_Priority.ePriority_fault OR stEvent.ePriority = E_Priority.ePriority_faultEmergency OR stEvent.ePriority = E_Priority.ePriority_faultFastStop THEN
+		stEvent.eEventID := E_Event.eEvent_generalError;
+	ELSIF 	stEvent.ePriority = E_Priority.ePriority_warning THEN
+		stEvent.eEventID := E_Event.eEvent_generalWarning;
+	ELSIF 	stEvent.ePriority = E_Priority.ePriority_info THEN
+		stEvent.eEventID := E_Event.eEvent_generalInfo;
+	END_IF 
+	
+END_IF
+
+cmpEvent := stEvent;
+
+// look for Same Event
+FOR ni:=0 TO nMaxEvents DO
+	
+	// Event not in List
+	IF aRaisedEvents[ni].ePriority = E_Priority.ePriority_none THEN
+		EXIT;
+	END_IF
+	
+	presentEvent := aRaisedEvents[ni];
+	
+	// Same Event in List
+	IF 	presentEvent.eComponent = 	cmpEvent.eComponent AND_THEN
+		presentEvent.ePriority = 	cmpEvent.ePriority AND_THEN 
+		presentEvent.nComponentID = cmpEvent.nComponentID AND_THEN
+		//ADR(presentEvent.refComponent) = ADR(cmpEvent.refComponent) AND_THEN 
+		presentEvent.sDescription = cmpEvent.sDescription AND_THEN
+		presentEvent.eEventID =     cmpEvent.eEventID AND_THEN
+		presentEvent.bSignalize =   cmpEvent.bSignalize AND_THEN
+		presentEvent.sPosition =    cmpEvent.sPosition AND_THEN
+		presentEvent.eMachineArea = cmpEvent.eMachineArea THEN
+		
+			// insert new Event on First Place
+			MEMMOVE(ADR(aRaisedEvents[1]), ADR(aRaisedEvents[0]), TO_UDINT(ni)*SIZEOF(stEvent));
+			aRaisedEvents[0] := stEvent;
+			aRaisedEvents[0].dtRaiseTime := Statics.dtNow;
+			RETURN;
+			
+	END_IF
+
+	
+END_FOR
+
+
+// insert new Event on First Place
+MEMMOVE(ADR(aRaisedEvents[1]), ADR(aRaisedEvents[0]), TO_UDINT(nMaxEvents-1)*SIZEOF(stEvent));
+aRaisedEvents[0] := stEvent;
+aRaisedEvents[0].dtRaiseTime := Statics.dtNow;
+
+CASE aRaisedEvents[0].ePriority OF
+	
+	E_Priority.ePriority_fault, E_Priority.ePriority_faultEmergency, E_Priority.ePriority_faultFastStop:
+		nErrorCount := nErrorCount + 1;
+	
+	E_Priority.ePriority_info:
+		nInfoCount := nInfoCount + 1;
+	
+	E_Priority.ePriority_warning:
+		nWarningCount := nWarningCount + 1;
+
+END_CASE
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UcControl" Id="{5665beb2-916a-4304-b13b-e78e90a122e0}" FolderPath="Visualization\">
+      <Declaration><![CDATA[METHOD UcControl : BOOL
+VAR_IN_OUT
+	stVisu			: Uc_EventLogControl;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stVisu.nErrorCount		:= nErrorCount;
+stVisu.nWarningCount	:= nWarningCount;
+stVisu.nInfoCount		:= nInfoCount;
+
+stVisu.nErrorColor 		:= colEventError;
+stVisu.nWarningColor 	:= colEventWarning;	
+stVisu.nInfoColor 		:= colEventInfo;	
+
+IF stVisu.bQuittAll THEN
+	stVisu.bQuittAll := FALSE;
+	QuittAll(E_MachineArea.none);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UcTable" Id="{a96c2cf2-83a6-45b2-94a0-6913e8f4cdc4}" FolderPath="Visualization\">
+      <Declaration><![CDATA[METHOD UcTable : BOOL
+VAR_IN_OUT
+	stVisu				: Uc_EventLogTable;
+	stControl			: Uc_EventLogControl;
+END_VAR
+
+VAR
+	ni					: INT;
+	nj					: INT;
+END_VAR
+
+VAR_INST
+	aOldRaisedEvents	: ARRAY[0..nMaxEvents] OF ST_Event;
+	RESULT				: ARRAY[0..nMaxEvents] OF ST_EventOutput;		
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF stVisu.bQuitt THEN
+	stVisu.bQuitt := FALSE;
+	Quitt(stVisu.nIdx);
+END_IF
+
+
+IF MEMCMP(ADR(aRaisedEvents), ADR(aOldRaisedEvents), SIZEOF(aRaisedEvents)) = 0 AND NOT stControl.bFilterChanged THEN
+	RETURN;
+END_IF
+
+stControl.bFilterChanged := FALSE;
+
+MEMCPY(ADR(aOldRaisedEvents), ADR(aRaisedEvents), SIZEOF(aRaisedEvents));
+MEMSET(ADR(stVisu.astEvents), 0, SIZEOF(stVisu.astEvents));
+
+FOR nj:=0 TO nMaxEvents DO
+	stVisu.astEvents[nj].nIdx := -1;	
+END_FOR
+
+nj:=0;
+
+FOR ni:=0 TO nMaxEvents DO
+
+		// FILTER
+		IF aRaisedEvents[ni].ePriority = ePriority_none THEN
+			CONTINUE;
+		END_IF
+	
+		IF NOT stControl.bErrorFilter AND aRaisedEvents[ni].ePriority = E_Priority.ePriority_fault THEN
+			CONTINUE;
+		END_IF
+		
+		IF NOT stControl.bErrorFilter AND aRaisedEvents[ni].ePriority = E_Priority.ePriority_faultEmergency THEN
+			CONTINUE;
+		END_IF
+		
+		IF NOT stControl.bErrorFilter AND aRaisedEvents[ni].ePriority = E_Priority.ePriority_faultFastStop THEN
+			CONTINUE;
+		END_IF
+		
+		IF NOT stControl.bWarningFilter AND aRaisedEvents[ni].ePriority = E_Priority.ePriority_warning THEN
+			CONTINUE;
+		END_IF
+		
+		IF NOT stControl.bInfoFilter AND aRaisedEvents[ni].ePriority = E_Priority.ePriority_info THEN
+			CONTINUE;
+		END_IF
+		
+		IF stControl.eAreaFilter <> E_MachineArea.None AND aRaisedEvents[ni].eMachineArea <> stControl.eAreaFilter THEN
+			CONTINUE;
+		END_IF
+		
+		
+		// add notification to result
+		stVisu.astEvents[nj].sDescription := aRaisedEvents[ni].sDescription;
+		stVisu.astEvents[nj].sPosition := aRaisedEvents[ni].sPosition;
+		stVisu.astEvents[nj].sRaiseInfo := CONCAT3(TO_STRING(aRaisedEvents[ni].eEventID),' | ',  F_DT_TO_STRING(aRaisedEvents[ni].dtRaiseTime));	
+		stVisu.astEvents[nj].nIdx := ni;
+		
+		CASE  aRaisedEvents[ni].ePriority OF
+			
+			ePriority_none :
+				stVisu.astEvents[nj].nPriorityColor := colEventNone;
+				stVisu.astEvents[nj].sPriority := "";				
+			ePriority_info :
+				stVisu.astEvents[nj].nPriorityColor := colEventInfo;
+				stVisu.astEvents[nj].sPriority := "ℹ";
+			ePriority_warning :
+				stVisu.astEvents[nj].nPriorityColor := colEventWarning;
+				stVisu.astEvents[nj].sPriority := "⚠";
+			ePriority_fault :
+				stVisu.astEvents[nj].nPriorityColor := colEventError;
+				stVisu.astEvents[nj].sPriority := "❎";
+			ePriority_faultFastStop :
+				stVisu.astEvents[nj].nPriorityColor := colEventError;
+				stVisu.astEvents[nj].sPriority := "❎";
+			ePriority_faultEmergency :
+				stVisu.astEvents[nj].nPriorityColor := colEventError;
+				stVisu.astEvents[nj].sPriority := "❌";
+			
+		END_CASE
+		
+		nj := nj + 1;	
+		
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Visu" Id="{280052c8-3c17-48b2-8828-8b216a595955}">
+      <Declaration><![CDATA[METHOD Visu
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[UcControl(stVisu.ucControl);
+UcTable(stVisu.ucTable, stVisu.ucControl);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="WarningCount" Id="{77364caf-bc20-4b7f-a75e-c8d5c26a2407}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY WarningCount : INT]]></Declaration>
+      <Get Name="Get" Id="{28c707bf-4d4a-4a51-8456-59311ed74149}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[WarningCount := nWarningCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

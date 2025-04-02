@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaStorage" Id="{adbdc0ab-b9f5-4855-86de-ec4993fc6338}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaStorage EXTENDS TcoCore.TcoComponent
+
+VAR_INPUT
+	ref : REFERENCE TO TcaStorageRef;
+END_VAR
+
+VAR	
+	_Dock : BOOL;
+	_Carrier : TcaCarrier(THIS^);
+	_CarrierSensor : TcoDi(THIS^);	
+	_CarrierPresent : BOOL;
+
+	_Task : TcoCore.TcoTask(THIS^);	
+	_cmd : eTcaStorageCmd;
+	
+	// Carrier Setting
+	fbCarrierTemplate	: TcaCarrier(THIS^);	
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref) THEN
+	_Dock := FALSE;
+ELSE
+	_Dock := TRUE;
+	_CarrierSensor(inoSignal := ref.Sensor);
+END_IF
+
+
+IF _Task.Done THEN
+	_Task.Restore();
+END_IF
+
+
+IF _Task.Execute() THEN
+	RETURN;
+END_IF
+
+
+CASE _cmd OF
+	
+	eTcaStorageCmd.FillCarrier:
+		AddCarrier().FillWithWorkpieces_InitialState();
+			
+	eTcaStorageCmd.RemoveCarrier:
+		RemoveCarrier();
+	
+	eTcaStorageCmd.EmptyCarrier:
+		AddCarrier().EmptyPlaces();
+	
+END_CASE
+	
+
+_Task.DoneWhen(TRUE);
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Folder Name="Operations" Id="{0d9d7aea-b4a4-458e-b42d-8e40bf8aa761}" />
+    <Folder Name="Properties" Id="{601d726d-4565-4b3c-86fa-05ba78fa390f}" />
+    <Folder Name="Tasks" Id="{5ae2a9d4-1f46-4e18-bdf6-73c7fcb30846}" />
+    <Method Name="AddCarrier" Id="{615c98f7-b5f8-4b1e-9e24-1fa1c511ed65}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD AddCarrier : REFERENCE TO TcaCarrier
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_CarrierPresent := TRUE;
+_Carrier.Restore();
+AddCarrier REF= _Carrier;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="CarrierPresent" Id="{f89f5b0f-f321-451d-acf3-71e48130cfd0}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY CarrierPresent : BOOL]]></Declaration>
+      <Get Name="Get" Id="{5da2aca9-3120-46ce-9bc1-6e8430ccbb54}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CarrierPresent := _CarrierSensor.Signal;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RemoveCarrier" Id="{498c08c5-7e6c-491a-b470-1cb7bf5317e2}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD RemoveCarrier : REFERENCE TO TcaCarrier
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_CarrierPresent := FALSE;
+_Carrier.Restore();
+RemoveCarrier REF= _Carrier;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restore" Id="{55f00be3-3904-4111-ad40-1755c9e1a58b}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Restores this instance to the Ready state. Can be called explicitly or from within one of the restore mechanisms.	
+		</summary>			
+	</docu>	
+~*)
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{c4d0b5e5-96b9-4510-8d72-a260e7c5a36a}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Carrier.Service();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

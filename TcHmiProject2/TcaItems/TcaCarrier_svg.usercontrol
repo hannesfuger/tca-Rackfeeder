@@ -1,0 +1,157 @@
+<div id="TcaCarrierSVG_svg" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width-unit="%" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500" data-tchmi-right="0" data-tchmi-bottom="0">
+
+
+<div id="TcHmiHtmlHost_svg" data-tchmi-type="TcHmi.Controls.System.TcHmiHtmlHost" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-right="0" data-tchmi-bottom="0">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseClick",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "console.log('svg');",
+          "// Get the Object by ID",
+          "var mySVG = TcHmi.Controls.get('TcHmiHtmlHost_svg').__element[0].firstElementChild.firstElementChild;",
+          "console.log(mySVG);",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) {",
+          "    if (data.error === TcHmi.Errors.NONE) {",
+          "        // Handle result value... ",
+          "        var value = data.value; ",
+          "        var svgItem = mySVG.getElementsByClassName('cls-3')[0];",
+          "\t\tsvgItem.textContent = value;   ",
+          "    }});",
+          "\t",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) {",
+          "    if (data.error === TcHmi.Errors.NONE) {",
+          "        // Handle result value... ",
+          "        var value = data.value; ",
+          "\t\tvar svgItem = mySVG.getElementsByClassName('cls-3')[1];",
+          "\t\tsvgItem.textContent = value;",
+          "    }});"
+        ],
+        "asyncWait": true,
+        "injectContextObject": false,
+        "waitMode": "Synchronous"
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "console.log('svg');",
+          "// Get the Object by ID",
+          "var mySVG = TcHmi.Controls.get('TcHmiHtmlHost_svg').__element[0].firstElementChild.firstElementChild;",
+          "console.log(mySVG);",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) {",
+          "    if (data.error === TcHmi.Errors.NONE) {",
+          "        // Handle result value... ",
+          "        var value = data.value; ",
+          "        var svgItem = mySVG.getElementsByClassName('cls-3')[0];",
+          "\t\tsvgItem.textContent = value;   ",
+          "    }});",
+          "\t",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) {",
+          "    if (data.error === TcHmi.Errors.NONE) {",
+          "        // Handle result value... ",
+          "        var value = data.value; ",
+          "\t\tvar svgItem = mySVG.getElementsByClassName('cls-3')[1];",
+          "\t\tsvgItem.textContent = value;",
+          "    }});"
+        ],
+        "asyncWait": true,
+        "injectContextObject": false,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+</script>
+
+<svg id="Ebene_2" data-name="Ebene 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 515.29 60.03">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #2fac66;
+            }
+
+            .cls-2 {
+                fill: #cfcece;
+                stroke: #777;
+                stroke-linecap: square;
+                stroke-linejoin: bevel;
+                stroke-width: 10px;
+            }
+
+            .cls-3 {
+                fill: #1d1d1b;
+                font-family: MyriadPro-Regular, 'Myriad Pro';
+                font-size: 48px;
+            }
+
+            .cls-4 {
+                fill: #1d71b8;
+            }
+        </style>
+    </defs>
+    <g id="Ebene_1-2" data-name="Ebene 1">
+        <path class="cls-2" d="M510.29,25.32h0c0,16.41-11.04,29.71-24.65,29.71H29.65c-13.62,0-24.65-13.3-24.65-29.71h0" />
+        <circle class="cls-1" cx="45.74" cy="25.32" r="20.93" />
+        <circle class="cls-4" cx="214.76" cy="25.32" r="20.93" />
+        <text class="cls-3" transform="translate(75.67 40.18)"><tspan x="0" y="0">000</tspan></text>
+        <text class="cls-3" transform="translate(243.73 40.7)"><tspan x="0" y="0">000</tspan></text>
+    </g>
+</svg>
+
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%i%test%/i%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "console.log('svg');",
+          "// Get the Object by ID",
+          "var mySVG = TcHmi.Controls.get('TcHmiHtmlHost_svg').__element[0].firstElementChild.firstElementChild;",
+          "console.log(mySVG);",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) {",
+          "    if (data.error === TcHmi.Errors.NONE) {",
+          "        // Handle result value... ",
+          "        var value = data.value; ",
+          "        var svgItem = mySVG.getElementsByClassName('cls-3')[0];",
+          "\t\tsvgItem.textContent = value;   ",
+          "    }});",
+          "\t",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) {",
+          "    if (data.error === TcHmi.Errors.NONE) {",
+          "        // Handle result value... ",
+          "        var value = data.value; ",
+          "\t\tvar svgItem = mySVG.getElementsByClassName('cls-3')[1];",
+          "\t\tsvgItem.textContent = value;",
+          "    }});"
+        ],
+        "asyncWait": true,
+        "injectContextObject": false,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+</script>
+</div>

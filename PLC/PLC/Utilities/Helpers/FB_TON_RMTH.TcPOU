@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_TON_RMTH" Id="{2b90bb7f-8e21-4781-89b1-09c4fdde7e91}" SpecialFunc="None">
+    <Declaration><![CDATA[///
+///	Dieser Baustein verzögert ein Signal und gibt positive und negative Flanke dieses Signals aus
+///	von Roland Ertl / www.rmth.at / 2009
+FUNCTION_BLOCK FB_TON_RMTH
+VAR_INPUT
+	///	Signal	
+	IN: BOOL;
+	///	Verzögerungszeit	
+	PT: TIME := TIME#100ms;
+END_VAR
+VAR_OUTPUT
+	///	Verzögertes Signal	
+	Q: BOOL;
+	///	Flanken -> nur für 1 Zyklus aktiv	
+	Qr: BOOL;
+	///	Flanken -> nur für 1 Zyklus aktiv	
+	Qf: BOOL;
+END_VAR
+VAR
+	ton_On: TON;
+	rtrig_Pos: R_TRIG;
+	ftrig_Neg: F_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ton_On(IN:= IN , PT:= PT , Q=> Q , ET=> );
+rtrig_Pos(CLK:= ton_On.Q , Q=> Qr );
+ftrig_Neg(CLK:= ton_On.Q , Q=> Qf);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Concat4" Id="{00956491-9401-41fc-86ee-85381d872793}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Concat4 : T_MaxString
+VAR_INPUT
+	sExpression1: T_maxString;
+	sExpression2: T_maxString;
+	sExpression3: T_maxString;
+	sExpression4: T_maxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Concat4 := CONCAT(sExpression1, sExpression2);
+Concat4 := CONCAT(Concat4, sExpression3);
+Concat4 := CONCAT(Concat4, sExpression4);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaRackFeeder" Id="{491823f4-bf55-40f2-9dc6-19dc420c158e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaRackFeeder EXTENDS TcoCore.TcoComponent
+
+VAR_INPUT
+	ref : REFERENCE TO TcaRackFeederRef;
+END_VAR
+
+VAR
+	_status : TcaRackFeederStatus;
+	_config : TcaRackFeederConfig;
+	_service : TcaRackFeederService;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Functions" Id="{a73bda7e-8f56-47cd-9168-de5eeaca9d2a}" />
+    <Folder Name="Operations" Id="{1e5d19b5-5904-4c05-b625-267e4ebbd52f}" />
+    <Folder Name="States" Id="{ef83b66c-6eb7-4a8e-9039-66ce8f0a6986}" />
+    <Folder Name="Tasks" Id="{e91973e5-a009-4993-a29b-89f80771f7bd}" />
+    <Property Name="Config" Id="{6c22c004-cb16-46db-8ade-11d87e25f356}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaRackFeederConfig]]></Declaration>
+      <Get Name="Get" Id="{169e9214-7036-41fd-bb75-2895b74d4f38}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config Ref= _config;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a53cf5ef-b155-44ab-90a1-87d93653f698}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_config := Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Restore" Id="{a85fb066-a6cd-4a24-99b9-124aeeec9f21}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{551788e3-8e5a-4a29-a0a4-0a0bd04f6a1f}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Status" Id="{bdd2a1a1-45b9-4ddc-b040-b6a9716631da}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaRackFeederStatus]]></Declaration>
+      <Get Name="Get" Id="{320fb7fe-559d-4c79-ba78-5142752ba8ba}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

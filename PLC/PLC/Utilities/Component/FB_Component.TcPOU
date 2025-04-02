@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Component" Id="{c18f24bd-a664-4b00-87c6-35388a9e2c13}" SpecialFunc="None">
+    <Declaration><![CDATA[/// Abstract base FB for components
+{attribute 'reflection' := ''}
+FUNCTION_BLOCK ABSTRACT FB_Component IMPLEMENTS ITF_Component
+
+VAR
+	/// path of this FB
+	{attribute 'no_init' := ''}
+	{attribute 'instance-path' := ''}
+	sPath						: STRING;	
+	/// Unique ID
+	nId							: INT;		
+	/// component type
+	eTyp						: E_ComponentType;
+	/// component name
+	sName						: STRING;
+	/// BMK name
+	sBMK						: STRING;
+	/// Area
+	eMachineArea				: E_MachineArea;			
+	
+	/// component enable flag
+	bEnable						: BOOL := FALSE;
+	/// component state
+	eState						: E_ComponentState;	
+	
+	/// Safety
+	refEStop					: REFERENCE TO FB_EmergencyStop;
+	aitfSafetyComp				: ARRAY[0..COMP.nMaxComponents] OF ITF_SafetyComp;
+	bAccessPermit				: BOOL;
+
+
+	/// Others
+	itfEventLog					: ITF_EventLog;
+	refSetting					: REFERENCE TO ST_MachineSetting;
+
+	nChangeToggle				: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// 
+/// HF/www.asma.at/02.2022
+/// 
+]]></ST>
+    </Implementation>
+    <Folder Name="Abstract" Id="{74ace20b-84be-4a97-82c0-d348ab638f2b}" />
+    <Folder Name="Properties" Id="{2d8306c8-917b-4b20-9aa7-5415be6cad83}" />
+    <Folder Name="Utilities" Id="{18cd2ad0-5a5a-4e5f-92e4-b0238b542ab5}" />
+    <Property Name="AccessPermit" Id="{01de2613-1fdc-4238-9d0f-b61744631c69}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AccessPermit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d0f0ca6c-2e80-4b7b-abfc-89db46355afd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AccessPermit := bAccessPermit;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Base" Id="{2713eafa-f1d8-4a9a-bf25-6ca9cb07ffb7}">
+      <Declaration><![CDATA[/// RunSuper component logic
+{attribute 'object_name' := 'Base'}
+METHOD Base
+
+VAR
+	ni			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// DEFAULT STATE: set state to running
+IF eState = E_ComponentState.ready THEN
+	eState := E_ComponentState.running;
+END_IF
+
+//Eventlog
+IF itfEventLog = 0 THEN
+	WriteError(E_Event.eEvent_none, 'HMI Referenz nicht gesetzt!');
+	eState := E_ComponentState.error;
+	RETURN;
+END_IF
+
+
+Visu();
+
+IF NOT Enable THEN
+	RETURN;
+END_IF
+
+Run();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="BMK" Id="{3e8ee465-5189-4f2f-9d15-0d6a660f5497}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY BMK : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{01c92174-19fd-4b80-81d2-175c5750d2bc}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[BMK := sBMK;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b8ef3cfc-b534-4fcd-97bc-b47816b7b27a}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[sBMK := BMK;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="ChangeToggle" Id="{3b0a0586-d96d-42a6-bdb9-f4e6fc39e69e}" FolderPath="Abstract\">
+      <Declaration><![CDATA[METHOD ChangeToggle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nChangeToggle := nChangeToggle + 1;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="EmergencyStop" Id="{d611fe1a-6ee7-493e-8715-510afc3d8a9b}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY EmergencyStop : REFERENCE TO FB_EmergencyStop]]></Declaration>
+      <Get Name="Get" Id="{3be43057-3b95-4322-8a51-03383bc7aadd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __ISVALIDREF(refEStop) THEN
+	EmergencyStop REF= refEStop;
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c9d09d71-eada-43fe-8284-0a110c5639b3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[refEStop REF= EmergencyStop;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Enable" Id="{ad08f73b-d076-4ffc-a47f-109b9002f3f0}" FolderPath="Properties\">
+      <Declaration><![CDATA[/// Get's or set's a value indicating whether this component is active or not.
+PROPERTY Enable : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{8dd8e62e-65cf-4eae-a985-79199664088e}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Enable := bEnable;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1d543709-b1d6-4f2d-af6c-97246f4599c2}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bEnable := Enable;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="FB_init" Id="{f2d62d5e-1f23-4c7a-9f92-516abe433c20}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL := TRUE; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL := TRUE;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nId := nId + 1;
+itfEventLog := GVL.fbEventLog;
+refSetting REF= GVL.stSetting;
+refEStop REF= GVL.fbEStop;
+Init();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Halt" Id="{b88e9e37-d0ce-4cec-931a-fe7e44e673be}">
+      <Declaration><![CDATA[/// Halt component logic
+{attribute 'object_name' := 'Halt'}
+METHOD Halt : E_OperationResult
+
+VAR_INPUT
+	StoppCategory					: INT;			// 0...ungesteuertes Stillsetzen     1...gesteuertes Stillsetzen     2...gesteuertes Stillsetzen ohne Trennung der Energiezufuhr							
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bAccessPermit := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ID" Id="{7adf225e-7442-4f77-874e-8de91565912f}" FolderPath="Properties\">
+      <Declaration><![CDATA[/// Unique component ID (cam be used as index: P_ComponentPool.aComponents[eID]...)
+PROPERTY ID : INT
+]]></Declaration>
+      <Get Name="Get" Id="{ddac6993-c733-47b1-a445-f075002f8c38}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ID := nId;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9987bba1-8297-46ec-8910-10e8ca7a5cd6}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nId := Id;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Init" Id="{f1064f72-96c7-4897-90d8-0bc004b05e95}">
+      <Declaration><![CDATA[/// Init component logic
+{attribute 'object_name' := 'Init'}
+METHOD Init : E_OperationResult]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MachineArea" Id="{5002829a-7be9-4fd2-bdb1-4f471524ec33}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY MachineArea : E_MachineArea]]></Declaration>
+      <Get Name="Get" Id="{b1107982-d402-48e8-82e1-34f3ffa3cd58}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MachineArea := eMachineArea;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{3ad4b5e6-3b5e-468e-b88a-52a5ed7a2777}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eMachineArea := MachineArea;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Name" Id="{97507556-cbd6-4656-a4b4-7ef03ea2ff1e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Name : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{5bc1be01-8584-43a7-b2c4-089d7b7d1290}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Name := sName;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cdf272ad-e29a-4767-ad58-2d41f72fa33a}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[sName := Name;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Path" Id="{f15c3da9-69b6-42be-b750-91438e4fc191}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Path : String]]></Declaration>
+      <Get Name="Get" Id="{c3c5d9a1-7c3c-440f-abee-27056ac72a80}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Path := sPath;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RegisterSafetyComp" Id="{51549f56-0d17-4c9e-b529-7b8edc0a6829}" FolderPath="Utilities\">
+      <Declaration><![CDATA[METHOD RegisterSafetyComp : BOOL
+VAR_INPUT
+	SafetyComp				: ITF_SafetyComp;
+END_VAR
+VAR
+	ni						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR ni:= 0 TO COMP.nMaxComponents DO
+
+	IF aitfSafetyComp[ni] = SafetyComp THEN
+		RETURN;
+	END_IF
+	
+	IF aitfSafetyComp[ni] <> 0 THEN
+		CONTINUE;
+	END_IF
+	
+	aitfSafetyComp[ni] := SafetyComp;
+	aitfSafetyComp[ni].RegisterComponent(THIS^);
+	RETURN;
+	
+END_FOR	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{53e23aa0-51c1-4eb8-a9a2-a57148f04799}">
+      <Declaration><![CDATA[/// ResetSuper component logic
+{attribute 'object_name' := 'Reset'}
+METHOD Reset : E_OperationResult]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// DEFAULT STATE: set state to ready
+eState := E_ComponentState.ready;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restart" Id="{89d91b38-868a-44ea-bfdd-7a93d6d9b0b1}">
+      <Declaration><![CDATA[/// RestartSuper component logic
+{attribute 'object_name' := 'Restart'}
+METHOD Restart : E_OperationResult
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bAccessPermit := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{bef95d86-7c5e-4a90-8287-2db60c403500}" FolderPath="Abstract\">
+      <Declaration><![CDATA[/// RunSuper component logic
+{attribute 'object_name' := 'Run'}
+METHOD Abstract Run
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SafeEnvironment" Id="{4797286a-b210-4fd0-a257-36eb9f2ddd9c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY SafeEnvironment : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f4d0eabc-a86a-4c8c-a922-4e2d0913b2c3}">
+        <Declaration><![CDATA[VAR
+	ni				: INT;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SafeEnvironment := TRUE;
+
+FOR ni:= 0 TO COMP.nMaxComponents DO
+	
+	IF aitfSafetyComp[ni] <> 0 AND_THEN NOT aitfSafetyComp[ni].Safe THEN
+		SafeEnvironment := FALSE;
+	END_IF
+
+END_FOR]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="State" Id="{d68fb6ae-0af8-44c3-bb4d-32b1388481b9}" FolderPath="Properties\">
+      <Declaration><![CDATA[/// Get's value representing the component state.
+PROPERTY State : E_ComponentState
+]]></Declaration>
+      <Get Name="Get" Id="{b4088dcc-e43a-4064-b0df-93c47386d3d2}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := eState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="StateAsString" Id="{bffb55f1-1ef3-4369-ab66-e92ce785efbd}" FolderPath="Properties\">
+      <Declaration><![CDATA[/// Get's value representing the component state.
+PROPERTY StateAsString : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{3dd43a60-ec91-4906-860b-12629fae2ae4}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CASE eState OF
+
+	E_ComponentState.none :
+		StateAsString := 'undefiniert';
+	/// Component is resetting
+	E_ComponentState.resetting:
+		StateAsString := 'wird zurückgesetzt';
+	/// Component is ready
+	E_ComponentState.ready:
+		StateAsString := 'ist bereit';
+	/// Component is running
+	E_ComponentState.running:
+		StateAsString := 'wird ausgeführt';
+	/// Component has error
+	E_ComponentState.error:
+		StateAsString := 'ist fehlerhaft';
+
+END_CASE]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Typ" Id="{987dd2cf-7ace-4cc4-856e-8b41f907e2c3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Typ : E_ComponentType]]></Declaration>
+      <Get Name="Get" Id="{9fd10945-acfb-45ad-818f-6e98f300ba25}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Typ := eTyp;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Visu" Id="{ccb64397-b3bd-44ad-a340-d5df5374177c}" FolderPath="Abstract\">
+      <Declaration><![CDATA[/// Visu component logic
+{attribute 'object_name' := 'Visu'}
+METHOD Abstract Visu
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="VisuBase" Id="{d0c2b612-1946-438d-9cf4-b5c5d137c98e}">
+      <Declaration><![CDATA[METHOD VisuBase
+VAR_IN_OUT
+	stCompVisu					: ST_ComponentVisu;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Visu
+stCompVisu.bEnable := bEnable;
+stCompVisu.bAccessPermit := AccessPermit;
+stCompVisu.bError := eState = E_Componentstate.error;
+stCompVisu.bRunning := eState = E_Componentstate.running;
+stCompVisu.eState := eState;
+stCompVisu.sName := sName;
+
+IF stCompVisu.bReset THEN
+	stCompVisu.bReset := FALSE;	
+	Reset();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WriteError" Id="{a92622fe-49fc-4553-8379-a99997764084}" FolderPath="Utilities\">
+      <Declaration><![CDATA[METHOD WriteError
+VAR_INPUT
+	Event			: E_Event;
+	Description 	: T_MaxString;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WriteEvent(ePriority_fault, Event, Description, TRUE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WriteEvent" Id="{583be540-6251-46c4-8656-e5b754778d2f}" FolderPath="Utilities\">
+      <Declaration><![CDATA[METHOD WriteEvent
+VAR_INPUT
+	Priority		: E_Priority;
+	Event			: E_Event;
+	Description 	: T_MaxString;
+	Signalize		: BOOL;
+END_VAR
+VAR
+	tmpItem: ST_Event;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// chk
+IF itfEventLog = 0 THEN
+	RETURN;
+END_IF
+
+tmpItem.eComponent := eTyp;
+tmpItem.eEventID := Event;
+tmpItem.eMachineArea := eMachineArea;
+tmpItem.sPosition := sBMK;
+tmpItem.ePriority := Priority;
+tmpItem.nComponentID := nId;
+tmpItem.sDescription := Description;
+tmpItem.bSignalize := Signalize;
+tmpItem.refComponent REF= THIS^;
+
+itfEventLog.SetEvent(tmpItem);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WriteInfo" Id="{c2be943a-77e2-432b-be2b-8003842ed1ca}" FolderPath="Utilities\">
+      <Declaration><![CDATA[METHOD WriteInfo
+VAR_INPUT
+	Event			: E_Event;
+	Description 	: T_MaxString;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WriteEvent(ePriority_info, Event, Description, FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WriteWarning" Id="{05cae7cb-6c8d-4876-827e-346c099d6a8b}" FolderPath="Utilities\">
+      <Declaration><![CDATA[METHOD WriteWarning
+VAR_INPUT
+	Event			: E_Event;
+	Description 	: T_MaxString;
+	Signal			: BOOL;
+END_VAR
+VAR
+	tmpItem			: ST_Event;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WriteEvent(ePriority_warning, Event, Description, Signal);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

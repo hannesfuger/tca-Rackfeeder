@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITcaCarrier" Id="{9e0cc9a0-5bab-475e-9e88-b5fff12293c9}">
+    <Declaration><![CDATA[INTERFACE ITcaCarrier
+]]></Declaration>
+    <Folder Name="Functions" Id="{1e800a71-c285-4ec9-9aa6-ecbd6bf9086d}" />
+    <Folder Name="Operations" Id="{30674b05-788f-4a94-9200-886c1882f18d}" />
+    <Method Name="ChangeConfig" Id="{2a55adf0-b717-49e0-a848-988923e4f914}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD ChangeConfig : ITcoTaskStatus 
+VAR_INPUT
+	inConfig : TcaCarrierConfig;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Config" Id="{cd010a2a-b5b9-4e87-a39d-5fe0674c29bd}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaCarrierConfig]]></Declaration>
+      <Get Name="Get" Id="{ec0e878f-08bd-4b55-9d65-c89e852a1228}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{a6105926-8752-4b58-87d2-14613a5147b1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="CoordinatesOf" Id="{353b1b64-e9b2-4b07-b088-df984ca08abb}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD CoordinatesOf : ST_Coordinate
+VAR_INPUT
+	WorkpiecePlace		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="CountEmptyPlaces" Id="{435ff8d8-5c92-4d60-8b6a-16590e4a2b4f}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD CountEmptyPlaces : INT
+]]></Declaration>
+    </Method>
+    <Method Name="CountPlacesByStatus" Id="{dc1e3558-9357-40d6-ae2b-69783cdf18c8}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD CountPlacesByStatus : INT
+VAR_INPUT
+	nStatus			: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="EmptyPlaces" Id="{564d20b8-bd09-46a8-9e1b-2f510c529673}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD EmptyPlaces : ITcoTaskStatus 
+]]></Declaration>
+    </Method>
+    <Method Name="FillWithWorkpieces_CustomState" Id="{4acdadd2-be97-494c-acce-ffdb37c9c70a}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD FillWithWorkpieces_CustomState : ITcoTaskStatus
+VAR_INPUT
+	Status		: eTcaWorkpiecePlaceProgress;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="FillWithWorkpieces_FinalState" Id="{581aa0bb-30b5-4f4b-98b6-6be31673be6c}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD FillWithWorkpieces_FinalState : ITcoTaskStatus
+VAR_INPUT
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="FillWithWorkpieces_InitialState" Id="{605f3eb6-38ee-413e-aa90-8877d2b07d06}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD FillWithWorkpieces_InitialState : ITcoTaskStatus
+VAR_INPUT
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="FindPlace" Id="{9e1f683f-bc34-41fe-9ad4-ad4cf83ca3f4}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD FindPlace : REFERENCE TO TcaWorkpiecePlace //-1..no Position found
+
+VAR_INPUT
+	Status		: eTcaWorkpiecePlaceStatus;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="GetPlaceReference" Id="{b4a1ebfa-681f-488c-a804-1d0346bbae1f}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD GetPlaceReference : REFERENCE TO TcaWorkpiecePlace
+VAR_INPUT
+	nIndexNr		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="RefreshStatus" Id="{5eb8017c-eecb-44c7-a338-9771d947a54d}">
+      <Declaration><![CDATA[METHOD RefreshStatus : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="ResetPlaces" Id="{eab0eccc-6895-4c7e-81f9-6fe2d537e528}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD ResetPlaces : ITcoTaskStatus
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

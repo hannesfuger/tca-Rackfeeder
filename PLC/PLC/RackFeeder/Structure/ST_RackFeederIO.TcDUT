@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_RackFeederIO" Id="{2dc2be65-62a3-4716-8617-850d6d1a27f4}">
+    <Declaration><![CDATA[TYPE ST_RackFeederIO :
+STRUCT	
+	ioAxisTraverse					: ST_AxisIO;
+	ioAxisLift						: ST_AxisIO;
+	ioAxisTelescope					: ST_AxisIO;	
+	
+	ioCarrierPresent				: ST_DigitalInputIO;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

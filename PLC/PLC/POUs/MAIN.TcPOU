@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MAIN" Id="{5a046460-1c21-44ae-886d-7aad596c85fa}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	_Peripherie	: Peripherie;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_Peripherie.Run();
+_Peripherie.RtcSynchronize(TRUE, '', 60);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

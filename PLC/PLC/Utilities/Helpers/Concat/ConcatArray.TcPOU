@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="ConcatArray" Id="{2b444c08-fa69-41e5-9ca7-682b0db83e98}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ConcatArray : T_MaxString
+VAR_INPUT
+	sArrExpressions: ARRAY[0..15] OF T_maxString;
+END_VAR
+VAR
+	ii: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ConcatArray := '';
+
+FOR ii:=0 TO 15 DO
+	ConcatArray := CONCAT(ConcatArray, sArrExpressions[ii]);
+END_FOR
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

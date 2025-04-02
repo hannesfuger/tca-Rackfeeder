@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_GetPlcCycleTime" Id="{6f5103f5-248f-47fd-85d3-0ad3ff6fae1e}" SpecialFunc="None">
+    <Declaration><![CDATA[/// returns the PLC cycle time in seconds for the current task
+FUNCTION F_GetPlcCycleTime : LREAL
+VAR
+	/// cycle time in internal units (parts of 100ns)
+	nCycleTime: UDINT;
+	/// FB to get the index of the current task 
+	fbTaskIndex: GETCURTASKINDEX;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbTaskIndex();
+nCycleTime := TwinCAT_SystemInfoVarList._TaskInfo[fbTaskIndex.index].CycleTime;
+F_GetPlcCycleTime := nCycleTime * 1.0E-7;   // Cycle Time is given in parts of 100ns]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

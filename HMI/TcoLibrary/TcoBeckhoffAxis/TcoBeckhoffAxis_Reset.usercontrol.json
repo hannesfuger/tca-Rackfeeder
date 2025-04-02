@@ -1,0 +1,41 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-reset",
+      "displayName": "Reset",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:server#/definitions/ADS-PLC1.TcoDrivesBeckhoff.ResetTask",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Reset",
+      "propertySetterName": "setReset",
+      "propertyGetterName": "getReset",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-soereset",
+      "displayName": "SoEReset",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:server#/definitions/ADS-PLC1.TcoDrivesBeckhoff.SoEResetTask",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "SoEReset",
+      "propertySetterName": "setSoEReset",
+      "propertyGetterName": "getSoEReset",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

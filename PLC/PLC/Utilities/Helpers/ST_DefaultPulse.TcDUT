@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_DefaultPulse" Id="{065b7293-157f-4284-ba70-429dc0ec218e}">
+    <Declaration><![CDATA[TYPE ST_DefaultPulse :
+STRUCT
+	/// default impulse flags
+	bImpulse1000ms: BOOL;
+	bImpulse500ms: BOOL;
+	bImpulse300ms: BOOL;
+	bImpulse200ms: BOOL;
+	bImpulse100ms: BOOL;
+	/// default toggle flags
+	bToggle1000ms: BOOL;
+	bToggle500ms: BOOL;
+	bToggle300ms: BOOL;
+	bToggle200ms: BOOL;
+	bToggle100ms: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_GetTimeString" Id="{1af9acef-b31d-416a-8ad7-784b3532d98a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GetTimeString
+VAR
+	fbPulseGetSystemTime: FB_Pulse;
+	fbSystemTime: NT_GetTime;
+	sTemp: STRING;
+	stTimeStruct: TIMESTRUCT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// Funktion zum Erzeugen eines Zeitstrings
+/// 25.04.2006	RE	www.rmth.at
+///
+
+sTemp:='';
+
+// read system time
+fbPulseGetSystemTime(tPulseTime:=T#100MS);
+fbSystemTime(NETID:='', START:=fbPulseGetSystemTime.Q);
+fbSystemTime(START:=FALSE);
+stTimeStruct:=fbSystemTime.TIMESTR;
+
+IF (stTimeStruct.wYear = 0 AND stTimeStruct.wMonth = 0 AND stTimeStruct.wDay = 0) THEN
+	RETURN;
+END_IF
+
+(*	date	*)
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wYear));
+
+sTemp:=CONCAT(sTemp , '.');
+IF stTimeStruct.wMonth < 10 THEN
+	sTemp:=CONCAT(sTemp , '0');
+END_IF
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wMonth));
+sTemp:=CONCAT(sTemp , '.');
+IF stTimeStruct.wDay < 10 THEN
+	sTemp:=CONCAT(sTemp , '0');
+END_IF
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wDay));
+
+sTemp:=CONCAT(sTemp , '-');
+
+(*	time	*)
+IF stTimeStruct.wHour < 10 THEN
+	sTemp:=CONCAT(sTemp , '0');
+END_IF
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wHour));
+sTemp:=CONCAT(sTemp , ':');
+IF stTimeStruct.wMinute < 10 THEN
+	sTemp:=CONCAT(sTemp , '0');
+END_IF
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wMinute));
+sTemp:=CONCAT(sTemp , ':');
+IF stTimeStruct.wSecond < 10 THEN
+	sTemp:=CONCAT(sTemp , '0');
+END_IF
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wSecond));
+sTemp:=CONCAT(sTemp , ':');
+IF stTimeStruct.wMilliseconds < 10 THEN
+	sTemp:=CONCAT(sTemp , '00');
+ELSIF stTimeStruct.wMilliseconds < 100 THEN
+	sTemp:=CONCAT(sTemp , '0');
+END_IF
+sTemp:=CONCAT(sTemp , WORD_TO_STRING(stTimeStruct.wMilliseconds));]]></ST>
+    </Implementation>
+    <Property Name="TimeString" Id="{2a8ec13a-ed0d-4fb8-8052-7338a702b913}">
+      <Declaration><![CDATA[PROPERTY TimeString : STRING]]></Declaration>
+      <Get Name="Get" Id="{74bf46a3-7447-46e6-b87a-d44e657101b2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TimeString:=sTemp;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

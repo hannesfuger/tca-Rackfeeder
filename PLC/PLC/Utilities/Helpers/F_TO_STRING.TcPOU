@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_TO_STRING" Id="{1568ac67-5c83-4745-9672-cd956862a2e8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_TO_STRING : STRING
+VAR_INPUT
+	Value			: ANY;
+END_VAR
+
+VAR
+	pWord     : POINTER TO WORD;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_WORD THEN 
+
+	pWord := Value.pValue;
+	
+	F_TO_STRING := TO_STRING(pWord^);
+	
+	IF pWord^ < 10 THEN
+		CONCAT('0',F_TO_STRING);	
+	END_IF
+
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

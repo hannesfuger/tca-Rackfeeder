@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaSafetyGate" Id="{cdcf9206-d54e-4a49-9a3c-04e4afd255d5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaSafetyGate EXTENDS TcoCore.TcoComponent
+
+VAR CONSTANT
+	MAX_COMPONENT	: INT := 15;
+END_VAR
+
+VAR_INPUT
+	ref : REFERENCE TO TcaSafetyGateRef;
+END_VAR
+
+VAR
+	_status : TcaSafetyGateStatus;
+	_config : TcaSafetyGateConfig;
+	_service : TcaSafetyGateService;
+	
+	// Components
+	_startButton : TcaPushButton(THIS^);
+	_requestButton : TcaPushButton(THIS^);
+	_lockButton : TcaPushButton(THIS^);	
+	
+	// Tasks
+    _startTask : TcoCore.TcoTask(THIS^);
+    _requestTask : TcoCore.TcoTask(THIS^);	
+    _lockTask : TcoCore.TcoTask(THIS^);	
+    _unlockTask : TcoCore.TcoTask(THIS^);	
+	
+	_listOfComponents : ARRAY[0..MAX_COMPONENT] OF ISafetyComponent; 	
+	_i : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref)  THEN
+    Messenger.Post('<#Invalid reference signal #>', TcoCore.eMessageCategory.ProgrammingError);
+    RETURN;
+END_IF
+
+// Buttons
+_startButton(ref:= ref.StartButton);
+_requestButton(ref:= ref.RequestButton);
+_lockButton(ref:= ref.LockButton);
+
+// Unlock Task
+IF _unlockTask.Execute() THEN	
+	ref.tsLockCmd := FALSE;
+	_lockButton.Blink(T#1000MS);
+	_unlockTask.DoneWhen(ref.tsOpen);
+	IF _unlockTask.Done THEN
+		_lockTask.Invoke();
+	END_IF
+END_IF
+
+// Lock Task
+IF _lockTask.Execute() THEN	
+	// Waiting Time after Unlock
+	IF _lockTask.ElapsedTime < T#1S THEN
+		RETURN;	
+	END_IF
+	ref.tsLockCmd := TRUE;
+	IF NOT ref.tsOpen THEN
+		_lockButton.On();
+		_lockTask.DoneWhen(TRUE);	
+	END_IF
+END_IF	
+
+// Request Task
+IF _requestTask.Execute() THEN
+	IF ComponentsAreService OR ComponentsCount = 0 THEN
+		_lockButton.On();
+		_requestButton.On();
+		_requestTask.DoneWhen(TRUE);
+	END_IF	
+END_IF
+
+// Start Task
+IF _startTask.Execute() THEN 
+	ref.tsRestart := FALSE;	
+	IF ref.tsSafe THEN
+		// send Resume to all Components
+		FOR _i := 0 TO MAX_COMPONENT DO		
+			IF _listOfComponents[_i] = 0 THEN EXIT;	END_IF
+			_listOfComponents[_i].Resume();
+		END_FOR	
+	END_IF
+	
+	IF NOT ComponentsAreService OR ComponentsCount = 0 THEN
+		_lockButton.Off();
+		_startButton.On();
+		_requestTask.DoneWhen(TRUE);
+	END_IF	
+END_IF
+
+// Refresh Status
+_status.Open := ref.tsOpen;
+_status.Safe := ref.tsSafe;
+_status.ComponentsAreService := ComponentsAreService;
+THIS^.Status;]]></ST>
+    </Implementation>
+    <Folder Name="Operation" Id="{b0cca483-2b4d-47bf-b8dc-2adf39abb2fd}" />
+    <Folder Name="States" Id="{0b6ab31f-82a9-45ec-ba53-c4432514b65a}" />
+    <Folder Name="Task" Id="{5c65e88f-5036-4cb9-a79c-a34531c2d6f8}" />
+    <Property Name="ComponentsAreService" Id="{57ad2f49-b1a1-4075-bb4a-d395e7f77fcf}" FolderPath="States\">
+      <Declaration><![CDATA[PROPERTY ComponentsAreService : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fc75e70b-dddb-4f97-b488-a7ec0ad0f20b}">
+        <Declaration><![CDATA[VAR
+	_i : INT;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ComponentsAreService := TRUE;
+
+FOR _i := 0 TO MAX_COMPONENT DO
+
+	IF _listOfComponents[_i] <> 0 AND_THEN NOT _listOfComponents[_i].IsService THEN
+		ComponentsAreService := FALSE;
+		RETURN;
+	END_IF
+	
+	IF _listOfComponents[_i] = 0 THEN
+		CONTINUE;
+	END_IF
+	
+END_FOR]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ComponentsCount" Id="{74ce4de8-4824-477b-9e48-fea31cbf2af4}" FolderPath="States\">
+      <Declaration><![CDATA[PROPERTY ComponentsCount : INT]]></Declaration>
+      <Get Name="Get" Id="{13a932e5-693d-4d92-98e0-d7e15c822117}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ComponentsCount := 0;
+
+FOR _i := 0 TO MAX_COMPONENT DO
+
+	IF _listOfComponents[_i] <> 0 THEN
+		ComponentsCount := ComponentsCount + 1;
+		RETURN;
+	END_IF
+	
+	IF _listOfComponents[_i] = 0 THEN
+		CONTINUE;
+	END_IF
+	
+END_FOR]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Config" Id="{a018affe-53ca-4d65-b8e7-59a7f95dcc6c}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaSafetyGateConfig]]></Declaration>
+      <Get Name="Get" Id="{520d1b50-23dd-420d-87b5-6bdda1831c1e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config Ref= _config;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8d96627a-edec-43d5-9983-f736ad2a1e61}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_config := Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Lock" Id="{04dcd1ef-666a-466f-8879-abeafc9110d0}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Lock : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Lock := _LockTask.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="LockTask" Id="{f03c9fb9-f4a0-4ec8-9a85-bbf558414b51}" FolderPath="Task\">
+      <Declaration><![CDATA[PROPERTY LockTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{2040b905-a7ea-4a4d-a940-3f0bd22e3f60}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LockTask := _LockTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RegisterComponent" Id="{6f96f205-f6ee-4e32-8bc3-8141d14c6525}">
+      <Declaration><![CDATA[METHOD RegisterComponent
+VAR_INPUT
+	Component		: ISafetyComponent;
+END_VAR
+
+VAR
+	_i				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR _i:= 0 TO MAX_COMPONENT DO
+	
+	IF _listOfComponents[_i] = Component THEN
+		EXIT;
+	END_IF
+
+	IF _listOfComponents[_i] = 0 THEN
+		_listOfComponents[_i] := Component;
+	END_IF
+
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Request" Id="{2866ba45-f070-4c44-bf3b-03502ed0fc73}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Request : ITcoTaskStatus
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// send SafeRequest to all Components
+FOR _i := 0 TO MAX_COMPONENT DO		
+	IF _listOfComponents[_i] = 0 THEN EXIT;	END_IF
+	_listOfComponents[_i].ServiceRequest();
+END_FOR
+
+_startButton.Off();
+_requestButton.Blink(T#1S);
+Request := _RequestTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="RequestTask" Id="{3b6ee593-1a4e-4b44-8d73-4e98db660bc7}" FolderPath="Task\">
+      <Declaration><![CDATA[PROPERTY RequestTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{54809d22-992b-4a9b-aa4c-2c8d49154439}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[RequestTask := _RequestTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Restore" Id="{c88ede75-4ff7-4b61-949b-67de3b529aed}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{12bb7921-30ea-40e6-8e05-3c6559b086ee}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_StartButton.Service();
+_RequestButton.Service();
+_LockButton.Service();
+
+IF _startButton.Status.Raising OR _service.StartButton.Button THEN 
+	_service.StartButton.Button := FALSE;
+	Start(); 
+END_IF
+
+IF _requestButton.Status.Raising OR _service.RequestButton.Button THEN 
+	_service.RequestButton.Button := FALSE;
+	Request(); 
+END_IF
+
+IF _lockButton.Status.Raising OR _service.LockButton.Button THEN 
+	_service.LockButton.Button := FALSE;
+	IF ref.tsLockCmd THEN
+		Unlock();
+	ELSE
+		Lock();
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Start" Id="{a146204b-899b-45d5-9607-e1c618989ed5}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Start : ITcoTaskStatus
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF ref.tsOpen THEN
+//	RETURN;
+//END_IF
+ref.tsRestart := TRUE;
+_requestButton.Off();
+_startButton.Blink(T#1S);
+Start := _StartTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="StartTask" Id="{eb65acd9-f81a-4220-99b4-54a3d967aa86}" FolderPath="Task\">
+      <Declaration><![CDATA[PROPERTY StartTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{88b5bb59-4320-40d9-9918-64f08c34db4a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StartTask := _StartTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{d1dd1e6b-f96f-4905-bcd6-5ecca17dc1dd}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaSafetyGateStatus]]></Declaration>
+      <Get Name="Get" Id="{addc8fc4-db12-4ad5-bf82-c6113865d9de}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;
+
+_service.Open := _status.Open;
+_service.Safe := _status.Safe;
+_service.ComponentsAreService := _status.ComponentsAreService;
+_service.StartButton.Light := _StartButton.Status.Light;
+_service.RequestButton.Light := _RequestButton.Status.Light;
+_service.LockButton.Light := _LockButton.Status.Light;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Unlock" Id="{6ca57b6d-152c-4578-b857-002abfaaa853}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Unlock : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Unlock := _UnlockTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaPushButtonStatus" Id="{990d3dc7-299a-4e6f-bf01-94b1ca04be70}">
+    <Declaration><![CDATA[TYPE TcaPushButtonStatus :
+STRUCT
+	LightState : eTcaPushButtonLightState;
+	Light : BOOL;	
+	Signal : BOOL;
+	Raising : BOOL;
+	Falling : BOOL;
+	ElapsedTime : TIME;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

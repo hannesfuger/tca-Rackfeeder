@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcoSegmentDoor_Open" Id="{d0519fbb-8f21-4520-b40f-816d697d403c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcoSegmentDoor_Open EXTENDS TcoCore.TcoSequencer
+VAR
+	_o : TcoCore.TcoSequencerObserver(THIS^);	
+	_dialog : TcoCore.TcoDialog(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Context" Id="{11a1d7d9-b467-499d-8b06-6f8d6ca649a2}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY Context : TcoCore.ITcoContext
+]]></Declaration>
+      <Get Name="Get" Id="{4cc5cc69-f4ed-4812-ba7d-0202acd76c08}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="CurrentStep" Id="{3b450d53-d363-41ad-87c7-88744423a2af}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+(*~
+	<docu>
+		<summary>
+			Gets the information about the current step.						
+		</summary>				
+	</docu>	
+~*)
+PROPERTY CurrentStep : REFERENCE TO TcoCore.StepDetails
+]]></Declaration>
+      <Get Name="Get" Id="{6ea8e093-dabf-4dfe-8a28-8f4c8ca32522}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identity" Id="{57f84af8-121a-4fcd-bba0-0b454b3a09f1}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY Identity : ULINT
+]]></Declaration>
+      <Get Name="Get" Id="{5cc1b4f6-d671-4ed7-8289-1c86f2971cf9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsAutoRestoreEnabled" Id="{ecea0635-8393-419d-9cd5-647119e2e33e}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY IsAutoRestoreEnabled : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{12af2389-5370-4bc0-8100-8bf95e16911c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsFreshState" Id="{4041fd50-003b-4078-84aa-2590c4c78c5c}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY IsFreshState : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{616adb8f-c926-4d92-8350-6bdd23845dff}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="LastStateChangeCycle" Id="{6222643a-c5b9-4f32-aba3-c06280082bbd}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY LastStateChangeCycle : ULINT
+]]></Declaration>
+      <Get Name="Get" Id="{4d01a5f2-57d5-4d8a-8bc8-a524e5733f41}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Main" Id="{33bf0969-7253-4e07-963d-4d24e8154ec4}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of **Instance.Run()** method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED Main : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ModeController" Id="{6c868ec3-8b51-4920-b205-51460382f2bf}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY ModeController : TcoCore.ITcoSequencerModeController
+]]></Declaration>
+      <Get Name="Get" Id="{76a67953-5c66-43e6-9376-d6450e09589d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MoveNext" Id="{9d96f76d-3740-4eea-a203-c2ca85069f8c}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD MoveNext : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restore" Id="{1bd3eab4-373a-4a67-8c94-baaf8b4b2d95}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RestoreObject" Id="{80180a3c-5f59-40e7-bdcd-41206d39e53c}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD RestoreObject : TcoCore.ITcoObjectRestorer
+VAR_INPUT
+	Obj	: TcoCore.ITcoRestorable;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Retry" Id="{cc63cd17-0d23-40c2-a07c-39dab4a8a6db}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Retry : BOOL
+VAR_INPUT
+	inFromState	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="State" Id="{6e4dc50c-48a2-4026-a00a-09dc33eb20c4}">
+      <Declaration><![CDATA[{error 'Eigenschaftenimplementierung hinzufügen oder Eigenschaft löschen, um die Basisimplementierung zu verwenden'}
+PROPERTY State : INT
+]]></Declaration>
+      <Get Name="Get" Id="{531660f1-a853-4261-b94f-491bd563b5bb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Terminate" Id="{3f6320d3-e11a-48b1-b3b8-7d6389180505}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Terminate : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

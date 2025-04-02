@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ComponentPool" Id="{26628a25-4aa5-4923-bc9b-743bc40c8134}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ComponentPool
+VAR	
+	/// component name
+	sName						: STRING;
+	
+	/// component enable flag
+	bEnable						: BOOL := FALSE;
+	
+	/// component state
+	eState						: E_ComponentState;	
+	
+	/// Area
+	eMachineArea				: E_MachineArea;	
+	                			
+
+		
+	aComponents					: ARRAY[0..COMP.nMaxComponents] OF ITF_Component;
+	nComponent					: INT := -1;	
+
+	nErrComponent				: INT;
+	sErrComponentName			: STRING;
+	
+	
+	/// Interfaces  	
+	itfEventLog					: ITF_EventLog;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// 
+/// HF/www.asma.at/02.2022
+/// 
+]]></ST>
+    </Implementation>
+    <Folder Name="Factory" Id="{e03557aa-3cc4-4b42-8d79-a941107413c0}" />
+    <Folder Name="Pool" Id="{1a5eadf8-3f5a-48b0-a43a-1357a036c040}" />
+    <Property Name="EnablePool" Id="{82232a46-677b-4940-ac27-fabdd7587eab}" FolderPath="Pool\">
+      <Declaration><![CDATA[/// Get's or set's a value indicating whether this component is active or not.
+PROPERTY EnablePool : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{7ef30554-5b50-46f0-9d71-00519e391715}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnablePool := bEnable;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4c254c26-961d-468f-939d-326b5529edf3}">
+        <Declaration><![CDATA[VAR
+	iIdx			: INT;
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bEnable := EnablePool;
+
+// run all components
+FOR iIdx := 0 TO COMP.nMaxComponents DO
+	// chk valid pointer
+	IF aComponents[iIdx] <> 0 THEN
+		aComponents[iIdx].Enable := EnablePool;
+	END_IF
+END_FOR]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="FB_init" Id="{183273ea-f787-4436-ac3b-ba11caef53db}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfEventLog := GVL.fbEventLog;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetComponent" Id="{42c0899e-3452-46bb-912b-b3a7f3fc85ea}">
+      <Declaration><![CDATA[METHOD GetComponent : POINTER TO FB_Component
+VAR_INPUT
+	nSubComp			:INT;	
+END_VAR
+
+VAR
+	ptTmp				: POINTER TO FB_Component;
+	bFound				: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bFound := __QUERYPOINTER(aComponents[nSubComp], ptTmp);
+
+IF bFound THEN
+	GetComponent := ptTmp;
+ELSE
+	GetComponent := 0;
+END_IF	
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetItfComponent" Id="{e2740927-c337-4beb-813f-23048662d66e}">
+      <Declaration><![CDATA[METHOD GetItfComponent : ITF_Component
+VAR_INPUT
+	nSubComp			:INT;	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetItfComponent := aComponents[nSubComp];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HaltPool" Id="{b74779d5-a6be-47d0-954e-9123d3324930}" FolderPath="Pool\">
+      <Declaration><![CDATA[METHOD HaltPool
+VAR_INPUT
+	StoppCategory					: INT;			// 0...ungesteuertes Stillsetzen     1...gesteuertes Stillsetzen     2...gesteuertes Stillsetzen ohne Trennung der Energiezufuhr							
+END_VAR
+VAR
+	iIdx			: INT;
+	itfAxis			: ITFMotionComponent;
+	//ptLifting		: POINTER TO FB_LiftingUnit;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// run all components
+FOR iIdx := 0 TO COMP.nMaxComponents DO
+	// chk valid pointer
+	IF aComponents[iIdx] <> 0 THEN
+		// chk component is active
+		IF NOT aComponents[iIdx].Enable THEN
+			CONTINUE;
+		END_IF
+		
+		aComponents[iIdx].Halt(StoppCategory);
+		
+		
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MachineArea" Id="{d9062724-5f4d-444d-b000-4217b5b03159}" FolderPath="Factory\">
+      <Declaration><![CDATA[PROPERTY MachineArea : E_MachineArea]]></Declaration>
+      <Get Name="Get" Id="{dfb1299a-48ff-4d34-98da-dbddac7e935c}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MachineArea := eMachineArea;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e97895eb-cc1d-43d1-a1ec-0ce1329b9f49}">
+        <Declaration><![CDATA[VAR
+	iIdx			: INT;
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eMachineArea := MachineArea;
+
+// run all components
+FOR iIdx := 0 TO COMP.nMaxComponents DO
+	// chk valid pointer
+	IF aComponents[iIdx] <> 0 THEN
+		aComponents[iIdx].MachineArea := MachineArea;
+	END_IF
+END_FOR]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PoolName" Id="{4817bfa2-5f37-4ddd-9349-032269b74e57}" FolderPath="Pool\">
+      <Declaration><![CDATA[PROPERTY PoolName : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{12fd31cb-6a6d-423f-99f1-4ee242dbc18f}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PoolName := sName;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9328bf30-48f3-4772-805b-d5fda3131432}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[sName := PoolName;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PoolState" Id="{884ac6f0-2a5f-4463-a592-c6513cee2658}" FolderPath="Pool\">
+      <Declaration><![CDATA[PROPERTY PoolState : E_ComponentState]]></Declaration>
+      <Get Name="Get" Id="{1327e2aa-71a3-4e9a-8c2f-105121e18e09}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PoolState := eState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="RegisterComponent" Id="{8cf7c0b3-dc6b-4a07-94b9-9d113be3a86c}" FolderPath="Factory\">
+      <Declaration><![CDATA[/// Registrierung von PM Sub-Komponenten.
+METHOD RegisterComponent
+VAR_INPUT
+	sName			: STRING;
+	fbComponent  	: ITF_Component;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF nComponent = -1 THEN
+//	ResetComponents();
+//END_IF
+
+IF fbComponent = 0 THEN
+	RETURN;
+END_IF
+
+
+// register sub-component
+aComponents[nComponent] := fbComponent;
+fbComponent.Name := sName;
+fbComponent.BMK := CONCAT3(THIS^.sName,' | ',sName);
+fbComponent.MachineArea := eMachineArea;
+fbComponent.Enable := FALSE;
+
+// increment counter
+IF nComponent < COMP.nMaxComponents THEN
+	nComponent := nComponent + 1;
+ELSE
+	eState := E_ComponentState.error;
+	RETURN;
+END_IF
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetComponents" Id="{fd1cb7e4-1d93-40b3-94e6-f70c9797ef8e}" FolderPath="Factory\">
+      <Declaration><![CDATA[METHOD ResetComponents
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nComponent := 0;
+MEMSET(ADR(aComponents), 0, SIZEOF(aComponents));
+eState := E_ComponentState.none;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetPool" Id="{6977f431-abb7-463b-8a67-0e1c5e31d644}" FolderPath="Pool\">
+      <Declaration><![CDATA[METHOD ResetPool
+VAR_INPUT
+	bOnlyActive			: BOOL;
+	bOnlyNotRunning		: BOOL;
+	eComponentType		: E_ComponentType;
+	eExpectType			: E_ComponentType;
+END_VAR
+
+VAR
+	iIdx				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[/// reset all components				
+FOR iIdx := 0 TO COMP.nMaxComponents DO
+	IF aComponents[iIdx] <> 0 THEN
+		
+		IF aComponents[iIdx].State = E_ComponentState.running AND bOnlyNotRunning THEN
+			CONTINUE;
+		END_IF
+	
+		IF bOnlyActive AND NOT aComponents[iIdx].Enable THEN
+			CONTINUE;
+		END_IF
+		
+		IF (eComponentType = E_ComponentType.none OR aComponents[iIdx].Typ = eComponentType) AND
+		   (eExpectType = E_ComponentType.none OR aComponents[iIdx].Typ <> eExpectType) THEN
+			aComponents[iIdx].Reset();		
+		END_IF
+		
+	END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunPool" Id="{f9d7ab07-7da4-48af-b597-c5d26c4485c9}" FolderPath="Pool\">
+      <Declaration><![CDATA[/// Run component logic
+{attribute 'object_name' := 'RunPool'}
+METHOD RunPool
+
+VAR
+	iIdx			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// set overall component state, prio:
+// 1. E_ComponentState.eComponentState_error		( --> at least one has error)
+// 2. E_ComponentState.eComponentState_none			( --> at least one state is not set)
+// 3. E_ComponentState.eComponentState_resetting	( --> at least one is rsetting)
+// 4. E_ComponentState.eComponentState_ready		( --> at least one is in ready state)
+// 5. E_ComponentState.eComponentState_running		( --> all active are running)
+
+// init with running state
+eState := E_ComponentState.running;
+
+// run all components
+FOR iIdx := 0 TO COMP.nMaxComponents DO
+	// chk valid pointer
+	IF aComponents[iIdx] <> 0 THEN
+		// chk component is active
+		IF aComponents[iIdx].Enable THEN
+			aComponents[iIdx].Base();
+			// run component and get it's state 
+			CASE aComponents[iIdx].State OF
+				E_ComponentState.error:
+					IF nErrComponent = 0 THEN
+						nErrComponent := iIdx;
+						sErrComponentName := aComponents[iIdx].Name;
+					END_IF
+					eState := E_ComponentState.error;	
+					
+				E_ComponentState.none:
+					IF eState <> E_ComponentState.error THEN
+						eState := E_ComponentState.none;
+					END_IF
+					
+				E_ComponentState.resetting:
+					IF eState <> E_ComponentState.error AND eState <> E_ComponentState.none THEN
+						eState := E_ComponentState.resetting;
+					END_IF
+					
+				E_ComponentState.ready:
+					IF eState = E_ComponentState.running THEN
+						eState := E_ComponentState.ready;
+					END_IF					
+			END_CASE
+		END_IF
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

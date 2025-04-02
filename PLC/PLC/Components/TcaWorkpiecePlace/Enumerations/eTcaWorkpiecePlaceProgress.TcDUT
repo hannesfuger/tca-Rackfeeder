@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="eTcaWorkpiecePlaceProgress" Id="{85a7e9b2-9e2f-4e38-b696-1020260b8304}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE eTcaWorkpiecePlaceProgress :
+(
+	undefined := 0,
+	blank,
+	inProcess,
+	finished,
+	Error,
+	
+	MAXSIZE
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

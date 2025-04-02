@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaTwinSAFEConfig" Id="{fd052477-d444-4584-a6e7-a2945850364e}">
+    <Declaration><![CDATA[TYPE TcaTwinSAFEConfig :
+STRUCT
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

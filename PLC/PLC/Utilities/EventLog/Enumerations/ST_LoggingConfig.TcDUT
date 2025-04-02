@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_LoggingConfig" Id="{bc7da454-92a3-49b7-ad70-d46e76a7baa3}">
+    <Declaration><![CDATA[TYPE ST_LoggingConfig :
+STRUCT
+	/// <info>Angabe des Loggingproviders</info>
+	eLoggingProvider: E_LoggingProvider;
+	/// <info>Logging Name</info>
+	sLogName: STRING;
+	/// <info>Logging Pfad</info>
+	sLogPath: STRING;
+	/// <info>Logging Level</info>
+	eLogLevel: E_LogLevel;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

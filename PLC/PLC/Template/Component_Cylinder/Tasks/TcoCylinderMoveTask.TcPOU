@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcoCylinderMoveTask" Id="{d38ab4c0-1410-4236-aa8a-26b0ed8a2123}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcoCylinderMoveTask EXTENDS TcoCore.TcoTask
+VAR_INPUT
+	PositionSensor		   : BOOL;
+	MaxTimeToReachPosition : TIME := T#10S;
+	TimeToRefill 		   : TIME := T#100MS;
+	PositionName		   : STRING(25);
+END_VAR
+VAR_IN_OUT
+	MoveToPositionSignal : BOOL;
+	InverseSignal		 : BOOL;	
+END_VAR
+
+VAR
+	_stringBuilder : TcoCore.StringBuilder;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (THIS^.Execute()) THEN
+	IF(THIS^.ElapsedTime > MaxTimeToReachPosition) THEN THIS^.Messenger.Warning(_stringBuilder.Clear().Append(PositionName).Append(' sensor not reached yet.').ToString()); END_IF;
+	InverseSignal		 := FALSE;
+	MoveToPositionSignal := TRUE;
+	THIS^.DoneWhen(PositionSensor);	
+END_IF
+]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{d096c4f3-fdeb-422a-9241-8c7dc1c25ebe}">
+      <Declaration><![CDATA[METHOD PUBLIC FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	ParentObject : ITcoObject;	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnAbort" Id="{8313d2ff-d3c3-4fc5-b2e5-037f1940b860}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Executes when task is aborted.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED OnAbort
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MoveToPositionSignal := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnError" Id="{c702604b-83ae-0ede-324b-55447818c6ba}">
+      <Declaration><![CDATA[METHOD PROTECTED OnError
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnStart" Id="{e7f01650-89d3-0bc5-17a1-230c301d4988}">
+      <Declaration><![CDATA[METHOD PROTECTED OnStart 
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

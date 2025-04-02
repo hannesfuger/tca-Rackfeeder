@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_RGB2DWORD" Id="{c13e9aa6-db35-4036-b35f-a80323c68360}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_RGB2DWORD : DWORD
+VAR_INPUT
+	Color					: ST_Color;
+END_VAR
+
+VAR
+	tmpArray				: ARRAY[0..3] OF BYTE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tmpArray[0] := Color.nBlue;
+tmpArray[1] := Color.nGreen;
+tmpArray[2] := Color.nRed;
+tmpArray[3] := 255;
+
+MEMCPY(ADR(F_RGB2DWORD), ADR(tmpArray), SIZEOF(DWORD));]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

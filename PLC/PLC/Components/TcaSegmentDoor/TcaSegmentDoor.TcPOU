@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaSegmentDoor" Id="{ad4e5a73-bf23-4c54-b7b1-393428a1c398}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaSegmentDoor EXTENDS TcoComponent
+
+VAR_INPUT
+	ref : REFERENCE TO TcaSegmentDoorRef;
+END_VAR
+
+VAR
+	_status : TcaSegmentDoorStatus;
+	_config : TcaSegmentDoorConfig;
+	_service : TcaSegmentDoorService;
+	
+	//Sequences
+	//_initSequence : TcoSegmentDoor_Open(THIS^, eRestoreMode.None);
+	//_closeSequence : TcoSegmentDoor_Close(THIS^, eRestoreMode.None);
+	//_openSequence : TcoSegmentDoor_Open(THIS^, eRestoreMode.None);
+	
+	//Tasks
+	_closeTask : TcoCore.TcoTask(THIS^);
+	_openTask : TcoCore.TcoTask(THIS^);
+	_initTask : TcoCore.TcoTask(THIS^);
+	
+	_EnableAxis : BOOL := TRUE;
+	_EnableAxisSafe : BOOL;
+	
+	// Components
+	_vertikalAxis : TcoDriveSimple(THIS^);	
+	_latchLeft : TcoDriveSimple(THIS^);
+	_latchRight : TcoDriveSimple(This^);
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref)  THEN
+    Messenger.Post('<#Invalid reference signal #>', TcoCore.eMessageCategory.ProgrammingError);
+    RETURN;
+END_IF
+
+// Axis
+_EnableAxisSafe := _EnableAxis AND ref.tsSS1;
+_vertikalAxis(inCalibrationCam:= ref.ReferenceSensor, inEnable:=  _EnableAxisSafe , inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.VertikalAxis);
+_latchLeft( inEnable:= _EnableAxisSafe, inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.LatchLeft);
+_latchRight( inEnable:= _EnableAxisSafe, inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.LatchRight);
+
+
+]]></ST>
+    </Implementation>
+    <Folder Name="Functions" Id="{aa5400d1-3e83-4e87-8cbe-7fdaf6dd4d10}" />
+    <Folder Name="Operations" Id="{0337acaf-bb1e-4ccc-8f29-a9d1ea5cf9cf}" />
+    <Folder Name="States" Id="{6e7f2e8f-37a8-4f05-a8c3-d2e8d57a07dd}" />
+    <Folder Name="Tasks" Id="{838c9210-3ca4-442a-a07e-a6d989e5a17d}" />
+    <Method Name="Close" Id="{da8c0a98-2224-40bd-9fb9-d56e5af75aab}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD Close : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_closeTask.Restore();
+Close := _closeTask.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="CloseTask" Id="{fdcb56f2-347b-4635-b675-1976c0f30f02}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY CloseTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{581f66b8-0280-4f39-81d0-e63d63281ad3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CloseTask := _CloseTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Config" Id="{c68b7b98-0a10-4d8d-8e62-47f2197e8467}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaSegmentDoorConfig]]></Declaration>
+      <Get Name="Get" Id="{0903fc32-f9cf-4b6b-aa89-f6457dbcad7d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config Ref= _config;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c6353d11-4afa-4ff3-9eee-8a5ebd46d5f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_config := Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Init" Id="{a0790239-fb81-4898-923e-8f66a94daf78}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD Init : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_closeTask.Restore();
+Init := _closeTask.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InitTask" Id="{4d213dad-e52e-48a2-a9ec-2162ee141fe6}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY InitTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{e0361ccd-174f-426d-8378-68b4d0f0a754}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InitTask := _InitTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Open" Id="{43b934e2-9d63-4d46-86fe-8299edf7fc0c}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD Open : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_openTask.Restore();
+Open := _openTask.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OpenTask" Id="{c78f4c29-2ad9-4500-854e-86d65951471d}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY OpenTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{d9d5923e-4f9a-411f-b7ef-f21be615cc55}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OpenTask := _OpenTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Restore" Id="{d83d557c-7a15-4d4d-9b23-bc93b0b1c613}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{364f241a-3f02-4572-bd41-45a4ab035d33}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Status" Id="{7c350292-0925-4da3-830a-845fdcb91274}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaSegmentDoorStatus]]></Declaration>
+      <Get Name="Get" Id="{c1b1edc5-850b-4b60-a166-968539086957}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

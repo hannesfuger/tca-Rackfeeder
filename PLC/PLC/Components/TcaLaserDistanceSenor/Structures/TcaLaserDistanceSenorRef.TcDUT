@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaLaserDistanceSenorRef" Id="{e32a3552-52d9-4709-8644-fe8858b5ae62}">
+    <Declaration><![CDATA[TYPE TcaLaserDistanceSenorRef :
+STRUCT
+	Sensor AT%I* : DINT;	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Pulse" Id="{5a80ead6-740b-4dbb-9fd3-90cb36fa6ea6}" SpecialFunc="None">
+    <Declaration><![CDATA[/// Function block plusegenerator for synchron or asynchron duty cycles
+FUNCTION_BLOCK FB_Pulse
+VAR_INPUT
+	/// pulse time total
+	tPulseTime: TIME;
+	/// duty cycle factor 0 - 1
+	///	default value: 0.5 (50% duty cycle)
+	fDutyCycle: REAL := 0.5;
+END_VAR
+VAR_OUTPUT
+	Q: BOOL;
+END_VAR
+VAR
+	tonPulse: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// Programm for pulse generators
+/// 10.02.2010	TP www.rmth.at
+///
+
+tonPulse(IN := NOT tonPulse.Q, PT:=(tPulseTime));
+fDutyCycle:=MIN(fDutyCycle, 1);
+IF fDutyCycle <= 0 THEN
+	Q:=FALSE;
+ELSE
+	Q := tonPulse.ET <= REAL_TO_TIME((TIME_TO_REAL(tPulseTime) * fDutyCycle));
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

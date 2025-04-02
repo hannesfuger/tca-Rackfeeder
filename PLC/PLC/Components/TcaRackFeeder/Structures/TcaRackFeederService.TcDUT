@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaRackFeederService" Id="{0b5824bf-617d-4872-9ca0-76829cbb8a88}">
+    <Declaration><![CDATA[TYPE TcaRackFeederService :
+STRUCT
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 55.2 (78181) - https://sketchapp.com -->
+    <title>92BD32D3-B47A-4DCF-99BD-B75BBA0E1F4A</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="50%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EFF1F3" offset="0%"></stop>
+            <stop stop-color="#AEB9C2" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="80" height="80"></rect>
+        <filter x="-9.4%" y="-9.4%" width="118.8%" height="118.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/misc/graph">            
+            <g id="icon-status" transform="translate(19.000000, 19.000000)" fill="#358CD4">
+                <g id="normal">
+                    <path d="M40.9253,40.083 C41.4773,40.083 41.9253,40.53 41.9253,41.083 C41.9253,41.636 41.4773,42.083 40.9253,42.083 L1.0923,42.083 C0.5393,42.083 0.0003,41.386 0.0003,40.833 L0.0003,1 C0.0003,0.447 0.4473,0 1.0003,0 C1.5523,0 2.0003,0.447 2.0003,1 L2.0003,40.083 L40.9253,40.083 Z M5.7109,35.8242 C5.6469,35.8242 5.5829,35.8182 5.5179,35.8052 C4.9759,35.6992 4.6229,35.1742 4.7289,34.6322 L10.2399,6.5412 C10.3309,6.0792 10.7309,5.7432 11.2009,5.7332 C11.6739,5.7302 12.0849,6.0442 12.1939,6.5002 L16.2319,23.3472 L20.2239,15.8162 C20.4029,15.4782 20.7589,15.2472 21.1439,15.2862 C21.5269,15.3002 21.8689,15.5322 22.0229,15.8832 L28.2799,30.1222 L40.0249,5.8442 C40.2659,5.3462 40.8639,5.1402 41.3609,5.3792 C41.8579,5.6192 42.0659,6.2182 41.8259,6.7152 L29.1369,32.9442 C28.9669,33.2952 28.6069,33.4852 28.2189,33.5092 C27.8289,33.5022 27.4779,33.2682 27.3209,32.9112 L21.0239,18.5792 L16.7599,26.6232 C16.5649,26.9892 16.1649,27.1962 15.7509,27.1462 C15.3379,27.0942 15.0009,26.7922 14.9039,26.3872 L11.3189,11.4302 L6.6909,35.0162 C6.5979,35.4942 6.1789,35.8242 5.7109,35.8242 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

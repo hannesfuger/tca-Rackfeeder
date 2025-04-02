@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling_GroundMode" Id="{02bad7ce-0576-4cb6-8de2-649a0ecaca8d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling_GroundMode EXTENDS TcoCore.TcoSequencer
+VAR
+	_o : TcoCore.TcoSequencerObserver(THIS^);	
+	_dialog : TcoCore.TcoDialog(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Components" Id="{18b32864-d012-40f0-861f-59ef029d39ec}">
+      <Declaration><![CDATA[PROPERTY Components : REFERENCE TO Handling_Components]]></Declaration>
+      <Get Name="Get" Id="{ce45a2bc-a9ea-4762-826a-63377061643a}">
+        <Declaration><![CDATA[VAR
+    _parent : POINTER TO Handling;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(_ParentObject,_parent) THEN // Check if _Parent is Station001
+	Components REF= _parent^._components;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Main" Id="{4a6766ff-d79b-4cd5-84c8-a8f67bbdd697}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of InstanceName.Run() method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED  Main : BOOL
+VAR
+	test: TcEventEntry;
+	answer : TcoCore.eCustomizedDialogAnswer;
+	_answer: STRING(INT#3);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.Observer := _o;
+
+IF (Step(0, TRUE, 'MOVE HORIZONTAL TO LOAD')) THEN
+    //--------------------------------------------
+	
+	_dialog.Show()
+			.WithType(eDialogType.Question)				
+			.WithCaption('Ready to go?')
+			.WithText('Do you really want to start movements? Do we go ahead?')			
+			.WithYesNo();
+			
+	
+	IF(_dialog.Answer = TcoCore.eDialogAnswer.Yes) THEN RequestStep(100); _dialog.Restore(); END_IF;
+    IF(_dialog.Answer = TcoCore.eDialogAnswer.No) THEN RequestStep(200); _dialog.Restore(); END_IF;
+	
+    //StepCompleteWhen(_StepElapsedTime > T#5S);
+    //--------------------------------------------	
+END_IF;
+
+
+IF (Step(100, TRUE, 'YEEEEEEES')) THEN
+    //--------------------------------------------	
+    StepCompleteWhen(_StepElapsedTime > T#10S);
+    //--------------------------------------------		
+END_IF;
+
+IF (Step(200, TRUE, 'NOOOOOOO')) THEN
+    //--------------------------------------------	
+    StepCompleteWhen(_StepElapsedTime > T#10S);
+    //--------------------------------------------		
+END_IF;
+
+
+IF (Step(300, TRUE, 'GROUND MODE COMPLETE')) THEN
+    //--------------------------------------------
+    //--------------------------------------------	
+END_IF;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

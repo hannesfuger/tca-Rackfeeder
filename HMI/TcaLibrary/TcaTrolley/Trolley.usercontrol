@@ -1,0 +1,286 @@
+<div id="UserControl2_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="1" data-tchmi-left="0" data-tchmi-width="175" data-tchmi-height="496" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+<div id="Trolley_Left" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="392" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-top="90" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-width-mode="Value">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%Trolley::nChangeToggle%/pp%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// read Properties",
+          "let tmpStoragePerRack = new TcHmi.Symbol('%pp%Trolley::nStoragePerRack%/pp%');",
+          "let StoragePerRack = tmpStoragePerRack.read();",
+          "//console.log(StoragePerRack);",
+          "",
+          "let tmpStorageDivision = new TcHmi.Symbol('%pp%Trolley::fStorageDivision%/pp%');",
+          "let StorageDivision = tmpStorageDivision.read();",
+          "//console.log(StorageDivision);",
+          "",
+          "var container = TcHmi.Controls.get('Trolley_Left');",
+          "//console.log(container);",
+          "",
+          "var carriers = container.__children;",
+          "//console.log(carriers);",
+          "",
+          "var id = container.__id;",
+          "//console.log(id);",
+          "",
+          "// destroy old carriers ",
+          "var carriersCount = carriers.length;",
+          "//console.log(carriersCount);",
+          "",
+          "for (let j = 0; j < carriersCount; j++) {",
+          "\tcarriers[0].destroy();",
+          " }",
+          "",
+          "// calculate Size of Workpiecethumb",
+          "var scale = 14;",
+          "",
+          "for (let i = 0; i < StoragePerRack; i++) {\t",
+          "\t",
+          "\t\tvar tmpCarrierID = new TcHmi.Symbol('%pp%Trolley::aLeftRack[' + i + ']::nCarrierID%/pp%');",
+          "\t\tvar CarrierID = tmpCarrierID.read();\t",
+          "\t\tif (CarrierID == -1) {\t\t",
+          "    \t\tcontinue;",
+          "  \t\t}",
+          "\t",
+          "\t\tvar carrier = TcHmi.ControlFactory.createEx(",
+          "\t\t        'TcHmi.Controls.System.TcHmiUserControlHost',",
+          "\t\t        id + i,",
+          "\t\t        {",
+          "\t\t            'data-tchmi-top': (scale+2)*i, ",
+          "\t\t            'data-tchmi-left': 0, ",
+          "\t\t            'data-tchmi-width-mode': 'Value', ",
+          "\t\t            'data-tchmi-height-mode': 'Value',",
+          "\t\t            'data-tchmi-width-unit': '%', ",
+          "\t\t            'data-tchmi-height-unit': 'px',",
+          "\t\t            'data-tchmi-width': 100, ",
+          "\t\t            'data-tchmi-height': scale,",
+          "\t\t\t\t\t'data-tchmi-target-user-control': 'Items/WorkpieceCarrierThumb.usercontrol',",
+          "\t                'data-tchmi-carrier': '%pp%Trolley::aLeftRack[' + i + ']%/pp%',",
+          "\t                'data-tchmi-carrierpresent': '%pp%Trolley::bLeftRackPresent[' + i + ']%/pp%' ",
+          "\t\t        },",
+          "\t\t        container",
+          "\t\t    \t); ",
+          "\t",
+          "",
+          "\t\t\tif (container && carrier) {",
+          "\t    \t\tcontainer.addChild(carrier);",
+          "\t\t\t}\t\t",
+          "\t",
+          "\t",
+          "\t }"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Trolley::nChangeToggle%/pp%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%f%%pp%Trolley::nChangeToggle%/pp%+1%/f%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiButton_32" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="115" data-tchmi-left-unit="px" data-tchmi-text="Fill" data-tchmi-top="5" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Trolley::cmd::cmd%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.E_TrolleyCmd",
+          "value": 1
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiButton_33" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-text="Remove" data-tchmi-top="5" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Trolley::cmd::cmd%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.E_TrolleyCmd",
+          "value": 2
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiButton_34" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="60" data-tchmi-left-unit="px" data-tchmi-text="Empty" data-tchmi-top="5" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Trolley::cmd::cmd%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.E_TrolleyCmd",
+          "value": 3
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="Trolley_Right" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="392" data-tchmi-height-unit="px" data-tchmi-left="90" data-tchmi-left-unit="px" data-tchmi-top="90" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%Trolley::nChangeToggle%/pp%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// read Properties",
+          "let tmpStoragePerRack = new TcHmi.Symbol('%pp%Trolley::nStoragePerRack%/pp%');",
+          "let StoragePerRack = tmpStoragePerRack.read();",
+          "//console.log(StoragePerRack);",
+          "",
+          "let tmpStorageDivision = new TcHmi.Symbol('%pp%Trolley::fStorageDivision%/pp%');",
+          "let StorageDivision = tmpStorageDivision.read();",
+          "//console.log(StorageDivision);",
+          "",
+          "var container = TcHmi.Controls.get('Trolley_Right');",
+          "//console.log(container);",
+          "",
+          "var carriers = container.__children;",
+          "//console.log(carriers);",
+          "",
+          "var id = container.__id;",
+          "//console.log(id);",
+          "",
+          "// destroy old carriers ",
+          "var carriersCount = carriers.length;",
+          "//console.log(carriersCount);",
+          "",
+          "for (let j = 0; j < carriersCount; j++) {",
+          "\tcarriers[0].destroy();",
+          " }",
+          "",
+          "// calculate Size of Workpiecethumb",
+          "var scale = 14;",
+          "",
+          "for (let i = 0; i < StoragePerRack; i++) {\t",
+          "\t",
+          "\t\tvar tmpCarrierID = new TcHmi.Symbol('%pp%Trolley::aRightRack[' + i + ']::nCarrierID%/pp%');",
+          "\t\tvar CarrierID = tmpCarrierID.read();\t",
+          "\t\tif (CarrierID == -1) {\t\t",
+          "    \t\tcontinue;",
+          "  \t\t}",
+          "\t",
+          "\t\tvar carrier = TcHmi.ControlFactory.createEx(",
+          "\t\t        'TcHmi.Controls.System.TcHmiUserControlHost',",
+          "\t\t        id + i,",
+          "\t\t        {",
+          "\t\t            'data-tchmi-top': (scale+2)*i, ",
+          "\t\t            'data-tchmi-left': 0, ",
+          "\t\t            'data-tchmi-width-mode': 'Value', ",
+          "\t\t            'data-tchmi-height-mode': 'Value',",
+          "\t\t            'data-tchmi-width-unit': '%', ",
+          "\t\t            'data-tchmi-height-unit': 'px',",
+          "\t\t            'data-tchmi-width': 100, ",
+          "\t\t            'data-tchmi-height': scale,",
+          "\t\t\t\t\t'data-tchmi-target-user-control': 'Items/WorkpieceCarrierThumb.usercontrol',",
+          "\t                'data-tchmi-carrier': '%pp%Trolley::aRightRack[' + i + ']%/pp%',",
+          "\t                'data-tchmi-carrierpresent': '%pp%Trolley::bRightRackPresent[' + i + ']%/pp%' ",
+          "\t\t        },",
+          "\t\t        container",
+          "\t\t    \t); ",
+          "\t\t",
+          "\t\t",
+          "\t\t\tif (container && carrier) {",
+          "\t    \t\tcontainer.addChild(carrier);",
+          "\t\t\t}\t",
+          "\t",
+          "\t }"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Trolley::nChangeToggle%/pp%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%f%%pp%Trolley::nChangeToggle%/pp%+1%/f%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiCombobox_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiCombobox" data-tchmi-auto-focus-out="true" data-tchmi-combobox-text="Select" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-top="55" data-tchmi-top-unit="px" data-tchmi-width="160" data-tchmi-width-unit="px" data-tchmi-src-data="%s%PLC1.GVL.stSetting::astWorkpiecePlaceStates%/s%" data-tchmi-selected-id="%pp%Trolley::cmd::nId%/pp%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onSelectionChanged",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Trolley::cmd::nId%/pp%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%ctx%owner::SelectedId%/ctx%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+</div>

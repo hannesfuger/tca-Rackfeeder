@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling" Id="{a8e81cd4-b35a-4f99-93df-3cfa7b77e38a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling EXTENDS TcoCore.TcoObject 
+VAR
+	_components : Handling_Components(THIS^);	
+	
+	_WorkpiecePlace : TcaWorkpiecePlace(THIS^);
+	_Carrier : TcaCarrier(THIS^);
+	_Storage : TcaStorage(THIS^);
+
+	_groundMode : Handling_GroundMode(THIS^, eRestoreMode.None);
+	_openDoor : Handling_OpenDoor(THIS^, eRestoreMode.None);
+	
+	_groundModeTask : TcoCore.TcoTask(THIS^);
+	_openDoorTask : TcoCore.TcoTask(THIS^);
+	
+
+	_enable1			: BOOL := TRUE;
+	_enablePositive1    : BOOL := TRUE;
+	_enableNegative1    : BOOL := TRUE;
+	_calibrationCam1    : BOOL := TRUE;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_components();
+
+//_Storage();
+//_Storage.Service();
+//
+//_Carrier();
+//_Carrier.Service();
+//
+//_WorkpiecePlace();
+//_WorkpiecePlace.Service();
+
+// open Door Task
+_openDoorTask.Enabled := _groundModeTask.Done;
+IF(_openDoorTask.Execute()) THEN
+	Messenger.Trace('Openb Door active');
+	
+	_openDoor.Run();
+	_openDoorTask.DoneWhen(_openDoor.CurrentStep.ID = 300);
+	IF _openDoorTask.Done THEN
+		_openDoorTask.Restore();	
+		_openDoor.Restore();
+	END_IF	
+END_IF
+
+
+// ground Mode Task
+IF(_groundModeTask.Execute()) THEN
+	Messenger.Trace('Ground position mode active');
+	_openDoorTask.Restore();
+	_openDoor.Restore();
+	
+	_groundMode.Run();
+	_groundModeTask.DoneWhen(_groundMode.CurrentStep.ID = 300);
+	IF _groundModeTask.Done THEN
+		_groundMode.Restore();
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <Property Name="Components" Id="{7acde4d7-cbc9-4ca0-9dfb-259ee59ec530}">
+      <Declaration><![CDATA[PROPERTY Components : REFERENCE TO Handling_Components]]></Declaration>
+      <Get Name="Get" Id="{3450027d-c312-489f-8f36-d17e57ca53f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Components REF= _components;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

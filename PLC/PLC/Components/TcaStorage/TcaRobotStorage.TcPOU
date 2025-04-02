@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaRobotStorage" Id="{2e5f7d9e-e053-4b8b-959f-778fc713336b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaRobotStorage EXTENDS TcaStorage 
+
+VAR	
+	nOriginId			: INT := -1;	
+	eApproachDirection	: E_ApproachDirection;
+	stSupportPoint		: ST_Coordinate;
+	sPose				: STRING;
+	
+	bCarrierTeached		: ARRAY[0..nMaxCarrierTypes] OF BOOL;
+	aOffset				: ARRAY[0..nMaxCarrierTypes] OF ST_Coordinate;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="ApproachDirection" Id="{5ba719f7-12b1-490c-a2e7-e0334c5e14a7}">
+      <Declaration><![CDATA[PROPERTY ApproachDirection : E_ApproachDirection]]></Declaration>
+      <Get Name="Get" Id="{e0228633-da1d-423f-943c-372cd219180f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ApproachDirection := eApproachDirection;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{26c8c4ec-a593-4eb4-b866-61ab75173a24}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[eApproachDirection := ApproachDirection;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="OriginId" Id="{8f864130-6e61-403d-9126-d270c762a499}">
+      <Declaration><![CDATA[PROPERTY OriginId : INT]]></Declaration>
+      <Get Name="Get" Id="{b3ebb342-0f5e-4401-815d-b29fcf151682}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OriginId := nOriginId;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{828c749e-9b81-4192-bbb3-d17dd769c27c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nOriginId := OriginId;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Pose" Id="{38bbae77-1584-4dec-b56c-47f23cbd5c2c}">
+      <Declaration><![CDATA[PROPERTY Pose : STRING]]></Declaration>
+      <Get Name="Get" Id="{71146d90-8041-4d61-8055-42f5661f6a7e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Pose := sPose;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5d27d215-6fc6-48c3-9028-ba4c391c9e8d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[sPose := Pose;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="RobotCoordinatesOf" Id="{83fd7b48-e261-44a3-9c9b-e078d9965116}">
+      <Declaration><![CDATA[METHOD RobotCoordinatesOf : ST_Coordinate
+VAR_INPUT
+	Position			: INT;
+END_VAR
+
+VAR
+	tmpCoordinate		: ST_Coordinate;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bCarrierPresent OR NOT bCarrierTeached[_Carrier.CarrierId] OR nOriginId = -1 THEN
+	RETURN;
+END_IF
+
+tmpCoordinate := _Carrier.CoordinatesOf(Position);
+
+tmpCoordinate.nOriginId := nOriginId;
+tmpCoordinate.fX := tmpCoordinate.fX + aOffset[_Carrier.CarrierId].fX;
+tmpCoordinate.fY := tmpCoordinate.fY + aOffset[_Carrier.CarrierId].fY;
+tmpCoordinate.fZ := tmpCoordinate.fZ + aOffset[_Carrier.CarrierId].fZ;
+tmpCoordinate.fRx := tmpCoordinate.fRx + aOffset[_Carrier.CarrierId].fRx;
+tmpCoordinate.fRy := tmpCoordinate.fRy + aOffset[_Carrier.CarrierId].fRy;
+tmpCoordinate.fRz := tmpCoordinate.fRz + aOffset[_Carrier.CarrierId].fRz;
+
+RobotCoordinatesOf := tmpCoordinate;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SupportPoint" Id="{33327287-8e5f-4bdb-9bdb-79bfae402714}">
+      <Declaration><![CDATA[PROPERTY SupportPoint : ST_Coordinate]]></Declaration>
+      <Get Name="Get" Id="{73906dac-ae8c-4bd7-8b5f-e5c44279bd8c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SupportPoint := stSupportPoint;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{3ed28bd4-d081-49b3-b581-94c81fa3bdf8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[stSupportPoint := SupportPoint;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="TeachCarrierType" Id="{b3602fcb-dc42-43eb-9367-56c7ea30625b}">
+      <Declaration><![CDATA[METHOD TeachCarrierType : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	CarrierId					: INT;	
+	Offset_X					: REAL;	
+	Offset_Y					: REAL;	
+	Offset_Z					: REAL;	
+	Offset_Rx					: REAL;	
+	Offset_Ry					: REAL;	
+	Offset_Rz					: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[aOffset[CarrierId].fX := Offset_X;
+aOffset[CarrierId].fY := Offset_Y;
+aOffset[CarrierId].fZ := Offset_Z;
+aOffset[CarrierId].fRx := Offset_Rx;
+aOffset[CarrierId].fRy := Offset_Ry;
+aOffset[CarrierId].fRz := Offset_Rz;
+
+bCarrierTeached[CarrierId] := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

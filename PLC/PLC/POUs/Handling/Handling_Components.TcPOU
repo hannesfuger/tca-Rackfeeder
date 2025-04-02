@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling_Components" Id="{f45cd4f4-c36a-4d08-85e9-a7715b159154}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling_Components EXTENDS TcoCore.TcoObject 
+VAR	
+	// Safety
+	_TwinSAFE : TcaTwinSAFE(THIS^);
+	TwinSAFERef : TcaTwinSAFERef;
+	
+	_safetyGate_A : TcaSafetyGate(THIS^);
+	SafetyGateRef_A : TcaSafetyGateRef;
+	
+	_safetyGate_B : TcaSafetyGate(THIS^);
+	SafetyGateRef_B : TcaSafetyGateRef;
+
+
+	// SegmentDoor
+	_segmentDoor_A : TcaSegmentDoor(THIS^);
+	SegmentDoorRef_A : TcaSegmentDoorRef;
+
+	_segmentDoor_B : TcaSegmentDoor(THIS^);
+	SegmentDoorRef_B : TcaSegmentDoorRef;	
+	
+	
+	// RackFeeder
+	_rackFeeder : TcaRackFeeder(THIS^);
+	RackFeederRef : TcaRackFeederRef;
+	
+	
+	
+
+	
+//	// Drive Simple
+//	_simpleDrive : TcoDrivesBeckhoff.TcoDriveSimple(THIS^);	
+//	SimpleDriveRef	: TcoDrivesBeckhoff.TcoAxisRef;
+//		
+//	// Axis
+//    _horizontalAxis : TcoDrivesBeckhoff.TcoSingleAxis(THIS^);
+//	HorizontalAxisRef : TcoDrivesBeckhoff.TcoAxisRef;
+//	
+//    _vertikalAxis : TcoDrivesBeckhoff.TcoSingleAxis(THIS^);
+//	VertikalAxisRef : TcoDrivesBeckhoff.TcoAxisRef;
+//	
+//    _telekopAxis : TcoDrivesBeckhoff.TcoSingleAxis(THIS^);
+//	TeleskopAxisRef	: TcoDrivesBeckhoff.TcoAxisRef;
+//	
+//    {attribute addProperty Name "<#Test positions#>"}
+//    _positions : Handling_Positions(THIS^);
+//	
+//	
+//	// Digital Inouts
+//	_digitalInput		: TcoDi(THIS^);
+//	
+//	
+//	_enable1			: BOOL := TRUE;
+//	_enablePositive1    : BOOL := TRUE;
+//	_enableNegative1    : BOOL := TRUE;
+//	_calibrationCam1    : BOOL := TRUE;
+//	
+//	
+//	_position			: LREAL :=1400;
+//	_velocity			: LREAL :=1400;
+//	_deceleration		: LREAL :=5000;
+//	_acceleration		: LREAL :=5000;
+//	_jerk				: LREAL :=15000;
+	
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// TwinSAFE
+_TwinSAFE(ref := TwinSAFERef);
+_TwinSAFE.Service();
+
+// SafteyGate
+_safetyGate_A(ref := SafetyGateRef_A);
+_safetyGate_A.Service();
+_safetyGate_B(ref := SafetyGateRef_B);
+_safetyGate_B.Service();
+
+//RackFeeder
+_rackFeeder(ref := RackFeederRef);
+_rackFeeder.Service();
+
+
+//_segmentDoor(ref := SegmentDoorRef);
+//_segmentDoor.Service();
+
+
+
+// axis
+//_simpleDrive(inEnable := _enable1,
+//    inEnablePositive := _enablePositive1,
+//    inEnableNegative := _enableNegative1,
+//    inCalibrationCam := _calibrationCam1,
+//    inoAxisRef := SimpleDriveRef);
+//_simpleDrive.Service();
+//
+//
+//_horizontalAxis(inEnable := _enable1,
+//    inEnablePositive := _enablePositive1,
+//    inEnableNegative := _enableNegative1,
+//    inCalibrationCam := _calibrationCam1,
+//    refAxis := HorizontalAxisRef,
+//	inoPositions:= _positions);	
+//_horizontalAxis.Service();	
+
+
+// sensor
+//_sensorLeft(ref := SensorLeftRef);
+//_sensorLeft.Service();
+//
+//_sensorRight(ref := SensorRightRef);
+//_sensorRight.Service();
+
+]]></ST>
+    </Implementation>
+    <Property Name="HorizontalAxis" Id="{76b18900-1a3b-44e9-8fca-717f06705e87}">
+      <Declaration><![CDATA[PROPERTY HorizontalAxis :  REFERENCE TO TcoSingleAxis]]></Declaration>
+      <Get Name="Get" Id="{597cf14f-fb19-4ea1-86a1-a1fd3f3ea3b0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[//HorizontalAxis REF= _horizontalAxis;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

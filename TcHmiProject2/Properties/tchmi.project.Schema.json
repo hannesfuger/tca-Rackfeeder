@@ -1,0 +1,261 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "TcaCarrier": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrierv2.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaCarrier"
+    },
+    "PLC.eTcaWorkpiecePlaceStatus": {
+      "attributes": {
+        "generate_implicit_init_function": "",
+        "qualified_only": "",
+        "strict": "",
+        "to_string": "",
+        "to_string_function": "__TO_STRING__3030",
+        "to_wstring_function": "__TO_WSTRING__3030"
+      },
+      "type": "integer",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "options": [
+        {
+          "value": 0,
+          "label": "undefined"
+        },
+        {
+          "value": 1,
+          "label": "Ready"
+        },
+        {
+          "value": 2,
+          "label": "Error"
+        },
+        {
+          "value": 3,
+          "label": "Prepared"
+        },
+        {
+          "value": 4,
+          "label": "WithBlankWorpiece"
+        },
+        {
+          "value": 5,
+          "label": "WithWorkpeiceInWork"
+        },
+        {
+          "value": 6,
+          "label": "WithcompletedWorkpiece"
+        },
+        {
+          "value": 7,
+          "label": "MAXSIZE"
+        }
+      ]
+    },
+    "PLC.TcaCarrierStatus": {
+      "additionalProperties": {},
+      "properties": {
+        "ArrayOfCarrierStatus": {
+          "allOf": [
+            {
+              "$ref": "tchmi:project#/definitions/PLC.ARRAY_0..7_OF-INT"
+            },
+            {
+              "propertyOrder": 4
+            }
+          ]
+        },
+        "ConfigError": {
+          "allOf": [
+            {
+              "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            {
+              "propertyOrder": 5
+            }
+          ]
+        },
+        "PrimaryWorkpieceStatus": {
+          "allOf": [
+            {
+              "$ref": "tchmi:project#/definitions/PLC.eTcaWorkpiecePlaceStatus"
+            },
+            {
+              "propertyOrder": 2
+            }
+          ]
+        },
+        "SecondaryWorkpieceStatus": {
+          "allOf": [
+            {
+              "$ref": "tchmi:project#/definitions/PLC.eTcaWorkpiecePlaceStatus"
+            },
+            {
+              "propertyOrder": 3
+            }
+          ]
+        },
+        "WorkpiecePlaces": {
+          "allOf": [
+            {
+              "$ref": "tchmi:general#/definitions/INT"
+            },
+            {
+              "comment": "starts with 1",
+              "propertyOrder": 1
+            }
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "WorkpiecePlaces",
+        "PrimaryWorkpieceStatus",
+        "SecondaryWorkpieceStatus",
+        "ArrayOfCarrierStatus",
+        "ConfigError"
+      ]
+    },
+    "PLC.ARRAY_0..7_OF-INT": {
+      "items": {
+        "$ref": "tchmi:general#/definitions/INT"
+      },
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "id": "tchmi:project#/definitions/PLC.ARRAY_0..7_OF-INT"
+    },
+    "TcaTrolley": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaTrolley.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaTrolley"
+    },
+    "TcaCarrier_0": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier_svg.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaCarrier_0"
+    },
+    "TcaCarrier_1": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_1",
+      "type": "object"
+    },
+    "TcaCarrier_2": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_2",
+      "type": "object"
+    },
+    "TcaCarrier_3": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_3",
+      "type": "object"
+    },
+    "TcaCarrier_4": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_4",
+      "type": "object"
+    },
+    "TcaCarrier_5": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_5",
+      "type": "object"
+    },
+    "TcaCarrier_6": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_6",
+      "type": "object"
+    },
+    "TcaCarrier_7": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_7",
+      "type": "object"
+    },
+    "TcaCarrier_8": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_8",
+      "type": "object"
+    },
+    "TcaCarrier_embed": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier_object.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaCarrier_embed"
+    },
+    "TcaCarrier_embed_0": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier_embed_.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaCarrier_embed_0"
+    },
+    "TcaCarrier_embed_1": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier_iFrame.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaCarrier_embed_1"
+    },
+    "TcaCarrier_iFrame": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier_iFrame.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcaCarrier_iFrame",
+      "type": "object"
+    },
+    "TcaCarrier_object": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaItems\\TcaCarrier_object.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaCarrier_object"
+    }
+  }
+}

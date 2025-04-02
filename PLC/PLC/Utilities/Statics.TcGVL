@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Statics" Id="{14887630-f09c-41ab-8bff-e73d29e26ce6}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	/// current system time
+	dtNow: DT;
+	/// current system time in string format	
+	sTimeString: STRING;
+	/// PLC system informations
+	stPlcSystemInfo: ST_PlcSystemInfo;
+	/// default pulse struct
+	stPulse: ST_DefaultPulse;
+	/// logging buffer
+	arLoggs: ARRAY[0..iLogArraySize] OF ST_Log;
+	/// global stuff
+	bForceStateChgAfterDrvReset: BOOL;
+	bForcePreopBeforeDrvReset: BOOL;
+	bLogDriveDiagMsgs: BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

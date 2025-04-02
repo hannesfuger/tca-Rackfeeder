@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaPushButton" Id="{223d61da-532f-4cdd-a1b1-4392cf6a464e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaPushButton EXTENDS TcoCore.TcoComponent
+
+VAR_INPUT
+	ref : REFERENCE TO TcaPushButtonRef;
+END_VAR
+
+VAR
+	_status : TcaPushButtonStatus;
+	_config : TcaPushButtonConfig;
+	_service : TcaPushButtonService;
+	
+	_tonSignal : TON;
+	_rtSignal : R_TRIG;
+	_ftSignal : F_TRIG;
+	
+    _LightTask : TcoCore.TcoTask(THIS^);	
+	_FlashArrayId : INT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref)  THEN
+    Messenger.Post('<#Invalid reference signal #>', TcoCore.eMessageCategory.ProgrammingError);
+    RETURN;
+END_IF
+
+// Signal Postprocessing
+_tonSignal(IN:= ref.Button , PT:= _config.ValidationTime);
+_rtSignal(CLK:= _tonSignal.Q OR _service.Button, Q=>);
+_ftSignal(CLK:= _tonSignal.Q OR _service.Button, Q=>);
+
+// Task
+_lighttask.Enabled := TRUE;
+IF NOT (_lighttask.Execute()) THEN
+	RETURN;
+END_IF
+	
+CASE _status.LightState OF 
+	
+eTcaPushButtonLightState.none:
+	ref.Light := FALSE;
+
+eTcaPushButtonLightState.permanent:
+	ref.Light := TRUE;
+
+eTcaPushButtonLightState.intervall:
+	IF _lighttask.ElapsedTime > _config.FlashArray[_FlashArrayId] THEN
+		ref.Light := (_FlashArrayId MOD 2 <> 0);	
+		_FlashArrayId := _FlashArrayId + 1;
+	END_IF
+	
+	IF _config.FlashArray[_FlashArrayId] = T#0MS THEN
+		_FlashArrayId := 0;
+		_lighttask.Restore();
+		_lighttask.Invoke();
+	END_IF	
+	
+END_CASE
+
+// Refresh Status
+_status.Light := ref.Light;
+_status.Falling := _ftSignal.Q;
+_status.Raising := _rtSignal.Q;
+_status.Signal := _tonSignal.Q;
+_status.ElapsedTime :=  _tonSignal.ET;
+THIS^.Status;
+]]></ST>
+    </Implementation>
+    <Folder Name="Operation" Id="{b42a4d37-5d16-455c-b4f3-73936b3650af}" />
+    <Folder Name="Tasks" Id="{53f77668-b2d4-4141-a399-65d8af77b9ad}" />
+    <Method Name="Blink" Id="{aa4396fb-828a-4d8e-8c8e-725b5bd88554}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Blink : ITcoTaskStatus
+VAR_INPUT
+	BlinkIntervall : TIME;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET(ADR(_config.FlashArray), 0, SIZEOF(_config.FlashArray));
+
+_config.FlashArray[0] := BlinkIntervall;
+_config.FlashArray[1] := BlinkIntervall*2;
+
+IF _status.LightState <> eTcaPushButtonLightState.Intervall THEN
+	_status.LightState := eTcaPushButtonLightState.Intervall;
+	Blink := _LightTask.Invoke();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Config" Id="{adfb16c4-703b-43b0-b35d-c6c38c7c874e}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaPushButtonConfig]]></Declaration>
+      <Get Name="Get" Id="{faf33bd4-8369-44e7-9c8f-3b04c69e82c1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config Ref= _config;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d818e44b-b18e-4ad4-9e63-130aadbe559c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_config := Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Flash" Id="{f2f004ba-cd04-42e9-8a95-0ca2e3716bfb}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Flash : ITcoTaskStatus
+VAR_INPUT
+	FlashCount : INT;
+END_VAR
+
+VAR
+	_BlinkIntervall : TIME := T#1000MS;
+	_FlashIntervall : TIME := T#200MS;
+	_Count : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET(ADR(_config.FlashArray), 0, SIZEOF(_config.FlashArray));
+
+_config.FlashArray[0] := _BlinkIntervall;
+_config.FlashArray[1] := _BlinkIntervall*2;
+
+FOR _Count := 0 TO 2*FlashCount BY 2 DO
+	_config.FlashArray[2+_Count] := _FlashIntervall + _config.FlashArray[1+_Count];
+	_config.FlashArray[3+_Count] := _FlashIntervall + _config.FlashArray[2+_Count];
+END_FOR
+
+IF _status.LightState <> eTcaPushButtonLightState.Intervall THEN
+	_status.LightState := eTcaPushButtonLightState.Intervall;
+	Flash := _LightTask.Invoke();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="LightTask" Id="{1625750c-d175-462a-91ec-5a1a4dc2bf6e}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY LightTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{3519c8bc-824b-47cd-bfea-1adfc01283a2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LightTask := _LightTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Off" Id="{e49c678b-5911-424b-be80-d2a6582cf32a}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Off : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _status.LightState <> eTcaPushButtonLightState.none THEN
+	_status.LightState := eTcaPushButtonLightState.none;
+	Off := _LightTask.Invoke();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="On" Id="{cd09ddf8-cce8-4db7-940d-c5c4b1761b88}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD On : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _status.LightState <> eTcaPushButtonLightState.permanent THEN
+	_status.LightState := eTcaPushButtonLightState.permanent;
+	On := _LightTask.Invoke();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Restore" Id="{7eaab4f5-8eee-4e35-9164-25118eba807c}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ServiceMode" Id="{ac883d84-f12b-4035-8362-5b0fbb511e1b}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Status" Id="{f5f05047-b089-4965-8e58-9fb1d3b500ef}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaPushButtonStatus]]></Declaration>
+      <Get Name="Get" Id="{0d1753f9-035a-4034-b89a-11f70f0eb2f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;
+
+_service.Light := _status.Light;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

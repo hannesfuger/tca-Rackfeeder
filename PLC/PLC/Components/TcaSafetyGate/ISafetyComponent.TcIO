@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ISafetyComponent" Id="{fecdc336-73fb-440a-8842-f0e77c2c38d3}">
+    <Declaration><![CDATA[INTERFACE ISafetyComponent EXTENDS ITcoComponent
+]]></Declaration>
+    <Method Name="Resume" Id="{feac7e84-aeef-4ec9-84fb-5503ef8ecb64}">
+      <Declaration><![CDATA[METHOD Resume
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ServiceRequest" Id="{bf695cdc-78a4-4e4b-948e-770786cec75d}">
+      <Declaration><![CDATA[METHOD ServiceRequest
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Sequence" Id="{ce9cb673-56d7-434b-91d4-ff7c00f77929}" SpecialFunc="None">
+    <Declaration><![CDATA[/// Sequence
+FUNCTION_BLOCK FB_Sequence
+
+VAR		
+	sName				: STRING := 'Aktion';			/// Name of Sequence
+	bEnable				: BOOL := TRUE;					/// Enable Sequencer
+
+	/// Sequence
+	nSequenceId			: INT;							/// ID of running Sequence
+	nNextSequenceId		: INT;							/// ID of next Sequence
+	nLastSequenceId		: INT;							/// ID of last Sequence
+	nErrorSequenceId	: INT := -1;
+	nWaitingSequenceId	: INT := -1;
+	
+	/// Step
+	nStep				: INT;							/// Actual Stepnumber
+	nStepMirror			: INT := -1;					/// Copy of Step for first shot trigger
+	sClearText			: STRING;						/// Step Description
+	nErrorStep			: INT := -1;
+	
+	/// Commands
+	bPause				: BOOL;							/// Pause Sequence only stepping is possible
+	bStepping			: BOOL;							/// Single step option
+	
+	/// Information
+	eState				: E_SequenceState;				/// actual Sequence-State
+	bFirstShotSequence	: BOOL;							/// actual Sequence first call
+	bFirstShotStep		: BOOL;							/// actual Step first call
+	bTimeoutStep		: BOOL;							/// Step Timeout - flag 
+	sError				: STRING;						/// Error Description
+	
+	/// Timer
+	tMaxStepTime		: TIME := T#0S;					/// maximum Steptime (0 -> infinity)
+	tMaxTime			: TIME := T#71582M47S295MS;		/// maximun Time
+	tonStep				: TON;							/// Step Timer
+	tonStepDelay		: TON;							/// StepDelay Timer
+	
+	bCondition			: BOOL := TRUE;					/// Condition for Transition
+	tDelay				: TIME := T#0S;		
+	bAutoNextSequence	: BOOL := TRUE;
+	bErrorHandling		: BOOL := FALSE;
+	
+	/// Process
+	nMaxStep			: INT;
+	nProgress			: INT := -1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[///
+/// Sequence - FB Utility.
+/// HF/www.asma.at/02.2018
+///
+]]></ST>
+    </Implementation>
+    <Folder Name="Commands" Id="{ab6077b9-4aea-476c-bc3b-9e98691d326e}" />
+    <Folder Name="Errorhandling" Id="{77e9389a-91f4-463d-af50-76f2ba05a759}" />
+    <Folder Name="Sequence" Id="{1e6cea90-91b7-4d50-b78a-9f5ba466641b}" />
+    <Folder Name="Step" Id="{774fd952-f2aa-4488-b477-69092784f9be}" />
+    <Property Name="Condition" Id="{b1daf91e-2478-42a2-95d3-a762b152caf6}" FolderPath="Step\">
+      <Declaration><![CDATA[PROPERTY Condition : BOOL]]></Declaration>
+      <Get Name="Get" Id="{aaa8b10e-aa0e-496c-853c-c2911b4ed8c2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Condition := bCondition;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{28e8a60d-7ba9-4da6-b5d7-740ddb6af7aa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bCondition := Condition;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Delay" Id="{22d7c61c-e8c7-47b8-af16-558a5e90f374}" FolderPath="Step\">
+      <Declaration><![CDATA[PROPERTY Delay : TIME]]></Declaration>
+      <Get Name="Get" Id="{90ba0c27-e4a5-490c-b7a1-17f4d5f87c40}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Delay := tDelay;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ec4c2035-3e1b-4088-bab6-62a37fe67a9a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[tDelay := Delay;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Enable" Id="{bd86be13-92d3-4a05-88dc-8e92340c18a1}">
+      <Declaration><![CDATA[PROPERTY Enable : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8c48fccb-f3b0-4016-8e5a-235384af6d48}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Enable := bEnable;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{04fa34d9-2c38-4bfd-9689-78b695091624}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bEnable := Enable;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="EnableAutoNextSequence" Id="{66ba70e2-d9e1-435d-8843-65a1f83995c9}">
+      <Declaration><![CDATA[PROPERTY EnableAutoNextSequence : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d70c2c22-d279-43b2-b09e-fea887014722}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnableAutoNextSequence := bAutoNextSequence;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c2ba1706-77ff-4ac5-b368-8e6eed469a07}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bAutoNextSequence := EnableAutoNextSequence;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="EnableErrorHandling" Id="{d4f110ae-97ec-41fe-b00d-6a0bce8fcf5d}" FolderPath="Errorhandling\">
+      <Declaration><![CDATA[PROPERTY EnableErrorHandling : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ea44e4fa-9baf-49fb-a18e-4cd3ddfac382}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EnableErrorHandling := bErrorHandling;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ecf8978e-4654-4fdd-9b64-ae9fb933d411}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bErrorHandling := EnableErrorHandling;
+
+IF NOT EnableErrorHandling THEN
+	nErrorSequenceId := -1;
+	nErrorStep := -1;
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ErrorSequenceId" Id="{2236e47a-2065-4b59-a805-c4673482f232}" FolderPath="Errorhandling\">
+      <Declaration><![CDATA[PROPERTY ErrorSequenceId : INT]]></Declaration>
+      <Get Name="Get" Id="{88ff6dc3-891b-4b3b-93b4-6c243e70fb6c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorSequenceId := nErrorSequenceId;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7b9f6a3c-2d75-43df-a7d2-3f0d8465a8d2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[	nErrorSequenceId := ErrorSequenceId;
+	nErrorStep := -1;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ErrorStep" Id="{117c5e8a-0b8a-41c8-85bb-ae0c9dfb38cd}" FolderPath="Errorhandling\">
+      <Declaration><![CDATA[PROPERTY ErrorStep : INT]]></Declaration>
+      <Get Name="Get" Id="{1497aec0-d979-425b-8035-318923191719}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorStep := nErrorStep;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1b5854db-a1bd-45e8-8a4c-cf6a8a7eb2bb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[	nErrorSequenceId := -1;
+	nErrorStep := ErrorStep;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ErrorString" Id="{82c6273c-3ce3-443f-89bf-7900a2356732}" FolderPath="Errorhandling\">
+      <Declaration><![CDATA[PROPERTY ErrorString : STRING]]></Declaration>
+      <Get Name="Get" Id="{edf087dd-7b30-4d60-9c92-30a420f64c92}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorString := sError;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Finish" Id="{3716db60-95bc-4909-ba97-3a969bdcd923}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD Finish
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nStep := 0;
+nStepMirror := -1;
+nProgress := -1;
+
+nLastSequenceId := nSequenceId;
+nSequenceId := 0;
+eState := E_SequenceState.finished;
+sError := sEmpty;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FirstShotSequence" Id="{ae339bd8-776b-4f03-b3e6-73dfee3d1716}" FolderPath="Sequence\">
+      <Declaration><![CDATA[/// aktuelle Sequence wird zum 1. Mal aufgerufen
+PROPERTY FirstShotSequence : BOOL]]></Declaration>
+      <Get Name="Get" Id="{53ccc29c-b4b7-4f61-8675-bfe7e69667ee}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FirstShotSequence := bFirstShotSequence;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="FirstShotStep" Id="{5726c2d5-f03d-4fca-86e2-7a0f7e23e7a5}" FolderPath="Step\">
+      <Declaration><![CDATA[/// aktueller Schritt wird zum 1. Mal aufgerufen
+PROPERTY FirstShotStep : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ca1bc701-1207-4776-b35d-c8e3ca44b90d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FirstShotStep := bFirstShotStep;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Info" Id="{b54baf5a-9a4a-4974-a5b1-58ba2415923c}" FolderPath="Step\">
+      <Declaration><![CDATA[PROPERTY Info : STRING]]></Declaration>
+      <Get Name="Get" Id="{647e88d9-6c39-42c6-9967-10e799c09c87}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Info := sClearText;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{bc2588a4-5695-4825-822c-7fedc57fc4c8}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[sClearText := Info;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Init" Id="{05a3b70c-1b29-40f4-a6c0-cd1ee7a1480e}" FolderPath="Commands\">
+      <Declaration><![CDATA[/// Schrittschaltwerk - Initialisierung
+METHOD Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nStep := 0;
+nStepMirror := -1;
+nProgress := -1;
+sError := sEmpty;
+tonStepDelay.IN := FALSE;
+nNextSequenceId := 0;
+
+nLastSequenceId := nSequenceId;
+nSequenceId := 0;
+eState := E_SequenceState.none;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="LastSequenceId" Id="{895ab6da-929b-4bd9-9e0f-9da1762a3376}" FolderPath="Sequence\">
+      <Declaration><![CDATA[PROPERTY LastSequenceId : INT]]></Declaration>
+      <Get Name="Get" Id="{8214523a-3258-4374-9193-4f379923ab6a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LastSequenceId := nLastSequenceId;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="MaxStep" Id="{39ad2a4b-26f4-4ad0-92b9-4ccf37d8d7bd}" FolderPath="Step\">
+      <Declaration><![CDATA[PROPERTY MaxStep : INT]]></Declaration>
+      <Get Name="Get" Id="{aebf9cb5-7ce9-4a1f-b0ef-914e52c2dc45}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MaxStep := nMaxStep;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{93bb63c2-e0fb-4ab3-ab9f-55b243b6373a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nMaxStep := MaxStep;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="MaxStepTime" Id="{ce8ba3e2-e70d-4944-9e2e-8672cfd09cfb}" FolderPath="Errorhandling\">
+      <Declaration><![CDATA[/// Maximale Schirttdauer (0 -> unbegrenzt)
+PROPERTY MaxStepTime : TIME]]></Declaration>
+      <Get Name="Get" Id="{5e91f025-6d03-4335-b49f-6d1d7a1a60f9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MaxStepTime := tMaxStepTime;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{166ff08b-ae6a-425a-8d62-97217bb6333f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[tMaxStepTime := MaxStepTime;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Name" Id="{6f4f36b6-5183-4b89-b00a-d1a7146c2851}">
+      <Declaration><![CDATA[/// Name der Aktion
+PROPERTY Name : STRING]]></Declaration>
+      <Get Name="Get" Id="{0261fe33-49b5-4faf-afbc-6e87bd39b198}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Name := sName;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cb8eebb4-89e6-45da-94f0-a4243161ac13}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[sName := Name;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="NextSequence" Id="{6b404c68-dc26-422f-b80a-cfe7e7329c86}" FolderPath="Sequence\">
+      <Declaration><![CDATA[PROPERTY NextSequence : INT]]></Declaration>
+      <Get Name="Get" Id="{e7c5a025-63d5-4b18-91db-0b8e70665b1e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NextSequence := nNextSequenceId;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{24cd0364-c543-4d8f-b9d1-c45b0eb80ec8}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nNextSequenceId := NextSequence;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="NextSequenceDefined" Id="{3c01de7d-fcaa-43a4-8712-b15771e64826}" FolderPath="Sequence\">
+      <Declaration><![CDATA[PROPERTY NextSequenceDefined : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0dd0778d-0c9c-45f6-bd7a-be688acbaa2a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NextSequenceDefined := nNextSequenceId <> 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="NextStep" Id="{d58ad4ef-445b-4921-b938-105f426eaaaa}" FolderPath="Step\">
+      <Declaration><![CDATA[/// aktueller Schritt
+{attribute 'monitoring' := 'variable'}
+PROPERTY NextStep : INT]]></Declaration>
+      <Set Name="Set" Id="{93c0b748-44b0-4607-a2f5-82818e6e0ca8}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF eState = E_SequenceState.finished THEN 
+	RETURN;
+END_IF
+
+IF bPause THEN
+	sClearText := CONCAT('Pause - ', sClearText);
+ELSIF NOT Condition THEN
+	sClearText := sClearText;
+END_IF
+
+tonStepDelay.IN := TRUE;
+tonStepDelay.PT:= tDelay;
+
+IF bCondition AND (tDelay = T#0S OR tonStepDelay.Q OR bPause) AND (NOT bPause OR bStepping) THEN
+	tonStepDelay(IN := FALSE);
+	tDelay := T#0S;
+	bCondition := TRUE;
+	bStepping := FALSE;
+	nStep:= NextStep;
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Pause" Id="{f490d567-240e-4a78-bb11-c41e24ef6a1f}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD Pause 
+VAR_INPUT
+	Enable			:bool;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bPause := Enable;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Progress" Id="{d74a7290-c08d-4651-a215-2b038d850590}" FolderPath="Step\">
+      <Declaration><![CDATA[PROPERTY Progress : INT]]></Declaration>
+      <Get Name="Get" Id="{963dcd13-f730-4a31-b1ee-82ddfccf04cc}">
+        <Declaration><![CDATA[VAR
+	temp			: INT;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF nSequenceId < 0 THEN
+	Progress := -1;
+	RETURN;
+END_IF
+
+IF eState = E_SequenceState.finished THEN
+	Progress := 100;
+	RETURN;
+END_IF
+
+IF eState <> E_SequenceState.running THEN
+	Progress := -1;
+	RETURN;
+END_IF
+
+
+nProgress := MAX(nProgress, (nStep * (10000/nMaxStep))/100);
+
+Progress := nProgress;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="QueueNext" Id="{c43df6b5-fe14-4045-8c68-d5c06a6dbe19}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD QueueNext : BOOL
+VAR_INPUT
+	SequenceId : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nNextSequenceId := SequenceId;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{d02a1874-597c-487b-8d78-8b45022cb121}">
+      <Declaration><![CDATA[METHOD Run]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Enabled
+IF NOT bEnable THEN
+	init();
+	RETURN;
+END_IF
+
+// Finished
+IF eState = E_SequenceState.finished THEN
+	sClearText := Concat3('', Name, ' finished');
+	eState := E_SequenceState.none;
+END_IF
+	
+// Ready for New - start automatically
+IF eState = E_SequenceState.none AND bAutoNextSequence THEN
+	IF nNextSequenceId <> 0 THEN
+		StartNext();	
+	ELSIF nWaitingSequenceId <> -1 THEN
+		Start(nWaitingSequenceId);
+	END_IF
+END_IF
+
+// 1st shot trigger
+bFirstShotStep := nStep <> nStepMirror;
+bFirstShotSequence := bFirstShotStep AND nStep = 0;
+nStepMirror := nStep;
+
+// run timer
+tonStep(IN := NOT bFirstShotStep, PT := tMaxTime);
+tonStepDelay();
+
+IF bFirstShotStep THEN
+	tonStepDelay.IN := FALSE;
+END_IF
+
+// step timeout
+bTimeoutStep := tMaxStepTime > T#1MS AND tonStep.ET > tMaxStepTime;
+
+// error handling
+IF NOT bErrorHandling THEN
+	RETURN;
+END_IF
+
+// State Error
+IF eState = E_SequenceState.error THEN
+	
+	IF nErrorSequenceId <> -1 THEN
+		nSequenceId := nErrorSequenceId;
+		nStep := 0;
+		nStepMirror := -1;
+		eState := E_SequenceState.error_running;
+	ELSIF nErrorStep <> -1 THEN
+		nStepMirror := nStep;
+		nStep := nErrorStep;
+		eState := E_SequenceState.error_running;
+	END_IF
+	
+END_IF
+
+// Timeout
+IF bTimeoutStep THEN
+	eState := E_SequenceState.error;
+	sError := Concat7('Timeout: ', sClearText,  '(Sq: ', INT_TO_STRING(nSequenceId), ', Stp: ', INT_TO_STRING(nStep),')');
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SequenceId" Id="{866744fe-7c1f-4399-b063-ca049196ff6e}" FolderPath="Sequence\">
+      <Declaration><![CDATA[PROPERTY SequenceId : INT]]></Declaration>
+      <Get Name="Get" Id="{c48933b5-a91f-4914-8ce7-7cfd4202eca9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SequenceId := nSequenceId;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Start" Id="{00908ea2-cc10-4e99-9bc1-604d46de8437}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD Start
+VAR_INPUT
+	nId 	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nStep := 0;
+nProgress := -1;
+nStepMirror := -1;
+//sError := sEmpty;
+
+nSequenceId := nId;
+eState := E_SequenceState.running;
+bCondition := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StartLast" Id="{b315e2fd-4d5d-4552-8b6d-d84aaf914026}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD StartLast
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF nLastSequenceId <> 0 THEN
+	nStep := 0;
+	nProgress := -1;
+	nStepMirror := -1;
+	//sError := sEmpty;
+	
+	nSequenceId := nLastSequenceId;
+	eState := E_SequenceState.running;
+	bCondition := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StartNext" Id="{5a8cd108-1775-4a04-81a9-42da9f5f95ea}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD StartNext
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF nNextSequenceId <> 0 THEN
+	nStep := 0;
+	nProgress := -1;
+	nStepMirror := -1;
+	//sError := sEmpty;
+	nSequenceId := nNextSequenceId;
+	nNextSequenceId := 0;
+	
+	eState := E_SequenceState.running;
+	bCondition := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="State" Id="{b79c21c4-5172-4fbe-8e25-e2995df28672}" FolderPath="Sequence\">
+      <Declaration><![CDATA[/// aktueller Sequence-Status
+PROPERTY State : E_SequenceState]]></Declaration>
+      <Get Name="Get" Id="{14d8019d-5d7b-4cd2-9fca-aeb3b159a1bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := eState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Step" Id="{dcd29020-e305-4199-9d22-33cd07b26692}" FolderPath="Step\">
+      <Declaration><![CDATA[/// aktueller Schritt
+{attribute 'monitoring' := 'variable'}
+PROPERTY Step : INT]]></Declaration>
+      <Get Name="Get" Id="{f474a437-acf1-4614-8950-47cb3677f616}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Step := nStep;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Stepping" Id="{7f00aa33-8b24-424f-b6da-86c41b9a277c}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD Stepping
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bStepping := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="StepTime" Id="{020231b3-c291-4dba-9bfc-28e3e5257574}" FolderPath="Step\">
+      <Declaration><![CDATA[PROPERTY StepTime : Time]]></Declaration>
+      <Get Name="Get" Id="{e7ad76ad-613d-47eb-b89e-6d05281de001}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StepTime := tonStep.ET;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="TimeoutStep" Id="{71f1a1ac-46d4-47c2-9d49-8a45412c2984}" FolderPath="Errorhandling\">
+      <Declaration><![CDATA[/// Schritt Timeout - flag 
+PROPERTY TimeoutStep : BOOL]]></Declaration>
+      <Get Name="Get" Id="{08ff5edf-0d5a-4f28-8100-38dc16b0b917}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TimeoutStep := bTimeoutStep;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Waiting" Id="{feff15bc-6474-424a-9d56-0b1de2ea9730}" FolderPath="Sequence\">
+      <Declaration><![CDATA[PROPERTY Waiting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d5501247-77d4-4015-995b-53af2636780f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Waiting := eState = E_SequenceState.waiting;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d18cfa1e-623f-4bd3-b27b-fa1192cd6753}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF Waiting AND eState = E_SequenceState.running THEN
+	eState := E_SequenceState.waiting;	
+ELSIF NOT Waiting AND eState = E_SequenceState.waiting THEN
+	eState := E_SequenceState.running;	
+END_IF]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="WaitingSequenceId" Id="{95b1832b-75b5-42af-878b-b3ff7e9cc0ce}" FolderPath="Sequence\">
+      <Declaration><![CDATA[PROPERTY WaitingSequenceId : INT]]></Declaration>
+      <Get Name="Get" Id="{3dad0ffe-9edb-4ef5-9b4a-8bae3af87960}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[WaitingSequenceId := nWaitingSequenceId;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{552486ea-125c-486d-a95b-ed9a291e5241}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nWaitingSequenceId := WaitingSequenceId;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

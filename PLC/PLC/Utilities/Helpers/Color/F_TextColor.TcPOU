@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_TextColor" Id="{710f2de9-5f74-4b58-9253-d8467ad3d9d8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_TextColor : DWORD
+VAR_INPUT
+	Color					: DWORD;
+END_VAR
+
+VAR
+	stColor					: ST_COLOR;
+	stWhite					: ST_COLOR;		
+	stBlack					: ST_COLOR;			
+	
+	lblColorDifference		: INT;
+	lblBrightnessDifference : UINT;
+	
+	
+tmpArray				: ARRAY[0..3] OF BYTE;
+	
+	Rc						: INT;
+	Gc						: INT;
+	Bc						: INT;
+
+	K						: INT;
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[stColor := F_DWORD2RGB(Color);
+stWhite := F_DWORD2RGB(colWhite);
+stBlack := F_DWORD2RGB(colBlack);
+
+lblBrightnessDifference := (299*stColor.nRed + 587*stColor.nGreen + 114*stColor.nBlue)/1000 - (299*stWhite.nRed + 587*stWhite.nGreen + 114*stWhite.nBlue)/1000;
+lblColorDifference := -((stColor.nRed - stWhite.nRed) + (stColor.nGreen - stWhite.nGreen + (stColor.nBlue - stWhite.nBlue)));
+
+IF lblBrightnessDifference > 125 AND lblColorDifference > 500 THEN
+	F_TextColor := colWhite;	
+ELSE
+	F_TextColor := colBlack;
+END_IF
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

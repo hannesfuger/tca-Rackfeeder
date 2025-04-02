@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaWorkpiecePlaceConfig" Id="{85a84314-a765-46c5-83f4-70b267464807}">
+    <Declaration><![CDATA[TYPE TcaWorkpiecePlaceConfig EXTENDS ST_ComboboxEntry:
+STRUCT
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

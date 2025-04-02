@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcaTwinSAFE" Id="{a920522f-8ca3-4a99-b50f-ec1249aadf42}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcaTwinSAFE EXTENDS TcoComponent
+
+VAR CONSTANT
+	MAX_EMEGENCY	: INT := 2;
+END_VAR
+
+VAR_INPUT
+	ref : REFERENCE TO TcaTwinSAFERef;
+END_VAR
+
+VAR
+	_status : TcaTwinSAFEStatus;
+	_config : TcaTwinSAFEConfig;
+	_service : TcaTwinSAFEService;	
+
+	_quittButton : TcaPushButton(THIS^);
+	_ackTask : TcoTask(THIS^);
+	_runTask : TcoTask(THIS^);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//RETURN;
+
+IF NOT __ISVALIDREF(ref)  THEN
+    Messenger.Post('<#Invalid reference signal #>', TcoCore.eMessageCategory.ProgrammingError);
+    RETURN;
+END_IF
+
+// Button
+_quittButton(ref:= ref.QuittButton);
+
+// Task
+_ackTask.Enabled := TRUE;
+IF (_ackTask.Execute()) THEN	
+	ref.tsRunStop := TRUE;
+
+	IF NOT ref.tsFbRun THEN
+		RETURN;
+	END_IF
+		
+	// Twinsafe group Error
+	IF CheckError() AND NOT ref.tsErrAck THEN
+		ref.tsErrAck := TRUE;
+	ELSE
+		ref.tsErrAck := FALSE;
+	END_IF
+
+	// Emergency Restart
+	IF NOT ref.tsEmergencySafe AND NOT ref.tsEmergencyRestart THEN
+		ref.tsErrAck := TRUE;
+		ref.tsEmergencyRestart := TRUE;	
+	ELSE
+		ref.tsErrAck := FALSE;
+		ref.tsEmergencyRestart := FALSE;
+	END_IF
+
+	IF ref.tsInRun AND ref.tsEmergencySafe THEN	
+		_ackTask.ThrowWhen(TRUE);
+		_runTask.Restore();
+		_runTask.Invoke();
+	END_IF
+END_IF
+
+_runTask.Enabled := TRUE;
+IF (_runTask.Execute()) THEN	
+	_runTask.ThrowWhen(CheckError());	
+END_IF
+
+// Refresh Status
+_status.Safe := ref.tsEmergencySafe; // todo components
+_status.Error := CheckError();
+_status.Running := ref.tsInRun AND ref.tsFbRun;
+THIS^.Status;]]></ST>
+    </Implementation>
+    <Folder Name="Function" Id="{bf583806-339d-48fe-9cd0-fc7f9ea135e2}" />
+    <Folder Name="Operation" Id="{faf5cb7f-3e63-4e95-a599-f6311b77979d}" />
+    <Folder Name="States" Id="{5098d3b0-5f9e-4981-ad42-f006f361b0f8}" />
+    <Folder Name="Task" Id="{4ff4d21b-20ff-459f-83da-5e7013f904ef}" />
+    <Method Name="Acknowledge" Id="{77a969bc-8a29-476f-9f9c-4d7d4e309940}" FolderPath="Operation\">
+      <Declaration><![CDATA[METHOD Acknowledge : ITcoTaskStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ackTask.Restore();
+Acknowledge := _ackTask.Invoke();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="AckTask" Id="{f5e71eb2-8172-453b-8ea8-b6a2477bded8}" FolderPath="Task\">
+      <Declaration><![CDATA[PROPERTY AckTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{244d929e-7fdf-4a77-a649-f2f7687fc208}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AckTask := _AckTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="CheckError" Id="{a33275df-1acb-495b-9a90-b7053f3e76f5}" FolderPath="Function\">
+      <Declaration><![CDATA[METHOD CheckError : BOOL
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CheckError := FALSE;
+
+IF ref.tsComErr THEN
+	Messenger.Error('TwinSAFE COM Error');
+	CheckError := TRUE;
+END_IF
+
+IF ref.tsFbErr THEN
+	Messenger.Error('TwinSAFE FB Error');
+	CheckError := TRUE;
+END_IF		
+
+IF ref.tsOutErr THEN
+	Messenger.Error('TwinSAFE Out Error');
+	CheckError := TRUE;
+END_IF		
+
+IF ref.tsOtherErr THEN
+	Messenger.Error('TwinSAFE Other Error');
+	CheckError := TRUE;
+END_IF			]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Config" Id="{c2ab57d9-78bd-4c87-9b78-2e31344decd9}">
+      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaTwinSAFEConfig]]></Declaration>
+      <Get Name="Get" Id="{613ca77d-e131-45d9-961d-852d8c572c54}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config Ref= _config;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8995a3dd-6baa-4870-8eb3-eece401e7c14}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_config := Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Restore" Id="{06add0da-534c-4a4e-ba3f-45f7605e39a0}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+METHOD Restore : TcoCore.ITcoRestorable
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Acknowledge();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="RunTask" Id="{7c10b310-90df-44ed-92fc-023010088900}" FolderPath="Task\">
+      <Declaration><![CDATA[PROPERTY RunTask : TcoCore.ITcoTask]]></Declaration>
+      <Get Name="Get" Id="{adcc7506-6b71-4289-8bf1-c02d4abb8a86}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[RunTask := _RunTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ServiceMode" Id="{cc7bfc42-ecd5-44d6-8d65-466032ad484f}">
+      <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
+(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _quittButton.Status.Raising OR _service.QuittButton.Button THEN 
+	_service.QuittButton.Button := FALSE;
+	Acknowledge(); 
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Status" Id="{27085d88-b9f3-46f5-81a0-ca5fdb4d9b68}">
+      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaTwinSAFEStatus]]></Declaration>
+      <Get Name="Get" Id="{efd06252-d540-4c43-af2d-2f44d7371033}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;
+
+_service.Error := status.Error;
+_service.Running := status.Running;
+_service.Safe := status.Safe;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

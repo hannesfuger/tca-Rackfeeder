@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_GetAdsPort" Id="{1ec35bb8-a468-4367-a4b9-d8e24742395a}" SpecialFunc="None">
+    <Declaration><![CDATA[/// returns the ADS port number used by the current task
+FUNCTION F_GetAdsPort : UINT
+VAR
+	/// FB to get the index of the current task 
+	fbTaskIndex: GETCURTASKINDEX;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbTaskIndex();
+F_GetAdsPort := TwinCAT_SystemInfoVarList._TaskInfo[fbTaskIndex.index].AdsPort;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

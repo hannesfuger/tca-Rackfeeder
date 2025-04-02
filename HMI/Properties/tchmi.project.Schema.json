@@ -1,0 +1,237 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "TcoBeckhoffAxis_Halt": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Halt.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Halt"
+    },
+    "TcoBeckhoffAxis_Home": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Home.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Home"
+    },
+    "TcoBeckhoffAxis_Jogging": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Jogging.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Jogging"
+    },
+    "TcoBeckhoffAxis_MoveAbsolute": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_MoveAbsolute.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_MoveAbsolute"
+    },
+    "TcoBeckhoffAxis_MoveModulo": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_MoveModulo.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_MoveModulo"
+    },
+    "TcoBeckhoffAxis_MoveRelative": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_MoveRelative.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_MoveRelative"
+    },
+    "TcoBeckhoffAxis_MoveVelocity": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_MoveVelocity.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_MoveVelocity"
+    },
+    "TcoBeckhoffAxis_Power": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Power.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Power"
+    },
+    "TcoBeckhoffAxis_Reset": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Reset.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Reset"
+    },
+    "TcoBeckhoffAxis_Status": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Status.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Status"
+    },
+    "TcoBeckhoffAxis_Stop": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoBeckhoffAxis\\TcoBeckhoffAxis_Stop.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoBeckhoffAxis_Stop"
+    },
+    "TcoTask_Control": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoTask\\TcoTask_Control.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoTask_Control"
+    },
+    "TcoTask_InvokeButton": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoTask\\TcoTask_InvokeButton.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoTask_InvokeButton"
+    },
+    "TcoToggleTask_Button": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoTask\\TcoToggleTask_Button.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcoToggleTask_Button"
+    },
+    "TcaWorkpiecePlaceThumb": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\TcaWorkpiecePlace\\TcaWorkpiecePlaceThumb.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TcaWorkpiecePlaceThumb"
+    },
+    "Storage": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\TcaStorage\\Storage.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Storage"
+    },
+    "Trolley": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\TcaTrolley\\Trolley.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Trolley"
+    },
+    "WorkpieceCarrier": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\Items\\WorkpieceCarrier.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WorkpieceCarrier"
+    },
+    "WorkpieceCarrierThumb": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\Items\\WorkpieceCarrierThumb.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WorkpieceCarrierThumb"
+    },
+    "WorkpieceInfo": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\TcaWorkpiecePlace\\WorkpieceInfo.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WorkpieceInfo"
+    },
+    "WorkpiecePlaceSelect": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\Settings\\WorkpiecePlaceSelect.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WorkpiecePlaceSelect"
+    },
+    "WorkpiecePlaceState": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\Settings\\WorkpiecePlaceState.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WorkpiecePlaceState"
+    },
+    "WorkpiecePlaceStateEdit": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\Settings\\WorkpiecePlaceStateEdit.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WorkpiecePlaceStateEdit"
+    },
+    "RackFeeder": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\RackFeeder\\RackFeeder.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/RackFeeder"
+    },
+    "StorageDock": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\RackFeeder\\StorageDock.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/StorageDock"
+    },
+    "TeachTrolleyDock": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcaLibrary\\RackFeeder\\TeachTrolleyDock.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TeachTrolleyDock"
+    },
+    "SequencerStep": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoSequencer\\SequencerStep.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/SequencerStep"
+    },
+    "Sequencer": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoSequencer\\Sequencer.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Sequencer"
+    },
+    "Dialog": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "TcoLibrary\\TcoDialog\\Dialog.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Dialog"
+    }
+  }
+}

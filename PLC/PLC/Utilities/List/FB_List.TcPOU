@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_List" Id="{f1793102-9a12-4387-826b-1556422e9f5c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_List
+
+VAR CONSTANT
+	nMaxListEntry						: INT := 255;
+END_VAR
+
+VAR		
+	stVisu								: Uc_List;
+	astEntries							: ARRAY[0..nMaxListEntry] OF ST_Listentry;
+	
+	
+	ptList								: POINTER TO BYTE;
+	nEntries							: INT;
+	soEntry								: DINT;
+	soList								: DINT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Commands" Id="{b766111b-0a6d-4578-bb51-e3f10b8bc958}" />
+    <Method Name="ChangeEntry" Id="{f63ef231-6cef-4ea1-92d5-acd84c94fd1b}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD ChangeEntry : E_OperationResult
+
+VAR_INPUT
+	Entry					: INT;
+	Name					: STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Entry < 0 OR Entry > 254 THEN
+	RETURN;
+END_IF
+
+astEntries[Entry].sName := Name;
+
+Refresh();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clean" Id="{7a8507c3-4d92-4680-845f-54714ac5a928}">
+      <Declaration><![CDATA[METHOD Clean : BOOL
+VAR
+	ni			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ptList <> 0 THEN
+	MEMSET(ptList, 0, soList);
+END_IF
+
+MEMSET(ADR(astEntries), 0, SIZEOF(astEntries));
+
+stVisu.astEntries :=  astEntries;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DefineList" Id="{7bc34a71-7b4d-4d7e-af10-4d4537af0cc0}">
+      <Declaration><![CDATA[METHOD DefineList : BOOL
+VAR_INPUT
+	List			: ANY;
+	Entries			: INT;
+END_VAR
+
+VAR
+	ni				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Entries > 250 THEN
+	RETURN;
+END_IF
+
+ptList := List.pValue;
+soList := List.diSize;
+soEntry := List.diSize/(Entries+1);
+nEntries := Entries;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InsertEntry" Id="{0829f1ca-818e-4776-a48c-13e833799cf1}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD InsertEntry : E_OperationResult
+
+VAR_INPUT
+	Entry					: INT;
+	Name					: STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Entry < 0 OR Entry > 254 THEN
+	RETURN;
+END_IF
+
+MEMMOVE(ADR(astEntries[Entry+1]), ADR(astEntries[Entry]), (nMaxListEntry-Entry-1)*SIZEOF(ST_Listentry));
+astEntries[Entry].sName := Name;
+astEntries[Entry].bEnable := TRUE;
+
+IF ptList = 0 THEN
+	Refresh();
+	RETURN;
+END_IF
+
+
+MEMMOVE((ptList + soEntry*(Entry+1)), (ptList + (soEntry*Entry)), (nEntries-Entry-1)*soEntry);
+MEMCPY(ptList+Entry*soEntry, ADR(astEntries[Entry]), SIZEOF(ST_Listentry));
+
+
+Refresh();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Load" Id="{bd19dd6b-f95a-4656-b955-11a669f6377e}">
+      <Declaration><![CDATA[METHOD Load : BOOL
+VAR
+	ni				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ptList <> 0 THEN
+
+	FOR ni:= 0 TO nEntries DO
+		MEMCPY(ADR(astEntries[ni]), ptList+ni*soEntry, SIZEOF(ST_Listentry));
+	END_FOR
+
+END_IF
+
+stVisu.astEntries :=  astEntries;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveEntry" Id="{cbc6c284-5350-4508-be8d-35756fb83090}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD MoveEntry : E_OperationResult
+
+VAR_INPUT
+	Entry					: INT;
+	ToEntry					: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ToEntry < 0 OR ToEntry > 254 THEN
+	RETURN;
+END_IF
+
+MEMMOVE(ADR(astEntries[255]), ADR(astEntries[ToEntry]), SIZEOF(ST_Listentry));
+MEMMOVE(ADR(astEntries[ToEntry]), ADR(astEntries[Entry]), SIZEOF(ST_Listentry));
+MEMMOVE(ADR(astEntries[Entry]), ADR(astEntries[255]), SIZEOF(ST_Listentry));
+
+IF ptList = 0 THEN
+	Refresh();
+	RETURN;
+END_IF
+
+MEMMOVE(ptList + soEntry*(255), ptList + soEntry*(ToEntry), soEntry);
+MEMMOVE(ptList + soEntry*(ToEntry), ptList + soEntry*(Entry), soEntry);
+MEMMOVE(ptList + soEntry*(Entry), ptList + soEntry*(255), soEntry);
+
+Refresh();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Refresh" Id="{cf2ac10f-cdc2-4f21-b16d-5853ec947658}">
+      <Declaration><![CDATA[METHOD Refresh : BOOL
+VAR
+	ni				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ptList <> 0 THEN
+
+	FOR ni:= 0 TO nEntries DO	
+		MEMCPY(ptList+ni*soEntry, ADR(astEntries[ni]), SIZEOF(ST_Listentry));
+	END_FOR
+	
+END_IF
+
+stVisu.astEntries :=  astEntries;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveEntry" Id="{9ccb0541-9c8f-4af2-894e-5323a60fb0a5}" FolderPath="Commands\">
+      <Declaration><![CDATA[METHOD RemoveEntry : E_OperationResult
+
+VAR_INPUT
+	Entry			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Entry < 0 OR Entry > 254 THEN
+	RETURN;
+END_IF
+
+MEMMOVE(ADR(astEntries[Entry]), ADR(astEntries[Entry+1]), (nMaxListEntry-Entry)*SIZEOF(ST_Listentry));
+
+IF ptList = 0 THEN
+	Refresh();
+	RETURN;
+END_IF
+
+MEMMOVE((ptList + (soEntry*Entry)), (ptList + soEntry*(Entry+1)), (nEntries-Entry)*soEntry);
+
+Refresh();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{165a3c06-3369-48ac-8621-a5e5b8462fb1}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Visu();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Selected" Id="{f1e2ad36-13f1-4f51-8a08-6d0ac3ffa642}">
+      <Declaration><![CDATA[PROPERTY Selected : UInt]]></Declaration>
+      <Get Name="Get" Id="{0ffb46db-279b-496f-ad60-01ee9de687d9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Selected := stVisu.nSelected;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="SelectedEntry" Id="{5813209f-6357-419c-92a2-60cbab7f3733}">
+      <Declaration><![CDATA[PROPERTY SelectedEntry : ST_Listentry]]></Declaration>
+      <Get Name="Get" Id="{14b9c633-cbb5-4184-a081-31757edbaa6d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SelectedEntry := astEntries[stVisu.nSelected];]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="SelectedPointer" Id="{f9f059b6-1197-4990-807d-a63866682a35}">
+      <Declaration><![CDATA[PROPERTY SelectedPointer : Pointer TO Byte]]></Declaration>
+      <Get Name="Get" Id="{d45436c1-e3cd-4446-94c0-fbb77dd3f9b1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SelectedPointer := ptList + (Selected*soEntry);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Visu" Id="{cfd76b04-bcf3-4158-b3fd-b00314431d1e}">
+      <Declaration><![CDATA[METHOD Visu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF stVisu.bRemove THEN
+	stVisu.bRemove := FALSE;
+	RemoveEntry(stVisu.nSelected);
+	stVisu.astEntries :=  astEntries;
+END_IF
+
+IF stVisu.bInsert THEN
+	stVisu.bInsert := FALSE;
+	InsertEntry(stVisu.nSelected, 'neuer Eintrag');
+	stVisu.astEntries :=  astEntries;
+END_IF
+
+IF stVisu.bSave THEN
+	stVisu.bSave := FALSE;
+	astEntries := stVisu.astEntries;
+END_IF
+
+IF stVisu.bMoveDown THEN
+	stVisu.bMoveDown := FALSE;	
+	MoveEntry(stVisu.nSelected, stVisu.nSelected+1);
+	stVisu.nSelected := stVisu.nSelected+1;
+	stVisu.astEntries :=  astEntries;
+END_IF
+
+IF stVisu.bMoveUp THEN
+	stVisu.bMoveUp := FALSE;	
+	MoveEntry(stVisu.nSelected, stVisu.nSelected-1);
+	stVisu.nSelected := stVisu.nSelected-1;
+	stVisu.astEntries :=  astEntries;
+END_IF
+
+stVisu.ptSelected := SelectedPointer;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

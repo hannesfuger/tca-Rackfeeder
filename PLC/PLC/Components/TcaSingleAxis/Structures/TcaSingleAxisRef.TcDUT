@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSingleAxisRef" Id="{3c8b2ff9-9380-4582-aded-18a42867d38d}">
+    <Declaration><![CDATA[TYPE TcaSingleAxisRef :
+STRUCT
+	tsAcknowledge AT%Q* : BOOL;
+	tsAcknowledgeRequest AT%I* : BOOL;
+	tsSS1Active AT%I* : BOOL;
+	tsSTOActive AT%I* : BOOL;	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

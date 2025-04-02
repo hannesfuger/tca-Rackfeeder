@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaTwinSAFERef" Id="{64959ce8-534a-4825-a242-171a086b9ed2}">
+    <Declaration><![CDATA[TYPE TcaTwinSAFERef :
+STRUCT
+	// Button
+	QuittButton	: TcaPushButtonRef;
+	
+	//GroupPort
+	tsRunStop AT%Q*	: BOOL;
+	tsErrAck AT%Q* : BOOL;
+	tsModuleFault AT%I*	: BOOL;
+	tsFbErr AT%I* : BOOL;
+	tsComErr AT%I* : BOOL;
+	tsOutErr AT%I* : BOOL;
+	tsOtherErr AT%I* : BOOL;
+	tsComStartup AT%I* : BOOL;
+	tsFbDeactivate AT%I* : BOOL;
+	tsFbRun AT%I* : BOOL;
+	tsInRun AT%I* : BOOL;	
+       
+	// Emergency                        
+	tsEmergencySafe AT%I* : BOOL;
+	tsEmergencyRestart AT%Q* : BOOL;
+	atsEmergencyActive AT%I* : ARRAY[0..7] OF BOOL;
+	tsDriveRestart AT%Q* : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

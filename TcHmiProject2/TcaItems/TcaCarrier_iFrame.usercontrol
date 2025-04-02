@@ -1,0 +1,104 @@
+<div id="TcaCarrierSVG_iFrame" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+    <div id="TcHmiHtmlHost_iFrame" data-tchmi-type="TcHmi.Controls.System.TcHmiHtmlHost" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-right="0" data-tchmi-bottom="0">
+
+        <iframe style="width: 100%; height: 100%; border: none;" src="Images/TcaCarrierThumb.svg">
+        </iframe>
+
+        <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "console.log('iframe');",
+          "// Get the Object by ID",
+          "var mySVG = TcHmi.Controls.get('TcHmiHtmlHost_iFrame').__element[0].firstChild.firstElementChild;\t",
+          "console.log(mySVG);",
+          "\t",
+          "// Get the SVG document inside the Object tag - Wait until it's loaded!",
+          "mySVG.addEventListener('load', function () {",
+          "\tvar svgDoc = mySVG.getSVGDocument();\t\t",
+          "\tconsole.log(svgDoc);",
+          "\t",
+          "\tTcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) {",
+          "\t    if (data.error === TcHmi.Errors.NONE) {",
+          "\t        // Handle result value... ",
+          "\t        var value = data.value; ",
+          "\t        var svgItem = svgDoc.getElementsByClassName('cls-3')[0];",
+          "\t\t\tsvgItem.textContent = value;   ",
+          "\t    }});",
+          "\t\t",
+          "\t",
+          "\tTcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) {",
+          "\t    if (data.error === TcHmi.Errors.NONE) {",
+          "\t        // Handle result value... ",
+          "\t        var value = data.value; ",
+          "\t\t\tvar svgItem = svgDoc.getElementsByClassName('cls-3')[1];",
+          "\t\t\tsvgItem.textContent = value;",
+          "\t    }});\t",
+          "\t",
+          "}, false );"
+        ],
+        "asyncWait": true,
+        "injectContextObject": false,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+</script>
+    </div>
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%i%test%/i%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "console.log('iframe');",
+          "// Get the Object by ID",
+          "var svgDoc = TcHmi.Controls.get('TcHmiHtmlHost_iFrame').__element[0].firstChild.firstElementChild.getSVGDocument();\t",
+          "//console.log(mySVG);",
+          "\t",
+          "// Get the SVG document inside the Object tag - Wait until it's loaded!",
+          "//mySVG.addEventListener('load', function () {",
+          "//\tvar svgDoc = mySVG.getSVGDocument();\t\t",
+          "\tconsole.log(svgDoc);",
+          "\t",
+          "\tTcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) {",
+          "\t    if (data.error === TcHmi.Errors.NONE) {",
+          "\t        // Handle result value... ",
+          "\t        var value = data.value; ",
+          "\t        var svgItem = svgDoc.getElementsByClassName('cls-3')[0];",
+          "\t\t\tsvgItem.textContent = value;   ",
+          "\t    }});",
+          "\t\t",
+          "\t",
+          "\tTcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) {",
+          "\t    if (data.error === TcHmi.Errors.NONE) {",
+          "\t        // Handle result value... ",
+          "\t        var value = data.value; ",
+          "\t\t\tvar svgItem = svgDoc.getElementsByClassName('cls-3')[1];",
+          "\t\t\tsvgItem.textContent = value;",
+          "\t    }});\t",
+          "\t",
+          "//}, false );"
+        ],
+        "asyncWait": true,
+        "injectContextObject": false,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+</script>
+</div>

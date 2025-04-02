@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling_Positions" Id="{e471d124-0d09-4412-a76e-60ce34f54752}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling_Positions EXTENDS TcoDrivesBeckhoff.TcoSingleAxisPositionsRootContainer
+
+VAR
+	{attribute addProperty Name "<#Pick Position#>"}
+	PickPosition:TcoDrivesBeckhoff.TcoSIngleAxisMoveParam;
+	{attribute addProperty Name "<#Place  Position#>"}
+	PlacePosition:TcoDrivesBeckhoff.TcoSingleAxisMoveParam;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

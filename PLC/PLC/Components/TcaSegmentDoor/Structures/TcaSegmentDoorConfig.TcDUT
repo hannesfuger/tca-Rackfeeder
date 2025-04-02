@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSegmentDoorConfig" Id="{7c79cb0a-6e1e-4ba3-a4b3-55c8fd9a7e85}">
+    <Declaration><![CDATA[TYPE TcaSegmentDoorConfig :
+STRUCT
+	FirstSegmentPosition : LREAL;
+	MaxLiftingHeight : LREAL;
+	SegmentHeight : LREAL;
+	SegmentCount : INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

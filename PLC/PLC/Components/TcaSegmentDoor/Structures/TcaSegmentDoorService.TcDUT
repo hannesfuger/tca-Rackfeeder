@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSegmentDoorService" Id="{b81e6734-f89a-4e90-9130-0eec935e5c68}">
+    <Declaration><![CDATA[TYPE TcaSegmentDoorService :
+STRUCT
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

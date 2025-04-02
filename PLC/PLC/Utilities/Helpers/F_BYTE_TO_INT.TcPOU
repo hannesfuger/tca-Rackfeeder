@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_BYTE_TO_INT" Id="{6c9d8087-e0fd-4f2b-a1a2-a758681b1b0d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_BYTE_TO_INT : INT
+VAR_INPUT
+    BY1 : BYTE;
+    BY2 : BYTE;
+END_VAR
+VAR
+   OutVAR : WORD; 
+   OutVARINT : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[OutVar := BY1;
+OutVar := SHL(OutVar, 8) OR BY2;
+
+MEMCPY(ADR(OutVARINT), ADR(OutVAR), SIZEOF(INT));
+
+F_BYTE_TO_INT:= OutVARINT; ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

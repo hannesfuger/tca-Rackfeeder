@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_EventLog" Id="{498c23bb-0d23-4478-9768-8b7efd3d3565}">
+    <Declaration><![CDATA[INTERFACE ITF_EventLog
+]]></Declaration>
+    <Method Name="SetEvent" Id="{c1b67bf1-5bb7-4157-a82a-7f12627e9cf8}">
+      <Declaration><![CDATA[/// sets the corresponding notification item flag raised
+{attribute 'object_name' := 'SetEvent'}
+METHOD SetEvent //: REFERENCE TO ST_Event
+VAR_INPUT
+	/// item to set
+	stEvent			: ST_Event;
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

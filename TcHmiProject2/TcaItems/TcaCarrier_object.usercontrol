@@ -1,0 +1,96 @@
+<div id="TcaCarrierSVG_object" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+    <div id="TcHmiHtmlHost_object" data-tchmi-type="TcHmi.Controls.System.TcHmiHtmlHost" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-right="0" data-tchmi-bottom="0">
+
+        <object data="Images/TcaCarrierThumb.svg" type="image/svg+xml">
+        </object>
+
+        
+    </div>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%i%test%/i%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": false,
+        "sourceLines": [
+          "// read value from symbol",
+          "var value1, value2;",
+          "",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) {",
+          "    value1 = data.value;                \t",
+          "});",
+          "\t",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) {",
+          "    value2 = data.value;                \t",
+          "});",
+          "",
+          "// get svg Document",
+          "var svgDoc = TcHmi.Controls.get('TcHmiHtmlHost_object').__element[0].firstChild.firstElementChild.getSVGDocument();\t",
+          "",
+          "// change svg Document",
+          "svgDoc.getElementsByClassName('cls-3')[0].textContent = value1; ",
+          "svgDoc.getElementsByClassName('cls-3')[1].textContent = value2;"
+        ],
+        "asyncWait": true,
+        "injectContextObject": true,
+        "waitMode": "Asynchronous"
+      },
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// read value from symbol",
+          "var value1, value2;",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) { value1 = data.value; });",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) { value2 = data.value; });",
+          "",
+          "// get svg Document",
+          "var svgDoc = TcHmi.Controls.get('TcHmiHtmlHost_object').__element[0].firstChild.firstElementChild.getSVGDocument();",
+          "",
+          "// change svg Document",
+          "svgDoc.getElementsByClassName('cls-3')[0].textContent = value1; ",
+          "svgDoc.getElementsByClassName('cls-3')[1].textContent = value2;",
+          ""
+        ],
+        "asyncWait": true,
+        "injectContextObject": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// read value from symbol",
+          "var value1, value2;",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_1%/pp%', function (data) { value1 = data.value; });",
+          "TcHmi.Symbol.readEx2('%pp%WorkpieceStatusCount_2%/pp%', function (data) { value2 = data.value; });",
+          "",
+          "// get svg Document",
+          "var mySVG = TcHmi.Controls.get('TcHmiHtmlHost_object').__element[0].firstChild.firstElementChild;",
+          "mySVG.addEventListener('load', function () {",
+          "\tvar svgDoc = mySVG.getSVGDocument();\t",
+          "",
+          "\t// change svg Document",
+          "\tsvgDoc.getElementsByClassName('cls-3')[0].textContent = value1; ",
+          "\tsvgDoc.getElementsByClassName('cls-3')[1].textContent = value2;",
+          "\t",
+          "});"
+        ],
+        "asyncWait": true,
+        "injectContextObject": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  }
+]
+</script>
+</div>

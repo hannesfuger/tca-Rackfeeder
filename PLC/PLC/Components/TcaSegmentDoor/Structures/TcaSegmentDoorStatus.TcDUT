@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSegmentDoorStatus" Id="{dcb1980d-226d-41a5-9da5-5874f243800d}">
+    <Declaration><![CDATA[TYPE TcaSegmentDoorStatus :
+STRUCT
+    ActionDescription : STRING(100);	         
+	Safe : BOOL;
+	Open : BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

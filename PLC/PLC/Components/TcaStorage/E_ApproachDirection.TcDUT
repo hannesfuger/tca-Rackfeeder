@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_ApproachDirection" Id="{382155ab-2f44-479a-9a93-f3a4e6426391}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+TYPE E_ApproachDirection :
+(
+	Positive_X := 0,
+	Positive_Y := 1,
+	Positive_Z := 2,
+	Negative_X := 3,
+	Negative_Y := 4,
+	Negative_Z := 5
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

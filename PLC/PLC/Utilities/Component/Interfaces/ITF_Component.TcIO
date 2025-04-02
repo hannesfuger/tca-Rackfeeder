@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Component" Id="{0c339870-3919-4156-9e10-4458967cc3e3}">
+    <Declaration><![CDATA[INTERFACE ITF_Component EXTENDS __SYSTEM.IQueryInterface
+]]></Declaration>
+    <Property Name="AccessPermit" Id="{948f0ea4-15ae-452a-a2c4-be1c17512798}">
+      <Declaration><![CDATA[PROPERTY AccessPermit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e4566b78-5d76-4d98-8c5a-1605db76ac3a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Base" Id="{8ad6353b-b45f-4b76-a19f-719f4931bc88}">
+      <Declaration><![CDATA[/// RunSuper component logic
+{attribute 'object_name' := 'Base'}
+METHOD Base
+]]></Declaration>
+    </Method>
+    <Property Name="BMK" Id="{be910f48-dfb5-41ca-90d6-b34daf26889e}">
+      <Declaration><![CDATA[PROPERTY BMK : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{f9e623e8-0a55-4a0a-81f8-be539998713c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{672c2167-4352-435e-9e87-a06ddfb483ac}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Enable" Id="{a4013bac-f678-40d6-b6e3-75f80b396d7b}">
+      <Declaration><![CDATA[/// Get's or set's a value indicating whether this component is active or not.
+PROPERTY Enable : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{b22ecde3-e151-433e-b7bb-73c02ebc3421}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{8a51a58a-f21e-40e0-b475-07986ff1617d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="Halt" Id="{997a3107-61d7-4201-8836-fcb4a7a3caae}">
+      <Declaration><![CDATA[/// Halt component logic
+{attribute 'object_name' := 'Halt'}
+METHOD Halt : E_OperationResult
+VAR_INPUT
+	StoppCategory					: INT;			// 0...ungesteuertes Stillsetzen     1...gesteuertes Stillsetzen     2...gesteuertes Stillsetzen ohne Trennung der Energiezufuhr							
+END_VAR]]></Declaration>
+    </Method>
+    <Property Name="ID" Id="{d6eb581a-9300-43d2-a537-fd27c418df38}">
+      <Declaration><![CDATA[PROPERTY ID : INT
+]]></Declaration>
+      <Get Name="Get" Id="{5ba80d43-ea9e-4854-a96a-c1d86a80c18d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{f550cafb-024d-4181-a215-7f6db2e96e7d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="Init" Id="{5669e592-fcae-4d78-81d8-0a40831a81db}">
+      <Declaration><![CDATA[/// Init component logic
+{attribute 'object_name' := 'Init'}
+METHOD Init : E_OperationResult]]></Declaration>
+    </Method>
+    <Property Name="MachineArea" Id="{92788664-5c69-4a9c-9046-f9b02a731813}">
+      <Declaration><![CDATA[PROPERTY MachineArea : E_MachineArea]]></Declaration>
+      <Get Name="Get" Id="{fd4531d5-8c1b-4e7b-922e-1d59f20e9078}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{875a4e47-605d-4116-91d3-7ec864ef4f3b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Name" Id="{dfe3cfb1-960f-481b-9895-7c3d2fdb66bb}">
+      <Declaration><![CDATA[PROPERTY Name : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{d6a0caca-8384-434e-b687-46dd7b90c949}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{d763021b-6a1b-4ad2-8f31-f17edf192944}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Path" Id="{d49383b0-7900-4755-8881-e6510a11411d}">
+      <Declaration><![CDATA[PROPERTY Path : String]]></Declaration>
+      <Get Name="Get" Id="{1f792d33-338d-486d-ba2f-8947ff9e5e1c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="RegisterSafetyComp" Id="{3d59b40b-a2e0-4dc9-84da-f8042bf9b7bb}">
+      <Declaration><![CDATA[METHOD RegisterSafetyComp : BOOL
+VAR_INPUT
+	SafetyComp				: ITF_SafetyComp;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Reset" Id="{d20f6564-ac00-4f07-b6e7-4efc746c414a}">
+      <Declaration><![CDATA[/// Reset component logic
+{attribute 'object_name' := 'Reset'}
+METHOD Reset : E_OperationResult
+]]></Declaration>
+    </Method>
+    <Method Name="Restart" Id="{756839fe-8c36-478b-89d3-9cb95eedd5bf}">
+      <Declaration><![CDATA[/// RestartSuper component logic
+{attribute 'object_name' := 'Restart'}
+METHOD Restart : E_OperationResult
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Run" Id="{9456d1b6-8b95-48fd-bbab-7ac1c5ad6db3}">
+      <Declaration><![CDATA[/// Run component logic
+{attribute 'object_name' := 'Run'}
+METHOD Run
+]]></Declaration>
+    </Method>
+    <Property Name="SafeEnvironment" Id="{195fd2d5-d0f1-4b83-912b-e042b45470a7}">
+      <Declaration><![CDATA[PROPERTY SafeEnvironment : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0ab72bf9-6acb-4e8e-9bb4-776bccb7d936}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="State" Id="{62ee10f7-b429-4216-b697-b5f173ac2511}">
+      <Declaration><![CDATA[/// Get's value representing the component state.
+PROPERTY State : E_ComponentState
+]]></Declaration>
+      <Get Name="Get" Id="{197f3a44-b9d4-40e1-8c9e-c1a1588c0941}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="StateAsString" Id="{6b6e811f-0f6a-45c4-af3a-a9178954bbe3}">
+      <Declaration><![CDATA[/// Get's value representing the component state.
+PROPERTY StateAsString : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{143d593f-bcf8-40cd-99de-5c114b1299bb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Typ" Id="{600151d1-2b3c-4c87-a5bb-ed8db31b21c9}">
+      <Declaration><![CDATA[PROPERTY Typ : E_ComponentType]]></Declaration>
+      <Get Name="Get" Id="{d1fdd419-1617-479d-9337-fcd8948815ed}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

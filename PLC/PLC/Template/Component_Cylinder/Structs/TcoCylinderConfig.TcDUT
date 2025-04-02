@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoCylinderConfig" Id="{ab3dceba-9fd6-4308-a457-8d8ae3c511fc}">
+    <Declaration><![CDATA[TYPE TcoCylinderConfig :
+STRUCT
+	TimeToReachHomePosition : TIME := T#10S;
+	TimeToReachWorkPosition : TIME := T#10S;
+	TimeToRefill : TIME := T#1000MS;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSafetyGateRef" Id="{c023b804-89b1-4618-952f-1eb5cbc5f26d}">
+    <Declaration><![CDATA[TYPE TcaSafetyGateRef :
+STRUCT
+	// Components
+	StartButton	: TcaPushButtonRef;
+	RequestButton : TcaPushButtonRef;	
+	LockButton : TcaPushButtonRef;
+	
+	// SafetyPorts                    
+	tsSafe AT%I* : BOOL;
+	tsOpen AT%I* : BOOL;
+	tsRestart AT%Q* : BOOL;    
+	tsLockCmd AT%Q* : BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

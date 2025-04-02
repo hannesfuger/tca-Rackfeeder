@@ -1,0 +1,6 @@
+<div id="TcoBeckhoffAxis_Power" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="236" data-tchmi-height="101" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+<div id="UserControl2_11" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="35" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcoTask/TcoTask_InvokeButton.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="210" data-tchmi-width-unit="px" data-tchmi-name="Reset" data-tchmi-task="%pp%Reset%/pp%">
+</div>
+<div id="UserControl2_12" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="35" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcoTask/TcoTask_InvokeButton.usercontrol" data-tchmi-top="35" data-tchmi-top-unit="px" data-tchmi-width="210" data-tchmi-width-unit="px" data-tchmi-name="SoE Reset" data-tchmi-task="%pp%SoEReset%/pp%">
+</div>
+</div>

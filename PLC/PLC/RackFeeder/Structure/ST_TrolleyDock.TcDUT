@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_TrolleyDock" Id="{599e5d6c-abaf-4572-8c43-c848c448b038}">
+    <Declaration><![CDATA[TYPE ST_TrolleyDock :
+STRUCT
+	sName				: STRING;
+	nId					: INT;
+	refTrolley			: REFERENCE TO FB_Trolley;
+	posButtom			: ST_Coordinate;
+	posTop				: ST_Coordinate;
+	bTeached			: BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

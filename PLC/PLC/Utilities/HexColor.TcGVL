@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="HexColor" Id="{0c729e66-4e9e-44fa-b508-170bf4ca71a7}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	
+	textFontName		: STRING := 'Segoe UI Light';
+	textH1				: INT := 26;
+	textH2				: INT := 18;
+	textH3				: INT := 10;
+	colButton			: DWORD:=16#FFEBEBEB;
+	colGrey01			: DWORD:=16#FFE3E3E3;
+	colButtonHover		: DWORD:=colGrey01;
+	colButtonDown		: DWORD:=16#FF9F9F9F;
+	
+	
+
+	colSegmentReady 	:DWORD:=16#FF4D6C73;
+	colSegmentLocked  	:DWORD:=16#FFA8BFB9;
+	colSegmentError		:DWORD:=16#FFA64941;
+	colSegmentWarning	:DWORD:=16#FFE4CE68;
+	colSegmentFrame		:DWORD:=16#FF4D6C73;
+	colSegmentSelect	:DWORD:=16#FFF2BE22;
+	
+	colSlotFrame		:DWORD:=16#FFB4BF5E;
+	colSlotGlow			:DWORD:=16#FFDBF227;
+	colSlotDisabled		:DWORD:=16#FFF3F5E6; //DCE0B8;
+	colWhite 			:DWORD:=16#FFFFFFFF;
+	
+	colPmErrorFrame		:DWORD:=16#FF962B09;
+	colPmOnFrame		:DWORD:=16#FFA66A75;
+	colPmOffFrame		:DWORD:=16#FF9FA3A2;
+
+	colPmErrorBg		:DWORD:=16#FFA64941;		
+	colPmReadyBg		:DWORD:=16#FFF2F2F2;
+
+	colHeatingOff		:DWORD:=16#FFA8BFB9;
+	colHeatingDisconn	:DWORD:=16#FF0099DD;	
+	colHeatingLow		:STRING:='FFF2BA52';
+	colHeatingHigh		:STRING:='FFF24949';
+	
+	colStartButton		:DWORD:=16#FFE4CE68;
+	colStopButton		:DWORD:=16#FFA64941;
+	colWaitButton		:DWORD:=16#FF9FA3A2;
+	
+	colEventWarning		: DWORD := 16#FFF2B705;
+	colEventInfo		: DWORD := 16#FF035AA6;
+	colEventError		: DWORD := 16#FFD94032;
+	colEventNone		: DWORD := 16#FF035AA6;
+	
+	
+	colRibbon			:DWORD:=16#FF0099DD;
+	colErrorBg			:DWORD:=16#FF9FA3A2;	
+	
+	colBlack 			: DWORD:=16#FF000000;
+	colBlack00 			: DWORD:=16#00000000;
+	colBlack25 			: DWORD:=16#40000000;
+	colBlack50 			: DWORD:=16#80000000;
+	colBlack75 			: DWORD:=16#C0000000;
+	
+	colLightRed			:DWORD:=16#FFD94032;
+	colLightGreen		:DWORD:=16#FFB4BF5E;
+	colLightBlue		:DWORD:=16#FF035AA6;
+	colLightYellow		:DWORD:=16#FFF2B705;
+	colLightGrey		:DWORD:=16#FFB2BEBF;
+	colLightOrange		:DWORD:=16#FFF29F05;
+	
+	// COMP VISU
+	// colCompErrorBg		:DWORD:=16#FFA64941;		
+	// colCompReadyBg		:DWORD:=16#FFF2F2F2;	
+	// colCompErrorFrame	:DWORD:=16#FF962B09;
+	// colCompOnFrame		:DWORD:=16#FFA66A75;
+	// colCompOffFrame		:DWORD:=16#FF9FA3A2;
+	// colCompButton		:DWORD:=16#FF9FA3A2;
+	// colCompButtonPush	:DWORD:=16#FF9FA3A2;
+	
+	
+	colComp01			:DWORD:=16#FFF5D349;
+	colComp02			:DWORD:=16#FF76A883;
+	colComp03			:DWORD:=16#ffe0656b;
+	colComp04			:DWORD:=16#FFCC9999;
+	colCompBg			:DWORD:=16#FFF5F5F5;
+	colCompSafe			:DWORD:=16#FFF5F5F5;
+	colCompButton		:DWORD:=16#FFEBEBEB;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaSafetyGateConfig" Id="{15c070ef-8cc3-4dbc-b523-8854f802b997}">
+    <Declaration><![CDATA[TYPE TcaSafetyGateConfig :
+STRUCT
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

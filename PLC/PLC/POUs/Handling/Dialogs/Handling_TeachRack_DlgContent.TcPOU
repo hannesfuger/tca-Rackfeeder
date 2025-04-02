@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Handling_TeachRack_DlgContent" Id="{873ea0b6-a21e-4070-99af-efd2431b7653}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Handling_TeachRack_DlgContent EXTENDS TcoCore.TcoInputDialogContentContainer
+VAR
+	{attribute addProperty Name "<#Recipe#>"}
+	Recipe:STRING;
+	{attribute addProperty Name "<#Qantity#>"}
+	RequiredQuantity:INT;
+	{attribute addProperty Name "<#Timeout#>"}
+	Timeout:DATE_AND_TIME;
+	{attribute addProperty Name "<#Exclude#>"}
+	Exclude:BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Context" Id="{61e85bcd-c4db-4d55-bbd7-3772633141a7}">
+      <Declaration><![CDATA[PROPERTY Context : TcoCore.ITcoContext
+]]></Declaration>
+      <Get Name="Get" Id="{effd8479-0d8d-4999-9fed-4575de9ba95c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Identity" Id="{f20d0c25-f47e-402a-93af-6534322fc0d6}">
+      <Declaration><![CDATA[PROPERTY Identity : ULINT
+]]></Declaration>
+      <Get Name="Get" Id="{cfc99f71-24bf-4def-a38b-ce031ba6e3fb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
