@@ -3,6 +3,8 @@
   <POU Name="TcaCarrierModifyTask" Id="{96626875-72bf-424f-b555-27bbf2c09811}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK TcaCarrierModifyTask EXTENDS TcoCore.TcoTask
 
+
+
 VAR_IN_OUT
 	inoArrayOfWorkpiecePlaces : ARRAY[*] OF TcaWorkpiecePlace(THIS^);	
 END_VAR
@@ -51,7 +53,7 @@ END_VAR
 			//inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
 		END_FOR
 		
-		FOR _i := _WorkpiecePlaces TO nMaxPlaces DO
+		FOR _i := _WorkpiecePlaces TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
 			inoArrayOfWorkpiecePlaces[_i].Restore();
 			inoArrayOfWorkpiecePlaces[_i].Status.PlaceStatus := eTcaWorkpiecePlaceProgress.undefined;
 			inoArrayOfWorkpiecePlaces[_i].Status.Progress := eTcaWorkpiecePlaceStatus.undefined;

@@ -12,7 +12,7 @@
     "websocketIntervalTime": 500,
     "websocketTimeout": 20000,
     "websocketSystemTimeout": 60000,
-    "websocketSubscriptionMode": "Change"
+    "websocketSubscriptionMode": null
   },
   "activeTheme": "Base",
   "themes": {
@@ -374,8 +374,10 @@
           "Base-Dark": "Themes/Base-Dark/Images/Settings/settings_active.svg"
         }
       }
-    }
+    },
+    "timer": {}
   },
+  "intervals": {},
   "trigger": [],
   "actionTemplates": [],
   "languages": {
@@ -391,7 +393,8 @@
     }
   },
   "binding": {
-    "symbolError": "Ignore"
+    "symbolError": "Ignore",
+    "symbolWriteError": "ReadBack"
   },
   "packages": [
     {

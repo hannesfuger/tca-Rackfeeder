@@ -12,7 +12,7 @@
     "websocketIntervalTime": 500,
     "websocketTimeout": 20000,
     "websocketSystemTimeout": 60000,
-    "websocketSubscriptionMode": "Change"
+    "websocketSubscriptionMode": null
   },
   "activeTheme": "Base",
   "themes": {
@@ -58,10 +58,13 @@
   ],
   "userControls": [
     {
-      "url": "TcaLibrary/TcaWorkpieceCarrier/WorkpieceCarrier.usercontrol"
+      "url": "TcaLibrary/Settings/WorkpiecePlaceSelect.usercontrol"
     },
     {
-      "url": "TcaLibrary/TcaWorkpieceCarrier/WorkpieceCarrierThumb.usercontrol"
+      "url": "TcaLibrary/Settings/WorkpiecePlaceState.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/Settings/WorkpiecePlaceStateEdit.usercontrol"
     },
     {
       "url": "TcaLibrary/TcaRackFeeder/RackFeeder.usercontrol"
@@ -73,19 +76,16 @@
       "url": "TcaLibrary/TcaRackFeeder/TeachTrolleyDock.usercontrol"
     },
     {
-      "url": "TcaLibrary/Settings/WorkpiecePlaceSelect.usercontrol"
-    },
-    {
-      "url": "TcaLibrary/Settings/WorkpiecePlaceState.usercontrol"
-    },
-    {
-      "url": "TcaLibrary/Settings/WorkpiecePlaceStateEdit.usercontrol"
-    },
-    {
       "url": "TcaLibrary/TcaStorage/Storage.usercontrol"
     },
     {
       "url": "TcaLibrary/TcaTrolley/Trolley.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpieceCarrier/WorkpieceCarrier.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpieceCarrier/WorkpieceCarrierThumb.usercontrol"
     },
     {
       "url": "TcaLibrary/TcaWorkpiecePlace/TcaWorkpiecePlaceThumb.usercontrol"
@@ -161,13 +161,6 @@
       "preloadBindings": false
     },
     {
-      "url": "Pages/Settings.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
       "url": "Pages/Machine.content",
       "preload": false,
       "keepAlive": false,
@@ -176,6 +169,13 @@
     },
     {
       "url": "Pages/Recipe.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Pages/Settings.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -193,8 +193,10 @@
   "userFunctions": [],
   "symbols": {
     "internal": {},
-    "themedResources": {}
+    "themedResources": {},
+    "timer": {}
   },
+  "intervals": {},
   "trigger": [],
   "actionTemplates": [],
   "languages": {
@@ -210,7 +212,8 @@
     }
   },
   "binding": {
-    "symbolError": "Ignore"
+    "symbolError": "Ignore",
+    "symbolWriteError": "ReadBack"
   },
   "packages": [
     {

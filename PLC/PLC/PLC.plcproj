@@ -23,28 +23,10 @@
     <CompilerDefines>VISU_USEPROPERTYINFO</CompilerDefines>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\ST_MachineSetting.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Components\TcaCarrier\Structures\TcaCarrierService.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaRackFeeder\Structures\TcaRackFeederConfig.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaRackFeeder\Structures\TcaRackFeederRef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaRackFeeder\Structures\TcaRackFeederService.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaRackFeeder\Structures\TcaRackFeederStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaRackFeeder\TcaRackFeeder.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSingleAxis\Structures\TcaSingleAxisRef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSingleAxis\TcaSingleAxis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components\TcaCarrier\Enumerations\eTcaCarrierCmd.TcDUT">
@@ -68,39 +50,6 @@
     <Compile Include="Components\TcaCarrier\TcaCarrier.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Components\TcaEngelCasting\Schnittstellenprotokoll.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaEngelCasting\TcaEngelCastingCarrierInput.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaEngelCasting\TcaEngelCastingCarrierJobStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaEngelCasting\TcaEngelCastingCarrierOutput.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaEngelCasting\TcalEngelCastingCarrierStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaEngelCasting\TcaEngelCastingCarrierJob.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorConfig.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorRef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSensorDataArrayEntry.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaLaserDistanceSenor\TcaLaserDistanceSenor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Components\TcaPushButton\Enumerations\eTcaPushButtonColor.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -120,45 +69,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components\TcaPushButton\TcaPushButton.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSafetyGate\ISafetyComponent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSafetyGate\Structures\TcaSafetyGateStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSafetyGate\Structures\TcaSafetyGateRef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSafetyGate\Structures\TcaSafetyGateConfig.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSafetyGate\Structures\TcaSafetyGateService.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSafetyGate\TcaSafetyGate.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\Sequences\TcoSegmentDoor_Open.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\Sequences\TcoSegmentDoor_Close.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\Structures\TcaSegmentDoorConfig.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\Structures\TcaSegmentDoorService.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\Structures\TcaSegmentDoorStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\Structures\TcaSegmentDoorRef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaSegmentDoor\TcaSegmentDoor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components\TcaStorage\E_ApproachDirection.TcDUT">
@@ -189,21 +99,6 @@
     <Compile Include="Components\TcaTrolley\TcaTrolleyRef.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Components\TcaTwinSAFE\Structures\TcaTwinSAFERef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaTwinSAFE\Structures\TcaTwinSAFEService.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaTwinSAFE\Structures\TcaTwinSAFEStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaTwinSAFE\Structures\TcaTwinSAFEConfig.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\TcaTwinSAFE\TcaTwinSAFE.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Components\TcaWorkpiecePlace\Enumerations\eTcaWorkpiecePlaceProgress.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -222,12 +117,113 @@
     <Compile Include="Components\TcaWorkpiecePlace\TcaWorkpiecePlace.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GlobalTextList.TcGTLO">
+    <Compile Include="Components_RMTH\TcaEngelCasting\Schnittstellenprotokoll.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\GVL.TcGVL">
+    <Compile Include="Components_RMTH\TcaEngelCasting\TcaEngelCastingCarrierInput.TcDUT">
       <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaEngelCasting\TcaEngelCastingCarrierJob.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaEngelCasting\TcaEngelCastingCarrierJobStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaEngelCasting\TcaEngelCastingCarrierOutput.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaEngelCasting\TcalEngelCastingCarrierStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSensorDataArrayEntry.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaLaserDistanceSenor\Structures\TcaLaserDistanceSenorService.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaLaserDistanceSenor\TcaLaserDistanceSenor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaRackFeeder\Structures\TcaRackFeederConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaRackFeeder\Structures\TcaRackFeederRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaRackFeeder\Structures\TcaRackFeederService.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaRackFeeder\Structures\TcaRackFeederStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaRackFeeder\TcaRackFeeder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSafetyGate\ISafetyComponent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSafetyGate\Structures\TcaSafetyGateConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSafetyGate\Structures\TcaSafetyGateRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSafetyGate\Structures\TcaSafetyGateService.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSafetyGate\Structures\TcaSafetyGateStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSafetyGate\TcaSafetyGate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSegmentDoor\Structures\TcaSegmentDoorConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSegmentDoor\Structures\TcaSegmentDoorRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSegmentDoor\Structures\TcaSegmentDoorService.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSegmentDoor\Structures\TcaSegmentDoorStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSegmentDoor\TcaSegmentDoor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSingleAxis\Structures\TcaSingleAxisRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaSingleAxis\TcaSingleAxis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaTwinSAFE\Structures\TcaTwinSAFEConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaTwinSAFE\Structures\TcaTwinSAFERef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaTwinSAFE\Structures\TcaTwinSAFEService.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaTwinSAFE\Structures\TcaTwinSAFEStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components_RMTH\TcaTwinSAFE\TcaTwinSAFE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GlobalTextList.TcGTLO">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Items\COLOR.TcDUT">
       <SubType>Code</SubType>
@@ -248,58 +244,34 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Dialogs\Handling_TeachRack_DlgContent.TcPOU">
+    <Compile Include="Program\Handling\Dialogs\Handling_TeachRack_DlgContent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Sequences\Handling_Teach.TcPOU">
+    <Compile Include="Program\Handling\Sequences\Handling_Teach.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Sequences\Handling_TeachRack.TcPOU">
+    <Compile Include="Program\Handling\Sequences\Handling_TeachRack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MAIN.TcPOU">
+    <Compile Include="Program\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Peripherie.TcPOU">
+    <Compile Include="Program\Peripherie.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Handling.TcPOU">
+    <Compile Include="Program\Handling\Handling.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Handling_Components.TcPOU">
+    <Compile Include="Program\Handling\Handling_Components.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Handling_Positions.TcPOU">
+    <Compile Include="Program\Handling\Handling_Positions.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Sequences\Handling_GroundMode.TcPOU">
+    <Compile Include="Program\Handling\Sequences\Handling_GroundMode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Handling\Sequences\Handling_OpenDoor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\ST_MachineSetting.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\CMD_RackFeeder.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\E_RackFeederCmd.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\FB_RackFeeder.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\Structure\ST_RackFeederIO.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\Structure\ST_RackFeederJob.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\Structure\ST_StorageDock.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RackFeeder\Structure\ST_TrolleyDock.TcDUT">
+    <Compile Include="Program\Handling\Sequences\Handling_OpenDoor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Template\Component_Cylinder\Base\CylinderBase.TcPOU">
@@ -336,6 +308,27 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Template\Component_Cylinder\TcoDoubleCylinder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\CMD_RackFeeder.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\E_RackFeederCmd.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\FB_RackFeeder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\Structure\ST_RackFeederIO.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\Structure\ST_RackFeederJob.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\Structure\ST_StorageDock.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Template\RackFeeder\Structure\ST_TrolleyDock.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Template\Station\Data\ST001_ProcessData.TcDUT">
@@ -610,59 +603,49 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\TcaRackFeeder" />
-    <Folder Include="Components\TcaRackFeeder\Enumerations" />
-    <Folder Include="Components\TcaRackFeeder\Sequences" />
-    <Folder Include="Components\TcaRackFeeder\Tasks" />
-    <Folder Include="Components\TcaRackFeeder\Structures" />
-    <Folder Include="Components\TcaSingleAxis" />
-    <Folder Include="Components\TcaSingleAxis\Enumerations" />
-    <Folder Include="Components\TcaSingleAxis\Structures" />
-    <Folder Include="Components\TcaSafetyGate\Structures" />
-    <Folder Include="Components\TcaSegmentDoor" />
-    <Folder Include="Components\TcaSegmentDoor\Enumerations" />
-    <Folder Include="Components\TcaSegmentDoor\Structures" />
-    <Folder Include="Components\TcaSegmentDoor\Sequences">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Folder>
     <Folder Include="Components\TcaTrolley">
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Folder>
-    <Folder Include="Components\TcaTwinSAFE" />
-    <Folder Include="Components\TcaHeatingPlate" />
-    <Folder Include="Components\TcaLaserDistanceSenor\Structures" />
     <Folder Include="Components\TcaPushButton" />
     <Folder Include="Components\TcaPushButton\Enumerations" />
     <Folder Include="Components\TcaPushButton\Structures" />
-    <Folder Include="Components\TcaSafetyGate" />
-    <Folder Include="Components\TcaEngelCasting">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Folder>
     <Folder Include="Components\TcaCarrier" />
     <Folder Include="Components\TcaCarrier\Enumerations" />
     <Folder Include="Components\TcaCarrier\Tasks" />
     <Folder Include="Components\TcaCarrier\Structures" />
-    <Folder Include="Components\TcaLaserDistanceSenor" />
     <Folder Include="Components\TcaStorage" />
-    <Folder Include="Components\TcaTwinSAFE\Structures" />
     <Folder Include="Components\TcaWorkpiecePlace" />
     <Folder Include="Components\TcaWorkpiecePlace\Enumerations" />
     <Folder Include="Components\TcaWorkpiecePlace\Structures" />
-    <Folder Include="GVLs" />
+    <Folder Include="Components_RMTH\TcaEngelCasting">
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Folder>
+    <Folder Include="Components_RMTH\TcaHeatingPlate" />
+    <Folder Include="Components_RMTH\TcaLaserDistanceSenor" />
+    <Folder Include="Components_RMTH\TcaLaserDistanceSenor\Structures" />
+    <Folder Include="Components_RMTH\TcaRackFeeder" />
+    <Folder Include="Components_RMTH\TcaRackFeeder\Enumerations" />
+    <Folder Include="Components_RMTH\TcaRackFeeder\Structures" />
+    <Folder Include="Components_RMTH\TcaSafetyGate" />
+    <Folder Include="Components_RMTH\TcaSafetyGate\Structures" />
+    <Folder Include="Components_RMTH\TcaSegmentDoor" />
+    <Folder Include="Components_RMTH\TcaSegmentDoor\Enumerations" />
+    <Folder Include="Components_RMTH\TcaSegmentDoor\Structures" />
+    <Folder Include="Components_RMTH\TcaSingleAxis" />
+    <Folder Include="Components_RMTH\TcaSingleAxis\Enumerations" />
+    <Folder Include="Components_RMTH\TcaSingleAxis\Structures" />
+    <Folder Include="Components_RMTH\TcaTwinSAFE" />
+    <Folder Include="Components_RMTH\TcaTwinSAFE\Structures" />
     <Folder Include="Components" />
-    <Folder Include="Items" />
-    <Folder Include="Objects">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+    <Folder Include="Items">
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Folder>
-    <Folder Include="POUs\Handling" />
-    <Folder Include="POUs\Handling\Dialogs" />
-    <Folder Include="POUs\Handling\Sequences" />
-    <Folder Include="POUs\Handling\Tasks" />
-    <Folder Include="POUs" />
-    <Folder Include="RackFeeder">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Folder>
-    <Folder Include="RackFeeder\Structure" />
+    <Folder Include="Components_RMTH" />
+    <Folder Include="Program\Handling" />
+    <Folder Include="Program\Handling\Dialogs" />
+    <Folder Include="Program\Handling\Sequences" />
+    <Folder Include="Program\Handling\Tasks" />
+    <Folder Include="Program" />
     <Folder Include="Template">
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </Folder>
@@ -670,6 +653,8 @@
     <Folder Include="Template\Component_Cylinder\Base" />
     <Folder Include="Template\Component_Cylinder\Tasks" />
     <Folder Include="Template\Component_Cylinder\Structs" />
+    <Folder Include="Template\RackFeeder" />
+    <Folder Include="Template\RackFeeder\Structure" />
     <Folder Include="Template\Station" />
     <Folder Include="Template\Station\Data" />
     <Folder Include="Template\Component_Carousell" />
@@ -769,10 +754,6 @@
       <DefaultResolution>TcoCore, * (Vortex.Library)</DefaultResolution>
       <Namespace>TcoCore</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="TcoData">
-      <DefaultResolution>TcoData, * (Vortex.Library)</DefaultResolution>
-      <Namespace>TcoData</Namespace>
-    </PlaceholderReference>
     <PlaceholderReference Include="TcoDrivesBeckhoff">
       <DefaultResolution>TcoDrivesBeckhoff, * (Vortex.Library)</DefaultResolution>
       <Namespace>TcoDrivesBeckhoff</Namespace>
@@ -799,53 +780,14 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderResolution Include="Tc2_Drive">
-      <Resolution>Tc2_Drive, 3.3.13.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_EtherCAT">
-      <Resolution>Tc2_EtherCAT, 3.5.1.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_IoFunctions">
-      <Resolution>Tc2_IoFunctions, 3.4.4.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_Math">
-      <Resolution>Tc2_Math, 3.4.4.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_MC2">
-      <Resolution>Tc2_MC2, 3.3.64.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_MC2_Drive">
-      <Resolution>Tc2_MC2_Drive, 3.3.42.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_Standard">
       <Resolution>Tc2_Standard, 3.4.5.0 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_System">
       <Resolution>Tc2_System, 3.6.4.0 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_Utilities">
-      <Resolution>Tc2_Utilities, 3.8.2.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
     <PlaceholderResolution Include="Tc3_Module">
       <Resolution>Tc3_Module, 3.4.5.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcoCore">
-      <Resolution>TcoCore, 0.11.0.65 (Vortex.Library)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcoData">
-      <Resolution>TcoData, 0.11.0.65 (Vortex.Library)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcoDrivesBeckhoff">
-      <Resolution>TcoDrivesBeckhoff, 0.11.0.65 (Vortex.Library)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcoElements">
-      <Resolution>TcoElements, 0.11.0.65 (Vortex.Library)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcoIo">
-      <Resolution>TcoIo, 0.11.0.65 (Vortex.Library)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcoPneumatics">
-      <Resolution>TcoPneumatics, 0.11.0.65 (Vortex.Library)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ItemGroup>
@@ -856,8 +798,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -935,14 +877,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Boolean">System.Boolean</Type>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Boolean">System.Boolean</Type>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

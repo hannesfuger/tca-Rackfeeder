@@ -27,10 +27,10 @@
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>False</TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>
     <Name>FRONTEND</Name>
-    <HmiCommunicationRouterPort>10103</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10104</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>14.2.116.1</HmiInitial>
-    <HmiRecent>14.2.116.1</HmiRecent>
+    <HmiRecent>14.3.221.1</HmiRecent>
     <HmiServerNodeAdvancedView>False</HmiServerNodeAdvancedView>
   </PropertyGroup>
   <PropertyGroup>
@@ -777,30 +777,6 @@
     <Content Include="Server\ADS\ADS.Storage.json">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Server\TcHmiLua\TcHmiLua.Config.default.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiLua\TcHmiLua.Config.remote.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiLua\TcHmiLua.Storage.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Config.default.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Config.remote.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Storage.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
     <Content Include="Server\TcHmiSrv\TcHmiSrv.Config.default.json">
       <SubType>Content</SubType>
     </Content>
@@ -809,18 +785,6 @@
     </Content>
     <Content Include="Server\TcHmiSrv\TcHmiSrv.Storage.json">
       <SubType>Content</SubType>
-    </Content>
-    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Config.default.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Config.remote.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Storage.json">
-      <SubType>Content</SubType>
-      <Visible>false</Visible>
     </Content>
     <Folder Include="Themes\Base\Icons\AirPressure" />
     <Folder Include="Themes\Base\Icons\Analytics" />

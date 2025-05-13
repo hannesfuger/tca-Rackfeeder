@@ -81,6 +81,13 @@ _safetyGate_B.Service();
 _rackFeeder(ref := RackFeederRef);
 _rackFeeder.Service();
 
+// SegementDoor
+_segmentDoor_A(ref := SegmentDoorRef_A);
+_segmentDoor_A.Service();
+
+_segmentDoor_B(ref := SegmentDoorRef_B);
+_segmentDoor_B.Service();
+
 
 //_segmentDoor(ref := SegmentDoorRef);
 //_segmentDoor.Service();

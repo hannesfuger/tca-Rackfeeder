@@ -11,13 +11,16 @@ VAR_INPUT
 END_VAR
 
 VAR	
+	
+	_status : TcaLaserDistanceSenorStatus;
+	_config : TcaLaserDistanceSenorConfig;
+	_service : TcaLaserDistanceSenorService;
+	
     _signalRef : REFERENCE TO TcaLaserDistanceSenorRef;
 	_externalXSignal : REFERENCE TO DINT;
     _recordDataTask : TcoCore.TcoTask(THIS^);	
 	_signal : DINT;	
 	_signalInfo : TcoCore.TcoSignalInfo;
-	_status : TcaLaserDistanceSenorStatus;
-	_config : TcaLaserDistanceSenorConfig;
 	_curveSketcher : FB_ALY_CurveSketcher_1Ch; 
 	_recordtime	: TIME := T#50S;
 	_recordintervall : TIME := T#200MS;
@@ -78,20 +81,6 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{9d227d47-bb1f-4e2d-86fe-8ff12bfca3da}">
-      <Declaration><![CDATA[{attribute 'hide'}
-METHOD FB_init : BOOL
-VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	ParentObject : ITcoObject;
-END_VAR
-
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="FirstPeak" Id="{555f84b0-24a1-4e9e-b5f3-3385dabb5ec0}" FolderPath="Results\">
       <Declaration><![CDATA[PROPERTY FirstPeak : TcaLaserDistanceSensorDataArrayEntry]]></Declaration>
       <Get Name="Get" Id="{ea8ab745-6295-4854-949a-6c485dbd0659}">

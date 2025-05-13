@@ -19,7 +19,7 @@
     <ProjectName>FrameworkPrj2</ProjectName>
     <Name>FrameworkPrj2</Name>
     <HmiInitial>14.2.116.1</HmiInitial>
-    <HmiRecent>14.2.116.1</HmiRecent>
+    <HmiRecent>14.3.221.1</HmiRecent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|TwinCAT HMI' ">
     <PlatformTarget>TwinCAT HMI</PlatformTarget>

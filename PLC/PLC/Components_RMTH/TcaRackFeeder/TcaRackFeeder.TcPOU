@@ -11,10 +11,31 @@ VAR
 	_status : TcaRackFeederStatus;
 	_config : TcaRackFeederConfig;
 	_service : TcaRackFeederService;
+	
+	_EnableAxis : BOOL := TRUE;
+	_EnableAxisSafe : BOOL;	
+	
+	// Components
+	_vertikalAxis : TcoDriveSimple(THIS^);	
+	_horizontalAxis : TcoDriveSimple(THIS^);
+	_telescopeAxis : TcoDriveSimple(THIS^);
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF NOT __ISVALIDREF(ref)  THEN
+    Messenger.Post('<#Invalid reference signal #>', TcoCore.eMessageCategory.ProgrammingError);
+    RETURN;
+END_IF
+
+// Axis
+_EnableAxisSafe := _EnableAxis; //AND ref.tsSS1;
+_vertikalAxis(inCalibrationCam:= ref.ReferenceSensor_Vertical, inEnable:=  _EnableAxisSafe , inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.VerticalAxis);
+_horizontalAxis(inCalibrationCam:= ref.ReferenceSensor_Horizontal, inEnable:=  _EnableAxisSafe , inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.HorizontalAxis);
+_telescopeAxis(inCalibrationCam:= ref.ReferenceSensor_Telescope, inEnable:=  _EnableAxisSafe , inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.TelescopeAxis);
+
+
+]]></ST>
     </Implementation>
     <Folder Name="Functions" Id="{a73bda7e-8f56-47cd-9168-de5eeaca9d2a}" />
     <Folder Name="Operations" Id="{1e5d19b5-5904-4c05-b625-267e4ebbd52f}" />
@@ -39,6 +60,33 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Method Name="DropCarrier" Id="{0d9649aa-b6ec-4f99-84f9-29314b360339}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD DropCarrier : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FetchCarrier" Id="{9967b2c7-ccb6-4a06-b912-a4b87c9f7e4d}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD FetchCarrier : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FindCarrier" Id="{b390740a-0e35-416b-84bf-615d75ef018e}" FolderPath="Functions\">
+      <Declaration><![CDATA[METHOD FindCarrier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Restore" Id="{a85fb066-a6cd-4a24-99b9-124aeeec9f21}">
       <Declaration><![CDATA[{warning 'Methodenimplementierung hinzufügen'}
 METHOD Restore : TcoCore.ITcoRestorable
@@ -74,5 +122,23 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="TeachStorageBase" Id="{894477e6-e70a-4ef8-8661-131b9010bc76}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD TeachStorageBase
+VAR_IN_OUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TeachTrolleyBase" Id="{d36de222-2bae-421f-a86b-881885c5e4ee}" FolderPath="Operations\">
+      <Declaration><![CDATA[METHOD TeachTrolleyBase
+VAR_IN_OUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

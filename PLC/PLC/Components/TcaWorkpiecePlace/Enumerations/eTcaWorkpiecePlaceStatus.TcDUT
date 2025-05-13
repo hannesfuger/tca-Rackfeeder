@@ -9,7 +9,7 @@ TYPE eTcaWorkpiecePlaceStatus :
 	undefined := 0,
 	Ready,
 	Prepared,
-	Loaded,	
+	Loaded,
 	Locked,
 	
 	MAXSIZE

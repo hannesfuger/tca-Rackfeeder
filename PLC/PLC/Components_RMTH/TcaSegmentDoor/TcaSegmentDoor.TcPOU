@@ -12,11 +12,6 @@ VAR
 	_config : TcaSegmentDoorConfig;
 	_service : TcaSegmentDoorService;
 	
-	//Sequences
-	//_initSequence : TcoSegmentDoor_Open(THIS^, eRestoreMode.None);
-	//_closeSequence : TcoSegmentDoor_Close(THIS^, eRestoreMode.None);
-	//_openSequence : TcoSegmentDoor_Open(THIS^, eRestoreMode.None);
-	
 	//Tasks
 	_closeTask : TcoCore.TcoTask(THIS^);
 	_openTask : TcoCore.TcoTask(THIS^);
@@ -39,7 +34,7 @@ END_VAR
 END_IF
 
 // Axis
-_EnableAxisSafe := _EnableAxis AND ref.tsSS1;
+_EnableAxisSafe := _EnableAxis; //AND ref.tsSS1;
 _vertikalAxis(inCalibrationCam:= ref.ReferenceSensor, inEnable:=  _EnableAxisSafe , inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.VertikalAxis);
 _latchLeft( inEnable:= _EnableAxisSafe, inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.LatchLeft);
 _latchRight( inEnable:= _EnableAxisSafe, inEnableNegative:= _EnableAxisSafe, inEnablePositive:= _EnableAxisSafe, inoAxisRef:= ref.LatchRight);
