@@ -21,7 +21,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>False</TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>
-    <Name>TcHmiProject2</Name>
+    <Name>HMI_SANDBOX</Name>
     <HmiCommunicationRouterPort>10105</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13002</HmiCommunicationServerAuthPort>
     <HmiInitial>14.2.116.1</HmiInitial>
@@ -171,7 +171,7 @@
     <Folder Include="Themes\Base\" />
     <Folder Include="Themes\Base-Dark\" />
     <Folder Include="Server">
-      <WorkingDirectory>TcHmiProject2</WorkingDirectory>
+      <WorkingDirectory>TEST</WorkingDirectory>
     </Folder>
     <Folder Include="Properties" />
     <Content Include=".eslintrc.json">
