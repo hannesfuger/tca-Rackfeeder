@@ -201,12 +201,6 @@
     <Compile Include="Components_RMTH\TcaSegmentDoor\TcaSegmentDoor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Components_RMTH\TcaSingleAxis\Structures\TcaSingleAxisRef.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components_RMTH\TcaSingleAxis\TcaSingleAxis.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Components_RMTH\TcaTwinSAFE\Structures\TcaTwinSAFEConfig.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -631,9 +625,6 @@
     <Folder Include="Components_RMTH\TcaSegmentDoor" />
     <Folder Include="Components_RMTH\TcaSegmentDoor\Enumerations" />
     <Folder Include="Components_RMTH\TcaSegmentDoor\Structures" />
-    <Folder Include="Components_RMTH\TcaSingleAxis" />
-    <Folder Include="Components_RMTH\TcaSingleAxis\Enumerations" />
-    <Folder Include="Components_RMTH\TcaSingleAxis\Structures" />
     <Folder Include="Components_RMTH\TcaTwinSAFE" />
     <Folder Include="Components_RMTH\TcaTwinSAFE\Structures" />
     <Folder Include="Components" />

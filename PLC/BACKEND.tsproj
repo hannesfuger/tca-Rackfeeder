@@ -3778,7 +3778,7 @@ External Setpoint Generation:
 							<SyncMan>001001000000010004000000000000000100001000010000</SyncMan>
 							<Fmmu>0000000000000000001000010100000002000000000000000000000000000000</Fmmu>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6000" Sub="#x01">
+								<Entry Name="Rackfeeder_X_Reference" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
@@ -29684,11 +29684,11 @@ External Setpoint Generation:
 0xA_ = no Device detected]]></Comment>
 								</Entry>
 							</Pdo>
-							<Pdo Name="IO-Link Port1_in" Index="#x1a00" Flags="#x0000" SyncMan="3">
-								<Entry Name="Input 0" BitLen="1" Index="#x6000" Sub="#x01">
+							<Pdo Name="Beckhoff IO Box_IN" Index="#x1a00" Flags="#x0000" SyncMan="3">
+								<Entry Name="Rackfeeder_Y_Reference" BitLen="1" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Input 1" BitLen="1" Index="#x6000" Sub="#x02">
+								<Entry Name="Rackfeeder_Telescope_Reference" BitLen="1" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="Input 2" BitLen="1" Index="#x6000" Sub="#x03">
@@ -29713,7 +29713,7 @@ External Setpoint Generation:
 									<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="IO-Link Port2_in" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Pdo Name="LaserDistanceSensor_A_IN" Index="#x1a01" Flags="#x0000" SyncMan="3">
 								<Entry Name="Measurement value: Distance" BitLen="32" Index="#x6010" Sub="#x01" Flags="#x00000003">
 									<Type>DINT</Type>
 								</Entry>
@@ -29745,7 +29745,7 @@ External Setpoint Generation:
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="IO-Link Port3_in" Index="#x1a02" Flags="#x0000" SyncMan="3">
+							<Pdo Name="LaserDistanceSensor_B_IN" Index="#x1a02" Flags="#x0000" SyncMan="3">
 								<Entry Name="Measurement value: Distance" BitLen="32" Index="#x6020" Sub="#x01" Flags="#x00000003">
 									<Type>DINT</Type>
 								</Entry>
@@ -29777,7 +29777,7 @@ External Setpoint Generation:
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="IO-Link Port1_out" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+							<Pdo Name="Beckhoff IO Box_OUT" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
 								<Entry Name="Output 0" BitLen="1" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
@@ -29806,7 +29806,7 @@ External Setpoint Generation:
 									<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="IO-Link Port2_out" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
+							<Pdo Name="LaserDistanceSensor_A_OUT" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
 								<Entry Name="Emitted Light" BitLen="1" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
@@ -29829,7 +29829,7 @@ External Setpoint Generation:
 									<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="IO-Link Port3_out" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
+							<Pdo Name="LaserDistanceSensor_B_OUT" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
 								<Entry Name="Emitted Light" BitLen="1" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
@@ -29859,7 +29859,7 @@ External Setpoint Generation:
 						</EtherCAT>
 					</Box>
 					<Box Id="41" BoxType="9099">
-						<Name>Klemme 41 (EL1008)</Name>
+						<Name>ENGEL Interface (EL1008)</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03f03052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1008 8K. Dig. Eingang 24V, 3ms" Desc="EL1008" PortABoxInfo="#x01000007">
 							<SyncMan>001001000000010004000000000000000100001000010000</SyncMan>
@@ -29907,7 +29907,7 @@ External Setpoint Generation:
 						</EtherCAT>
 					</Box>
 					<Box Id="42" BoxType="9099">
-						<Name>Klemme 42 (EL2624)</Name>
+						<Name>ENGEL Interface (EL2624)</Name>
 						<ImageId>1003</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0a403052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2624 4K. Relais Ausgang, Schließer (125V AC / 30V DC)" Desc="EL2624" PortABoxInfo="#x01000029">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
@@ -30649,7 +30649,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 										</Entry>
 									</Pdo>
 									<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
-										<Entry Name="Input" Index="#x6030" Sub="#x01">
+										<Entry Name="OvenDoor_A_Reference" Index="#x6030" Sub="#x01">
 											<Type>BIT</Type>
 										</Entry>
 									</Pdo>
@@ -31386,7 +31386,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 										</Entry>
 									</Pdo>
 									<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
-										<Entry Name="Input" Index="#x6030" Sub="#x01">
+										<Entry Name="OvenDoor_B_Reference" Index="#x6030" Sub="#x01">
 											<Type>BIT</Type>
 										</Entry>
 									</Pdo>
@@ -31431,7 +31431,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<Name>Storage|Casting (EK1122)</Name>
 						<ImageId>1004</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04622c52" RevisionNo="#x00120000" PortPhys="4883" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1122 2-Port EtherCAT-Abzweig" Desc="EK1122" PortABoxInfo="#x02000008"/>
-						<Box File="Klemme 60 (EK1100).xti" Id="60">
+						<Box File="Storage (EK1100).xti" Id="60">
 							<EtherCAT PortABoxInfo="#x01000002"/>
 						</Box>
 					</Box>
@@ -34340,7 +34340,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 									</Parameter>
 									<Parameter>
 										<PropertyName>MaxDcLinkVoltage</PropertyName>
-										<Value>0</Value>
+										<Value>875</Value>
 									</Parameter>
 								</Device>
 								<Channel ChnId="0">
@@ -34363,7 +34363,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 										</Parameter>
 										<Parameter>
 											<PropertyName>Modulo_Value</PropertyName>
-											<Value>0</Value>
+											<Value>1048576</Value>
 										</Parameter>
 										<Parameter>
 											<PropertyName>Modulo_MinPositionRange</PropertyName>
@@ -34375,6 +34375,648 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 										</Parameter>
 									</Modulo>
 									<Block Id="0">
+										<Motor IsManualInput="false" IsManualMFiInput="false" DataSource="1">
+											<DatabaseType>
+												<SchemaVersion>1.26</SchemaVersion>
+												<DataVersion>1.26.0</DataVersion>
+												<OrderCode>AM8032-0E10-0000</OrderCode>
+												<GroupType>AM803x</GroupType>
+												<ElectricMotorType>AM8032-xEx0</ElectricMotorType>
+												<MotorfeedbackType>Sick#EKS36-0KF0A0S16</MotorfeedbackType>
+												<MotorbrakeType/>
+												<AssemblyType>AM8OCT</AssemblyType>
+												<VendorName>BECKHOFF</VendorName>
+												<IsAc>true</IsAc>
+												<ConstructType>0</ConstructType>
+												<IsBeckhoffMotorShaftSpeicified>true</IsBeckhoffMotorShaftSpeicified>
+												<ShaftType>1</ShaftType>
+											</DatabaseType>
+											<DatabaseParameters>
+												<Parameter>
+													<Comment LcId="1033">Motorvendor</Comment>
+													<Name>Vendor</Name>
+													<Data type="visibleString">Beckhoff</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Electric motor type</Comment>
+													<Name>ElecType</Name>
+													<Data type="visibleString">AM8032-xEx0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Motor construction</Comment>
+													<Name>ConstrType</Name>
+													<Data type="real64">0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Control parameter algorithm</Comment>
+													<Name>CPA</Name>
+													<Data type="real64">0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Pole Pairs</Comment>
+													<Name>PolePairs</Name>
+													<Data type="real64">4</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Standstill Current</Comment>
+													<Name>I0rms</Name>
+													<Data type="real64" unitSiNumerator="4">2.95</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Rated Current</Comment>
+													<Name>Inrms</Name>
+													<Data type="real64" unitSiNumerator="4">2.75</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Peak Current</Comment>
+													<Name>Iprms</Name>
+													<Data type="real64" unitSiNumerator="4">17.2</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Nominal Voltage</Comment>
+													<Name>Unrms</Name>
+													<Data type="real64" unitSiNumerator="38">400</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Max Voltage</Comment>
+													<Name>Umaxrms</Name>
+													<Data type="real64" unitSiNumerator="38">890</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Max winding du/dt</Comment>
+													<Name>dudtMax</Name>
+													<Data type="real64" unitSiNumerator="38" unitSiDenominator="3">8000000000</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Max Torque</Comment>
+													<Name>Mpeak</Name>
+													<Data type="real64" unitSiNumerator="86">11.7</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Torque Constant</Comment>
+													<Name>kT</Name>
+													<Data type="real64" unitSiNumerator="86" unitSiDenominator="4">0.803</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">M(i) curve</Comment>
+													<Name>Mi</Name>
+													<DataTable type="real641" unitSiNumerator="4">
+														<item>1.72</item>
+														<item>3.44</item>
+														<item>5.16</item>
+														<item>6.88</item>
+														<item>8.6</item>
+														<item>10.3</item>
+														<item>12</item>
+														<item>13.8</item>
+														<item>15.5</item>
+														<item>17.2</item>
+													</DataTable>
+													<DataTable type="real641" unitSiNumerator="86">
+														<item>1.61</item>
+														<item>3.12</item>
+														<item>4.53</item>
+														<item>5.84</item>
+														<item>7.06</item>
+														<item>8.17</item>
+														<item>9.19</item>
+														<item>10.1</item>
+														<item>10.9</item>
+														<item>11.7</item>
+													</DataTable>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">EMK</Comment>
+													<Name>kErms</Name>
+													<Data type="real64" unitSiNumerator="38" unitSiDenominator="225">0.056</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Winding resistance Ph-Ph 20°C</Comment>
+													<Name>R</Name>
+													<Data type="real64" unitSiNumerator="40">6.5</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Ld Ph-Ph</Comment>
+													<Name>Ld</Name>
+													<Data type="real64" unitSiNumerator="44">0.0226</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Lq Ph-Ph</Comment>
+													<Name>Lq</Name>
+													<Data type="real64" unitSiNumerator="44">0.0226</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Lq(i) curve</Comment>
+													<Name>Lqi</Name>
+													<DataTable type="real641" unitSiNumerator="4">
+														<item>1.72</item>
+														<item>3.44</item>
+														<item>5.16</item>
+														<item>6.88</item>
+														<item>8.6</item>
+														<item>10.3</item>
+														<item>12</item>
+														<item>13.8</item>
+														<item>15.5</item>
+														<item>17.2</item>
+													</DataTable>
+													<DataTable type="real641" unitSiNumerator="44">
+														<item>0.0156</item>
+														<item>0.014</item>
+														<item>0.0124</item>
+														<item>0.011</item>
+														<item>0.0101</item>
+														<item>0.00917</item>
+														<item>0.00769</item>
+														<item>0.00622</item>
+														<item>0.00485</item>
+														<item>0.00362</item>
+													</DataTable>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Max speed</Comment>
+													<Name>Nmax</Name>
+													<Data type="real64" unitSiNumerator="225">10000</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">J motor with brake</Comment>
+													<Name>J</Name>
+													<Data type="real64" unitSiNumerator="224">8.42E-05</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Commutation position offset (W+/V-)</Comment>
+													<Name>MechComOffs</Name>
+													<Data type="real64" unitSiNumerator="65">0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">T motor warn limit</Comment>
+													<Name>TMotorWarn</Name>
+													<Data type="real64" unitSiNumerator="45">120</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">T motor shut down</Comment>
+													<Name>TMotorLimit</Name>
+													<Data type="real64" unitSiNumerator="45">140</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Time constant i2t</Comment>
+													<Name>Ti2t</Name>
+													<Data type="real64" unitSiNumerator="3">102</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Motor thermal constant</Comment>
+													<Name>Mtc</Name>
+													<Data type="real64" unitSiNumerator="71">26</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Motor temperature sensor identification</Comment>
+													<Name>TempSensorId</Name>
+													<Data type="real64">1</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Motor temp sensor R(T)</Comment>
+													<Name>TempSensorRT</Name>
+													<DataTable type="real641" unitSiNumerator="45">
+														<item>-40</item>
+														<item>-15.5</item>
+														<item>9</item>
+														<item>33.5</item>
+														<item>58</item>
+														<item>82.5</item>
+														<item>107</item>
+														<item>132</item>
+														<item>156</item>
+														<item>181</item>
+													</DataTable>
+													<DataTable type="real641" unitSiNumerator="40">
+														<item>359</item>
+														<item>440</item>
+														<item>534</item>
+														<item>642</item>
+														<item>762</item>
+														<item>896</item>
+														<item>1043</item>
+														<item>1204</item>
+														<item>1377</item>
+														<item>1560</item>
+													</DataTable>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Rated speeds Nn(Unrms)</Comment>
+													<Name>NnUnrms</Name>
+													<DataTable type="real641" unitSiNumerator="38">
+														<item>115</item>
+														<item>230</item>
+														<item>400</item>
+														<item>480</item>
+													</DataTable>
+													<DataTable type="real641" unitSiNumerator="225">
+														<item>1400</item>
+														<item>3200</item>
+														<item>6000</item>
+														<item>6800</item>
+													</DataTable>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Rated torques Mn(Unrms)</Comment>
+													<Name>MnUnrms</Name>
+													<DataTable type="real641" unitSiNumerator="38">
+														<item>115</item>
+														<item>230</item>
+														<item>400</item>
+														<item>480</item>
+													</DataTable>
+													<DataTable type="real641" unitSiNumerator="86">
+														<item>2.34</item>
+														<item>2.28</item>
+														<item>2.2</item>
+														<item>2.1</item>
+													</DataTable>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Temperature sensor type</Comment>
+													<Name>TempSensorType</Name>
+													<Data type="real64">1</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Temperature sensor connection</Comment>
+													<Name>TempSensorCon</Name>
+													<Data type="real64">1</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Feedback connector</Comment>
+													<Name>FbCon</Name>
+													<Data type="real64">0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Digital name plate</Comment>
+													<Name>NamePlate</Name>
+													<Data type="real64">2</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">Feedback commutation mode</Comment>
+													<Name>FbCommutationMode</Name>
+													<Data type="real64">2</Data>
+												</Parameter>
+												<Parameter>
+													<Name>OrderCode</Name>
+													<Data type="visibleString">AM8032-0E10-0000</Data>
+												</Parameter>
+											</DatabaseParameters>
+											<Calc>
+												<SoE>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Configured motor type</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32821</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0C001E00414D383033322D7845783000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Motor continuous stall torque</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32838</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>ED000000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Maximum motor speed</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>113</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>10270000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Bipolar velocity limit value</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>91</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>2222220A</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Motor construction type</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32818</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0000</Data>
+														<SubItemPath>FunctionalPrinciple</SubItemPath>
+														<SubItemPath>Construction</SubItemPath>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Thermal motor model</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32830</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>1000100018065000640001004400190000000000</Data>
+														<SubItemPath>eReaction</SubItemPath>
+														<SubItemPath>nPartialFractionFactor_percent</SubItemPath>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Motor data constraints</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32857</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>240024002683000000000000401F0000000000000000000000000000000000000000000000000000</Data>
+														<SubItemPath>Constraint_1.IDN</SubItemPath>
+														<SubItemPath>Constraint_1.MinValue</SubItemPath>
+														<SubItemPath>Constraint_1.MaxValue</SubItemPath>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Configured drive type</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32822</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>10001E004158353230332D303030302D23232323</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Configured channel current</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32861</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>860B0000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Configured channel peak current</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32860</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0C170000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Time limitation for peak current</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32820</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Current controller settings 2</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>33219</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0000</Data>
+														<SubItemPath>eControlMode</SubItemPath>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Current loop proportional gain 1</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>106</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>A602</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Current control loop integral action time 1</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>107</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0800</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Velocity filter 1: Low pass time constant</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>33279</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>9600</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Velocity loop proportional gain</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>100</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>27000000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Velocity loop integral action time</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>101</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>5000</Data>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Feedback 1 type</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32918</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>E000E000030000005369636B23454B5333362D304B463041305331360000000000000000000000000000000000000000000000000E0000000000000005000E00000000000000000000000000E8030000E803000000000000000000000000000000000000000000000000000007000E0000000000120000000000000002000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000C800C800690000000000000000000000000000000000000000000000</Data>
+														<SubItemPath>stParaCh.eDigitalNamePlate</SubItemPath>
+														<SubItemPath>stParaCh.eCommutationMode</SubItemPath>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Motor temperature sensor type</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32829</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0700</Data>
+													</InitCmd>
+												</SoE>
+											</Calc>
+										</Motor>
+										<Feedback DataSource="1">
+											<DatabaseType>
+												<OrderCode>Sick#EKS36-0KF0A0S16</OrderCode>
+												<VendorName>Sick</VendorName>
+												<IsRotary>true</IsRotary>
+												<AbsolutePosInterface>7</AbsolutePosInterface>
+												<GroupType>Sick#EKx</GroupType>
+												<ElectricFeedbackType>Oct_EKS36-0KF0A018A</ElectricFeedbackType>
+											</DatabaseType>
+											<DatabaseParameters>
+												<Parameter>
+													<Comment LcId="1033">cf: AbsolutePositionInterfaceType 0: No interface 1: BiSS B 2: EnDat2.1 3: EnDat2.2 4: Hiperface 5: BiSS C 6: BiSS C 7: Hiperface DSL 8: Resolver 9: MES 10: SSI binary 11: SSI gray 12: EnDat3.0 2-wire 100: Electrical analog commutation channel: sin(x) and sin(x-120) 102: Mechanical analog commutation channel: cos and sin 103: Electrical analog commutation channel: cos and sin</Comment>
+													<Name>AbsolutePositionInterface</Name>
+													<Data type="int8">7</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">cf: KindType 0: rotary 1: linear</Comment>
+													<Name>Kind</Name>
+													<Data type="int8">0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033"/>
+													<Name>AbsolutePositionData_ResolutionSinglePos</Name>
+													<Data type="int16">18</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033"/>
+													<Name>AbsolutePositionData_ResolutionMultiPos</Name>
+													<Data type="int16">0</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">maximal allowed continuous speed</Comment>
+													<Name>MaxContinousOperationSpeed</Name>
+													<Data type="real64" unitSiNumerator="revolutionsminuterpm">12000</Data>
+												</Parameter>
+												<Parameter>
+													<Comment LcId="1033">maximal  allowed temperature</Comment>
+													<Name>MaxTemperature</Name>
+													<Data type="real64" unitSiNumerator="degreeCelsius">105</Data>
+												</Parameter>
+											</DatabaseParameters>
+											<FeedbackUse>Commutation</FeedbackUse>
+											<SerialNo>5 532 792 408 144</SerialNo>
+											<Calc>
+												<SoE>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Feedback 1 type</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>32918</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>E000E000030000005369636B23454B5333362D304B463041305331360000000000000000000000000000000000000000000000000E0000000000000005000E00000000000000000000000000E8030000E803000000000000000000000000000000000000000000000000000007000E0000000000120000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000C800C800690000000000000000000000000000000000000000000000</Data>
+														<SubItemPath>eManufacturer</SubItemPath>
+														<SubItemPath>arFeedbackTypeStr</SubItemPath>
+														<SubItemPath>eType</SubItemPath>
+														<SubItemPath>eFeedbackUse</SubItemPath>
+														<SubItemPath>stPowerManagement.eConnector</SubItemPath>
+														<SubItemPath>stProcessCh.eConnector</SubItemPath>
+														<SubItemPath>stProcessCh.eProcessInterface</SubItemPath>
+														<SubItemPath>stParaCh.eParaInterface</SubItemPath>
+														<SubItemPath>stParaCh.eConnector</SubItemPath>
+														<SubItemPath>stParaCh.nBitResolutionSinglePos</SubItemPath>
+														<SubItemPath>stParaCh.nBitResolutionMultiPos</SubItemPath>
+														<SubItemPath>stLimits.nFrequencyLimit_U_s</SubItemPath>
+														<SubItemPath>stLimits.nContinuousMechanicalFrequencyLimit_U_s</SubItemPath>
+														<SubItemPath>stLimits.nMaxTemperature_C</SubItemPath>
+													</InitCmd>
+													<InitCmd>
+														<Transition>PS</Transition>
+														<Comment>Velocity observer</Comment>
+														<Timeout>0</Timeout>
+														<OpCode>3</OpCode>
+														<DriveNo>0</DriveNo>
+														<IDN>33282</IDN>
+														<Elements>64</Elements>
+														<Attribute>0</Attribute>
+														<Data>0C000C0001000000F401E803BC020000</Data>
+														<SubItemPath>eMode</SubItemPath>
+													</InitCmd>
+												</SoE>
+											</Calc>
+										</Feedback>
+										<Load MoveStyle="Linear">
+											<IsMotorRotary>true</IsMotorRotary>
+											<Name>InverterChannelTypeBlockLoad</Name>
+											<ProjectGUID>00000000-0000-0000-0000-000000000000</ProjectGUID>
+											<Parameter>
+												<PropertyName>FeedConstantUnit</PropertyName>
+												<Value>mm</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>FeedConstant</PropertyName>
+												<Value>60</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>GearRatioMotorSide</PropertyName>
+												<Value>1</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>GearRatioLoadSide</PropertyName>
+												<Value>1</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>GearboxInertia</PropertyName>
+												<Value>0</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>LoadInertiaMassReflectedOnGearbox</PropertyName>
+												<Value>0</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>MaxMoveDistance</PropertyName>
+												<Value>0</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>LoadInertiaMass</PropertyName>
+												<Value>0</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>MaxApplicationTorqueForce</PropertyName>
+												<Value>4.7377</Value>
+											</Parameter>
+											<Parameter>
+												<PropertyName>MaxApplicationSpeed</PropertyName>
+												<Value>994.83767</Value>
+											</Parameter>
+										</Load>
 										<Controller>
 											<Filter Id="0">
 												<Name>ControllerFilter</Name>
@@ -34997,7 +35639,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<DcData>3007000090d0030000000000000000000000ffff000000000000000000000000</DcData>
 						<DcMode>446353796e633235300000000000000053796e63206379636c652074696d653a20323530c2b57300000000000000000090d003000000000000000000ffff30070000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>446353796e633132350000000000000053796e63206379636c652074696d653a20313235c2b57300000000000000000048e801000000000000000000ffff30070000000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<MBoxUserCmdData>00400500100000000d000000000000000000000000000000000000000000000003400a8000000000fe7ff907000000004665617475726520666c61677300</MBoxUserCmdData>
+						<MBoxUserCmdData>00400500100000000d000000000000000000000000000000000000000000000003400a8000000000fffff907000000004665617475726520666c61677300</MBoxUserCmdData>
 						<MBoxUserCmdData>00400500100000000d000000000000000000000000000000000000000000000023400a8000000000fe7ff907000000004665617475726520666c61677300</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001500000000000000000000000000000000000000000000000340010000000000d007546e637963202d204e43206379636c652074696d6500</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001700000000000000000000000000000000000000000000000340020000000000d0075473637963202d20436f6d6d206379636c652074696d6500</MBoxUserCmdData>
@@ -35010,9 +35652,44 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<MBoxUserCmdData>020005000a0000002600000000000000000000000000000000000000000000000340cb800000000064004d61696e7320766f6c74616765206e6567617469766520746f6c6572616e63652072616e676500</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000002600000000000000000000000000000000000000000000000340ca800000000064004d61696e7320766f6c7461676520706f73697469766520746f6c6572616e63652072616e676500</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000200436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
-						<MBoxUserCmdData>020005000c0000001a000000000000000000000000000000000000000000000003405d800000000000000000436f6e66696775726564206368616e6e656c2063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001a000000000000000000000000000000000000000000000003405d8000000000860b0000436f6e66696775726564206368616e6e656c2063757272656e7400</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000c0000001a000000000000000000000000000000000000000000000023405d800000000000000000436f6e66696775726564206368616e6e656c2063757272656e7400</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000001300000000000000000000000000000000000000000000000340d880000000002e224d6178204443206c696e6b20766f6c7461676500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005001800000015000000000000000000000000000000000000000000000003403580000000000c001e00414d383033322d7845783000436f6e66696775726564206d6f746f72207479706500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a000000140000000000000000000000000000000000000000000000034033800000000004004e756d626572206f6620706f6c6520706169727300</MBoxUserCmdData>
+						<MBoxUserCmdData>020005001400000015000000000000000000000000000000000000000000000003404780000000000800080054000000000000004d656368616e6963616c206d6f746f72206461746100</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001d000000000000000000000000000000000000000000000003403980000000007869456c656374726963616c20636f6d6d75746174696f6e206f666673657400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001e000000000000000000000000000000000000000000000003406f0000000000860b00004d6f746f7220636f6e74696e756f7573207374616c6c2063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001300000000000000000000000000000000000000000000000340c40000000000be0a00004d6f746f722072617465642063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c00000012000000000000000000000000000000000000000000000003406d0000000000304300004d6f746f72207065616b2063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a00000013000000000000000000000000000000000000000000000003404d8000000000a00f4d6f746f7220726174656420766f6c7461676500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000002200000000000000000000000000000000000000000000000340438000000000c4224d6f746f722077696e64696e673a204469656c65637472696320737472656e67746800</MBoxUserCmdData>
+						<MBoxUserCmdData>02000500140000001400000000000000000000000000000000000000000000000340428000000000080008008a020000d4080000456c656374726963206d6f746f72206d6f64656c00</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001900000000000000000000000000000000000000000000000340c90000000000b0044d6f746f72207761726e696e672074656d706572617475726500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001b00000000000000000000000000000000000000000000000340cc000000000078054d6f746f72207368757420646f776e2074656d706572617475726500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a000000090000000000000000000000000000000000000000000000034037800000000030024d6f746f7220454d4600</MBoxUserCmdData>
+						<MBoxUserCmdData>020005001c00000013000000000000000000000000000000000000000000000003403e80000000001000100018065000640001004400190000000000546865726d616c206d6f746f72206d6f64656c00</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001100000000000000000000000000000000000000000000000340498000000000920400004d6f746f72207065616b20746f7271756500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005005c0000001f000000000000000000000000000000000000000000000003404b800000000050005000b8060000700d000028140000e01a0000982100003c280000e02e0000e83500008c3c0000304300001806000078050000d80400004c040000f203000095030000010300006e020000e50100006a0100004d6f746f7220696e64756374616e636520636861726163746572697374696300</MBoxUserCmdData>
+						<MBoxUserCmdData>020005005c00000021000000000000000000000000000000000000000000000003404a800000000050005000b8060000700d000028140000e01a0000982100003c280000e02e0000e83500008c3c000030430000a100000038010000c501000048020000c20200003103000097030000f203000042040000920400004d6f746f7220746f727175652f666f72636520636861726163746572697374696300</MBoxUserCmdData>
+						<MBoxUserCmdData>020005003400000027000000000000000000000000000000000000000000000003404c80000000002800280070fe65ff5a004f01440239032e042805180612076701b80116028202fa0280031304b404610518064d6f746f722074656d70657261747572652073656e736f7220636861726163746572697374696300</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001d00000000000000000000000000000000000000000000000340468000000000ed0000004d6f746f7220636f6e74696e756f7573207374616c6c20746f7271756500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001300000000000000000000000000000000000000000000000340710000000000102700004d6178696d756d206d6f746f7220737065656400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001c000000000000000000000000000000000000000000000003405b00000000002222220a4269706f6c61722076656c6f63697479206c696d69742076616c756500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a000000170000000000000000000000000000000000000000000000034032800000000000004d6f746f7220636f6e737472756374696f6e207479706500</MBoxUserCmdData>
+						<MBoxUserCmdData>02000500300000001600000000000000000000000000000000000000000000000340598000000000240024002683000000000000401f00000000000000000000000000000000000000000000000000004d6f746f72206461746120636f6e73747261696e747300</MBoxUserCmdData>
+						<MBoxUserCmdData>020005001c000000150000000000000000000000000000000000000000000000034036800000000010001e004158353230332d303030302d23232323436f6e66696775726564206472697665207479706500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001f000000000000000000000000000000000000000000000003405c80000000000c170000436f6e66696775726564206368616e6e656c207065616b2063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000002000000000000000000000000000000000000000000000000340348000000000000054696d65206c696d69746174696f6e20666f72207065616b2063757272656e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001d00000000000000000000000000000000000000000000000340c38100000000000043757272656e7420636f6e74726f6c6c65722073657474696e6773203200</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a00000020000000000000000000000000000000000000000000000003406a0000000000a60243757272656e74206c6f6f702070726f706f7274696f6e616c206761696e203100</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000002b000000000000000000000000000000000000000000000003406b0000000000080043757272656e7420636f6e74726f6c206c6f6f7020696e74656772616c20616374696f6e2074696d65203100</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000002900000000000000000000000000000000000000000000000340ff8100000000960056656c6f636974792066696c74657220313a204c6f7720706173732074696d6520636f6e7374616e7400</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000c0000001f000000000000000000000000000000000000000000000003406400000000002700000056656c6f63697479206c6f6f702070726f706f7274696f6e616c206761696e00</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000002200000000000000000000000000000000000000000000000340650000000000500056656c6f63697479206c6f6f7020696e74656772616c20616374696f6e2074696d6500</MBoxUserCmdData>
+						<MBoxUserCmdData>02000500ec0000000f00000000000000000000000000000000000000000000000340968000000000e000e000030000005369636b23454b5333362d304b463041305331360000000000000000000000000000000000000000000000000e0000000000000005000e00000000000000000000000000e8030000e803000000000000000000000000000000000000000000000000000007000e0000000000120000000000000002000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c800c800690000000000000000000000000000000000000000000000466565646261636b2031207479706500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005001800000011000000000000000000000000000000000000000000000003400282000000000c000c0001000000f401e803bc02000056656c6f63697479206f6273657276657200</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001d000000000000000000000000000000000000000000000003403d800000000007004d6f746f722074656d70657261747572652073656e736f72207479706500</MBoxUserCmdData>
 						<Pdo Name="AT 1" Index="#x0010" Flags="#x0001" SyncMan="3">
 							<Entry Name="Drive status word" Index="#x0087" Flags="#x00000800">
 								<Type>UINT</Type>
