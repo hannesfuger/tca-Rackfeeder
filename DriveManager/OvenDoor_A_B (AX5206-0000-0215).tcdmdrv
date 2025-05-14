@@ -145,7 +145,7 @@
       <SortId>2</SortId>
       <DriveModuleType>31</DriveModuleType>
       <TcLink ProtocalType="1">
-        <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+        <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
         <IoItemPathName>TIID^Device 3 (EtherCAT)^OvenDoor_A_B (AX5206-0000-0215)</IoItemPathName>
         <ItemId>30</ItemId>
         <ObjectId>#x0302001e</ObjectId>
@@ -153,10 +153,12 @@
       <OrderCode>AX5206-0000-02xx</OrderCode>
       <Name>OvenDoor_A_B (AX5206-0000-0215)</Name>
       <FirmwareVersion>Firmware: v2.15 (Build 0003) / Bootloader: v2.02 (Build 0002)</FirmwareVersion>
+      <BootloaderVersion>2.02</BootloaderVersion>
       <CatalogNo>AX5206-0000-0215</CatalogNo>
       <HardwareVersion>c:0100  p:0103  d:0102  f:0101  o:----  s:----</HardwareVersion>
       <SerialNr>Serial#: 000115441</SerialNr>
       <ProductRevision>AX5206-0000-0215</ProductRevision>
+      <HasDualUseInfo>true</HasDualUseInfo>
       <WatchLog UpdateIntervalInMs="500">
         <WatchLogItem>
           <WatchLogParaSoE Index="33092" />
@@ -244,7 +246,7 @@
         </Device>
         <Channel ChnId="0">
           <TcLink>
-            <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+            <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
             <IoItemPathName>TIID^Device 3 (EtherCAT)^OvenDoor_A_B (AX5206-0000-0215)</IoItemPathName>
             <NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Oven A</NcItemPathName>
           </TcLink>
@@ -1232,7 +1234,7 @@
         </Channel>
         <Channel ChnId="1">
           <TcLink>
-            <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+            <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
             <IoItemPathName>TIID^Device 3 (EtherCAT)^OvenDoor_A_B (AX5206-0000-0215)</IoItemPathName>
             <NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Oven B</NcItemPathName>
           </TcLink>

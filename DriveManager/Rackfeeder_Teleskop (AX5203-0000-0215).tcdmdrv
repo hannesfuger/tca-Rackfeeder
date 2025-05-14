@@ -15,7 +15,7 @@
       <SortId>1</SortId>
       <DriveModuleType>31</DriveModuleType>
       <TcLink ProtocalType="1">
-        <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+        <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
         <IoItemPathName>TIID^Device 3 (EtherCAT)^Rackfeeder_Teleskop (AX5203-0000-0215)</IoItemPathName>
         <ItemId>28</ItemId>
         <ObjectId>#x0302001c</ObjectId>
@@ -23,10 +23,13 @@
       <OrderCode>AX5203-0000-02xx</OrderCode>
       <Name>Rackfeeder_Teleskop (AX5203-0000-0215)</Name>
       <FirmwareVersion>Firmware: v2.15 (Build 0003) / Bootloader: v2.02 (Build 0002)</FirmwareVersion>
+      <BootloaderVersion>2.02</BootloaderVersion>
       <CatalogNo>AX5203-0000-0215</CatalogNo>
       <HardwareVersion>c:0180  p:0103  d:0102  f:0101  o:----  s:----</HardwareVersion>
       <SerialNr>Serial#: 000305431</SerialNr>
       <ProductRevision>AX5203-0000-0215</ProductRevision>
+      <HasDualUseInfo>true</HasDualUseInfo>
+      <OperatingFrequencyLimitation>true</OperatingFrequencyLimitation>
       <WatchLog UpdateIntervalInMs="500">
         <WatchLogItem>
           <WatchLogParaSoE Index="33092" />
@@ -114,7 +117,7 @@
         </Device>
         <Channel ChnId="0">
           <TcLink>
-            <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+            <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
             <IoItemPathName>TIID^Device 3 (EtherCAT)^Rackfeeder_Teleskop (AX5203-0000-0215)</IoItemPathName>
             <NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Rackfeeder Teleskop</NcItemPathName>
           </TcLink>
@@ -152,7 +155,7 @@
                 <GroupType>AM803x</GroupType>
                 <ElectricMotorType>AM8032-xEx0</ElectricMotorType>
                 <MotorfeedbackType>Sick#EKS36-0KF0A0S16</MotorfeedbackType>
-                <MotorbrakeType />
+                <MotorbrakeType></MotorbrakeType>
                 <AssemblyType>AM8OCT</AssemblyType>
                 <VendorName>BECKHOFF</VendorName>
                 <IsAc>true</IsAc>
@@ -677,12 +680,12 @@
                   <Data type="int8">0</Data>
                 </Parameter>
                 <Parameter>
-                  <Comment LcId="1033" />
+                  <Comment LcId="1033"></Comment>
                   <Name>AbsolutePositionData_ResolutionSinglePos</Name>
                   <Data type="int16">18</Data>
                 </Parameter>
                 <Parameter>
-                  <Comment LcId="1033" />
+                  <Comment LcId="1033"></Comment>
                   <Name>AbsolutePositionData_ResolutionMultiPos</Name>
                   <Data type="int16">0</Data>
                 </Parameter>
@@ -751,7 +754,7 @@
               </Parameter>
               <Parameter>
                 <PropertyName>FeedConstant</PropertyName>
-                <Value>60</Value>
+                <Value>27.59625</Value>
               </Parameter>
               <Parameter>
                 <PropertyName>GearRatioMotorSide</PropertyName>
@@ -771,7 +774,7 @@
               </Parameter>
               <Parameter>
                 <PropertyName>MaxMoveDistance</PropertyName>
-                <Value>0</Value>
+                <Value>700</Value>
               </Parameter>
               <Parameter>
                 <PropertyName>LoadInertiaMass</PropertyName>
@@ -1074,7 +1077,7 @@
         </Channel>
         <Channel ChnId="1">
           <TcLink>
-            <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+            <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
             <IoItemPathName>TIID^Device 3 (EtherCAT)^Rackfeeder_Teleskop (AX5203-0000-0215)</IoItemPathName>
           </TcLink>
           <SelectedModifyOptPDOsMode>0</SelectedModifyOptPDOsMode>

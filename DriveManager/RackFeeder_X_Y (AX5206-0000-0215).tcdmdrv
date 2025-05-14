@@ -142,7 +142,7 @@
       <SortId>0</SortId>
       <DriveModuleType>31</DriveModuleType>
       <TcLink ProtocalType="1">
-        <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+        <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
         <IoItemPathName>TIID^Device 3 (EtherCAT)^RackFeeder_X_Y (AX5206-0000-0215)</IoItemPathName>
         <ItemId>26</ItemId>
         <ObjectId>#x0302001a</ObjectId>
@@ -241,7 +241,7 @@
         </Device>
         <Channel ChnId="0">
           <TcLink>
-            <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+            <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
             <IoItemPathName>TIID^Device 3 (EtherCAT)^RackFeeder_X_Y (AX5206-0000-0215)</IoItemPathName>
             <NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Rackfeeder X</NcItemPathName>
           </TcLink>
@@ -1201,7 +1201,7 @@
         </Channel>
         <Channel ChnId="1">
           <TcLink>
-            <TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+            <TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
             <IoItemPathName>TIID^Device 3 (EtherCAT)^RackFeeder_X_Y (AX5206-0000-0215)</IoItemPathName>
             <NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Rackfeeder Y</NcItemPathName>
           </TcLink>

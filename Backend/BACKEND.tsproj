@@ -2970,7 +2970,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{C0F40EFB-23DF-46A1-A3AC-3D00A5A8C641}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{6DD96D8A-2A65-241D-CCFF-490458FE8EDB}" TmcPath="PLC\PLC.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{C10AAA78-9DD4-36A4-4322-0A829C90C72D}" TmcPath="PLC\PLC.tmc">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -31557,7 +31557,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							<SortId>0</SortId>
 							<DriveModuleType>31</DriveModuleType>
 							<TcLink ProtocalType="1">
-								<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+								<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 								<IoItemPathName>TIID^Device 3 (EtherCAT)^RackFeeder_X_Y (AX5206-0000-0215)</IoItemPathName>
 								<ItemId>26</ItemId>
 								<ObjectId>#x0302001a</ObjectId>
@@ -31656,7 +31656,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Device>
 								<Channel ChnId="0">
 									<TcLink>
-										<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+										<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 										<IoItemPathName>TIID^Device 3 (EtherCAT)^RackFeeder_X_Y (AX5206-0000-0215)</IoItemPathName>
 										<NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Rackfeeder X</NcItemPathName>
 									</TcLink>
@@ -32616,7 +32616,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Channel>
 								<Channel ChnId="1">
 									<TcLink>
-										<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+										<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 										<IoItemPathName>TIID^Device 3 (EtherCAT)^RackFeeder_X_Y (AX5206-0000-0215)</IoItemPathName>
 										<NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Rackfeeder Y</NcItemPathName>
 									</TcLink>
@@ -34232,7 +34232,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							<SortId>1</SortId>
 							<DriveModuleType>31</DriveModuleType>
 							<TcLink ProtocalType="1">
-								<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+								<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 								<IoItemPathName>TIID^Device 3 (EtherCAT)^Rackfeeder_Teleskop (AX5203-0000-0215)</IoItemPathName>
 								<ItemId>28</ItemId>
 								<ObjectId>#x0302001c</ObjectId>
@@ -34240,10 +34240,13 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							<OrderCode>AX5203-0000-02xx</OrderCode>
 							<Name>Rackfeeder_Teleskop (AX5203-0000-0215)</Name>
 							<FirmwareVersion>Firmware: v2.15 (Build 0003) / Bootloader: v2.02 (Build 0002)</FirmwareVersion>
+							<BootloaderVersion>2.02</BootloaderVersion>
 							<CatalogNo>AX5203-0000-0215</CatalogNo>
 							<HardwareVersion>c:0180  p:0103  d:0102  f:0101  o:----  s:----</HardwareVersion>
 							<SerialNr>Serial#: 000305431</SerialNr>
 							<ProductRevision>AX5203-0000-0215</ProductRevision>
+							<HasDualUseInfo>true</HasDualUseInfo>
+							<OperatingFrequencyLimitation>true</OperatingFrequencyLimitation>
 							<WatchLog UpdateIntervalInMs="500">
 								<WatchLogItem>
 									<WatchLogParaSoE Index="33092"/>
@@ -34331,7 +34334,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Device>
 								<Channel ChnId="0">
 									<TcLink>
-										<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+										<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 										<IoItemPathName>TIID^Device 3 (EtherCAT)^Rackfeeder_Teleskop (AX5203-0000-0215)</IoItemPathName>
 										<NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Rackfeeder Teleskop</NcItemPathName>
 									</TcLink>
@@ -34968,7 +34971,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 											</Parameter>
 											<Parameter>
 												<PropertyName>FeedConstant</PropertyName>
-												<Value>60</Value>
+												<Value>27.59625</Value>
 											</Parameter>
 											<Parameter>
 												<PropertyName>GearRatioMotorSide</PropertyName>
@@ -34988,7 +34991,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 											</Parameter>
 											<Parameter>
 												<PropertyName>MaxMoveDistance</PropertyName>
-												<Value>0</Value>
+												<Value>700</Value>
 											</Parameter>
 											<Parameter>
 												<PropertyName>LoadInertiaMass</PropertyName>
@@ -35291,7 +35294,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Channel>
 								<Channel ChnId="1">
 									<TcLink>
-										<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+										<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 										<IoItemPathName>TIID^Device 3 (EtherCAT)^Rackfeeder_Teleskop (AX5203-0000-0215)</IoItemPathName>
 									</TcLink>
 									<SelectedModifyOptPDOsMode>0</SelectedModifyOptPDOsMode>
@@ -36260,7 +36263,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							<SortId>2</SortId>
 							<DriveModuleType>31</DriveModuleType>
 							<TcLink ProtocalType="1">
-								<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+								<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 								<IoItemPathName>TIID^Device 3 (EtherCAT)^OvenDoor_A_B (AX5206-0000-0215)</IoItemPathName>
 								<ItemId>30</ItemId>
 								<ObjectId>#x0302001e</ObjectId>
@@ -36268,10 +36271,12 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							<OrderCode>AX5206-0000-02xx</OrderCode>
 							<Name>OvenDoor_A_B (AX5206-0000-0215)</Name>
 							<FirmwareVersion>Firmware: v2.15 (Build 0003) / Bootloader: v2.02 (Build 0002)</FirmwareVersion>
+							<BootloaderVersion>2.02</BootloaderVersion>
 							<CatalogNo>AX5206-0000-0215</CatalogNo>
 							<HardwareVersion>c:0100  p:0103  d:0102  f:0101  o:----  s:----</HardwareVersion>
 							<SerialNr>Serial#: 000115441</SerialNr>
 							<ProductRevision>AX5206-0000-0215</ProductRevision>
+							<HasDualUseInfo>true</HasDualUseInfo>
 							<WatchLog UpdateIntervalInMs="500">
 								<WatchLogItem>
 									<WatchLogParaSoE Index="33092"/>
@@ -36359,7 +36364,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Device>
 								<Channel ChnId="0">
 									<TcLink>
-										<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+										<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 										<IoItemPathName>TIID^Device 3 (EtherCAT)^OvenDoor_A_B (AX5206-0000-0215)</IoItemPathName>
 										<NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Oven A</NcItemPathName>
 									</TcLink>
@@ -37347,7 +37352,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Channel>
 								<Channel ChnId="1">
 									<TcLink>
-										<TcPrjPath>..\PLC\BACKEND.tsproj</TcPrjPath>
+										<TcPrjPath>..\Backend\BACKEND.tsproj</TcPrjPath>
 										<IoItemPathName>TIID^Device 3 (EtherCAT)^OvenDoor_A_B (AX5206-0000-0215)</IoItemPathName>
 										<NcItemPathName AxisType="1">TINC^NC-Task 1 SAF^Axes^Oven B</NcItemPathName>
 									</TcLink>

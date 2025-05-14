@@ -19,5 +19,6 @@
     <Content Include="RackFeeder_X_Y %28AX5206-0000-0215%29.tcdmdrv">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="RackFeeder_X_Y %28AX5206-0000-0215%29.tcdmdrv" />
   </ItemGroup>
 </Project>
