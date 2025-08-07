@@ -1,16 +1,8 @@
 namespace TcHmi {
 	export namespace Functions {
 		export namespace TcHmiProject2 {
-			export function TcaStorageRefresh(container: any) {
+			export function TcaStorageRefresh(container: any, statusColors: any) {
 
-                function getColor(status: number): string {
-                    switch (status) {
-                        case 2: return 'orange'; // error
-                        case 3: return 'red';    // belegt
-                        case 1: return 'green';  // frei
-                        default: return 'gray';  // unbekannt
-                    }
-                }
 
 				const parent = container.getParent()?.getParent()			
                 const parentId = parent?.getId()
@@ -23,7 +15,7 @@ namespace TcHmi {
 
 						    if (circle) {
 						        var status = data.value[i]?.CurrentStatus ?? 0;
-						        circle.setAttribute('fill', getColor(status));
+								circle.setAttribute('fill', statusColors[status].color);
 						    }
 						}
 					}

@@ -15,6 +15,6 @@
 </div>
 <div id="TcaCarrierHost_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="160" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcaItems/TcaCarrier.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-workpiecestatuscount_1="56" data-tchmi-workpiecestatuscount_2="56">
 </div>
-<div id="Storage_6" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="355" data-tchmi-height-unit="px" data-tchmi-left="38" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcaLibrary/TcaStorage/TcaStorage.usercontrol" data-tchmi-top="104" data-tchmi-top-unit="px" data-tchmi-width="234" data-tchmi-width-unit="px" data-tchmi-data="%s%ADS.PLC.MAIN._Peripherie._Carrier._data|BindingMode=TwoWay%/s%">
+<div id="Storage_6" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="640" data-tchmi-height-unit="px" data-tchmi-left="38" data-tchmi-left-unit="px" data-tchmi-target-user-control="TcaLibrary/TcaStorage/TcaStorage.usercontrol" data-tchmi-top="104" data-tchmi-top-unit="px" data-tchmi-width="424" data-tchmi-width-unit="px" data-tchmi-data="%s%ADS.PLC.MAIN._Peripherie._Carrier._data|BindingMode=TwoWay%/s%">
 </div>
 </div>

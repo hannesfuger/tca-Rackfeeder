@@ -533,6 +533,35 @@
           "Base": "Images/TcaCarrier.svg",
           "Base-Dark": null
         }
+      },
+      "TcaWorkpieceStatusColor": {
+        "type": "tchmi:project#/definitions/TcaWorkpieceStatusColor",
+        "values": {
+          "Base": [
+            {
+              "color": "rgba(236, 236, 236, 1)"
+            },
+            {
+              "color": "rgba(176, 176, 176, 1)"
+            },
+            {
+              "color": "rgba(33, 150, 243, 1)"
+            },
+            {
+              "color": "rgba(255, 152, 0, 1)"
+            },
+            {
+              "color": "rgba(156, 39, 176, 1)"
+            },
+            {
+              "color": "rgba(76, 175, 80, 1)"
+            },
+            {
+              "color": "rgba(244, 67, 54, 1)"
+            }
+          ],
+          "Base-Dark": null
+        }
       }
     },
     "timer": {}

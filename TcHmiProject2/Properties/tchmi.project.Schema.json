@@ -395,6 +395,15 @@
           }
         }
       ]
+    },
+    "TcaWorkpieceStatusColor": {
+      "items": {
+        "$ref": "tchmi:framework#/definitions/Color"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 7,
+      "id": "tchmi:project#/definitions/TcaWorkpieceStatusColor"
     }
   }
 }

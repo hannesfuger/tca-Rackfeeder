@@ -26,6 +26,6 @@
 </script>
 
 </div>
-<div id="TcHmiRadioButton_14" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Error" data-tchmi-top="192" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-state-symbol="%f%TcHmi.Functions.Beckhoff.ConvertBooleanToEnum(%pp%data::Error%/pp%, &quot;Active&quot;, &quot;Normal&quot;)%/f%">
+<div id="TcHmiRadioButton_14" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Error" data-tchmi-top="192" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px">
 </div>
 </div>

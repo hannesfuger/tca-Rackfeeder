@@ -72,25 +72,6 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="Enabled" Id="{a10182b8-25f7-49ea-88c0-e250392fe105}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Enabled : BOOL]]></Declaration>
-      <Get Name="Get" Id="{21fdbbe5-d4ac-4a8e-af71-c6604aef0f1e}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Enabled := _data.Enabled;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{021773e2-d595-45ad-a213-db2178a8672d}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_data.Enabled := Enabled;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
     <Property Name="Error" Id="{5bbd846d-f552-42bf-b074-fbd2b48e484b}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
       <Get Name="Get" Id="{4411ca09-0d27-47aa-ab21-dce163d2c5d4}">

@@ -23,6 +23,18 @@
         "restParameter": false,
         "asReference": false,
         "allowControlAttributeBindingOptions": false
+      },
+      {
+        "name": "statusColors",
+        "displayName": "statusColors",
+        "type": "tchmi:project#/definitions/TcaWorkpieceStatusColor",
+        "description": "",
+        "defaultValue": null,
+        "required": true,
+        "bindable": true,
+        "restParameter": false,
+        "asReference": false,
+        "allowControlAttributeBindingOptions": false
       }
     ]
   },

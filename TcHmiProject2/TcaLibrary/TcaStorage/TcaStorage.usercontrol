@@ -97,7 +97,7 @@
 ]
 </script>
     </div>
-<div id="storage_host" data-tchmi-type="TcHmi.Controls.System.TcHmiHtmlHost" data-tchmi-zindex="1" data-tchmi-width-unit="px" data-tchmi-width="%f%%ctrl%storage_6::RenderedWidth%/ctrl%%/f%" data-tchmi-height="%f%%ctrl%storage_6::RenderedWidth%/ctrl%/4*6%/f%" data-tchmi-height-unit="px">
+<div id="storage_host" data-tchmi-type="TcHmi.Controls.System.TcHmiHtmlHost" data-tchmi-zindex="1" data-tchmi-width-unit="px" data-tchmi-width="%f%%ctrl%storage_6::RenderedWidth%/ctrl%%/f%" data-tchmi-height="%f%%ctrl%storage_6::RenderedWidth%/ctrl%/4*6%/f%" data-tchmi-height-unit="px" data-tchmi-tooltip="%tr%TcaWorkpieceStatusColor[0]%/tr%">
 
     <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "event": "%pp%data::PositionsInColumn%/pp%",
+    "event": "%pp%data::WorkpiecesCoordinate%/pp%",
     "actions": [
       {
         "objectType": "Function",
@@ -136,24 +136,11 @@
             "objectType": "Symbol",
             "valueType": "tchmi:framework#/definitions/TcHmiContainer",
             "symbolExpression": "%ctrl%storage_host%/ctrl%"
-          }
-        ],
-        "asyncWait": true
-      }
-    ]
-  },
-  {
-    "event": "%pp%data::PositionsInRow%/pp%",
-    "actions": [
-      {
-        "objectType": "Function",
-        "active": true,
-        "fn": "TcHmi.Functions.TcHmiProject2.TcaStorageRefresh",
-        "fnParams": [
+          },
           {
             "objectType": "Symbol",
-            "valueType": "tchmi:framework#/definitions/TcHmiContainer",
-            "symbolExpression": "%ctrl%storage_host%/ctrl%"
+            "valueType": "tchmi:server#/definitions/ADS-PLC.TcaCarrierData",
+            "symbolExpression": "%pp%data%/pp%"
           }
         ],
         "asyncWait": true
@@ -184,26 +171,8 @@
     ]
   },
   {
-    "event": "%pp%data%/pp%",
+    "event": "%pp%data::WorkpiecesData%/pp%",
     "actions": [
-      {
-        "objectType": "Function",
-        "active": true,
-        "fn": "TcHmi.Functions.TcHmiProject2.TcaStorageDraw",
-        "fnParams": [
-          {
-            "objectType": "Symbol",
-            "valueType": "tchmi:framework#/definitions/TcHmiContainer",
-            "symbolExpression": "%ctrl%storage_host%/ctrl%"
-          },
-          {
-            "objectType": "Symbol",
-            "valueType": "tchmi:server#/definitions/ADS-PLC.TcaCarrierData",
-            "symbolExpression": "%pp%data%/pp%"
-          }
-        ],
-        "asyncWait": true
-      },
       {
         "objectType": "Function",
         "active": true,
@@ -213,6 +182,11 @@
             "objectType": "Symbol",
             "valueType": "tchmi:framework#/definitions/TcHmiContainer",
             "symbolExpression": "%ctrl%storage_host%/ctrl%"
+          },
+          {
+            "objectType": "Symbol",
+            "valueType": "tchmi:project#/definitions/TcaWorkpieceStatusColor",
+            "symbolExpression": "%tr%TcaWorkpieceStatusColor%/tr%"
           }
         ],
         "asyncWait": true
@@ -227,33 +201,7 @@
 
 
 
-<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
-[
-  {
-    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onInitialized",
-    "actions": [
-      {
-        "objectType": "Function",
-        "active": true,
-        "fn": "TcHmi.Functions.TcHmiProject2.TcaStorageDraw",
-        "fnParams": [
-          {
-            "objectType": "Symbol",
-            "valueType": "tchmi:framework#/definitions/TcHmiContainer",
-            "symbolExpression": "%ctrl%storage_host%/ctrl%"
-          },
-          {
-            "objectType": "Symbol",
-            "valueType": "tchmi:server#/definitions/ADS-PLC.TcaCarrierData",
-            "symbolExpression": "%pp%data%/pp%"
-          }
-        ],
-        "asyncWait": true
-      }
-    ]
-  }
-]
-</script>
+
 <div id="TcHmiImage_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="%f%%ctrl%storage_6::RenderedWidth%/ctrl%/4*6%/f%" data-tchmi-height-unit="px" data-tchmi-width="%f%%ctrl%storage_6::RenderedWidth%/ctrl%%/f%" data-tchmi-width-unit="px" data-tchmi-src="Images/TcaCarrier.svg" data-tchmi-height-mode="Value">
 
 

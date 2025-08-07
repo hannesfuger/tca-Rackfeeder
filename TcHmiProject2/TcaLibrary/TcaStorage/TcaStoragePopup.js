@@ -30,7 +30,7 @@ var TcHmi;
                                         TcHmi.Symbol.writeEx(`%pp%${parentId}::_wpcdata%/pp%`, data.value, function (data) {
                                             if (data.error === TcHmi.Errors.NONE) {
                                                 // Setup userControl
-                                                console.log(popup);
+                                                //console.log(popup)
                                                 popup.setWidth(userControl?.getWidth() + 20);
                                                 popup.setHeight(userControl?.getHeight() + 96);
                                                 popup.setWidthUnit(userControl.getWidthUnit() ?? 'px');

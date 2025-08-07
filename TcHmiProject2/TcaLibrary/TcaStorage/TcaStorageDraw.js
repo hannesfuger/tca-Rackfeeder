@@ -31,7 +31,10 @@ var TcHmi;
                         const radius = Math.max(data.WorkpiecesData[i].Volume.fX, 20);
                         const id = i;
                         svg += `<g id="${id}" style="cursor:pointer;">`;
+                        // Äußerer Kreis
                         svg += `  <circle id="circle${id}" cx="${cx}" cy="${cy}" r="${radius}" fill="red" class="circle-hover" />\n`;
+                        svg += `  <circle id="inner${id}" cx="${cx}" cy="${cy}" r="${radius * 0.8}" fill="none" stroke="white" stroke-width="2"/>\n`;
+                        //svg += `  <circle id="circle${id}" cx="${cx}" cy="${cy}" r="${radius}" fill="red" class="circle-hover" />\n`;
                         svg += `  <text id="text${id}" x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="12" fill="white">${id + 1}</text>\n`;
                         svg += `</g>\n`;
                     }

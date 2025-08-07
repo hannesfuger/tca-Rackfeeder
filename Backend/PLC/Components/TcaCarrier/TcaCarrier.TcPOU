@@ -270,7 +270,7 @@ END_VAR]]></Declaration>
 
 FOR ni := 0 TO MAX_WORKPIECEPLACES DO
 	
-	IF NOT _arrayOfWorkpiecePlaces[ni].Enabled THEN
+	IF NOT _data.WorkpiecesEnabled[ni] THEN
 		CONTINUE;
 	END_IF
 	
@@ -302,7 +302,7 @@ END_VAR]]></Declaration>
 
 FOR ni := 0 TO MAX_WORKPIECEPLACES DO
 
-	IF NOT _data.WorkpiecesData[ni].Enabled THEN
+	IF NOT _data.WorkpiecesEnabled[ni] THEN
 		CONTINUE;
 	END_IF	
 	
@@ -401,7 +401,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[FindPlace REF= 0;
 FOR ni := 0 TO MAX_WORKPIECEPLACES DO
 	
-	IF NOT _data.WorkpiecesData[ni].Enabled THEN
+	IF NOT _data.WorkpiecesEnabled[ni] THEN
 		CONTINUE;
 	END_IF	
 	
@@ -505,7 +505,7 @@ _data.RequestStatus := eTcaWorkpiecePlaceStatus.undefined;
 
 FOR ni := 0 TO MAX_WORKPIECEPLACES DO
 	
-	IF NOT _arrayOfWorkpiecePlaces[ni].Enabled THEN
+	IF NOT _data.WorkpiecesEnabled[ni] THEN
 		CONTINUE;
 	END_IF
 

@@ -3,7 +3,6 @@
   <DUT Name="TcaWorkpiecePlaceData" Id="{7ca366c4-6112-4745-8034-11405d12e349}">
     <Declaration><![CDATA[TYPE TcaWorkpiecePlaceData : 
 STRUCT
-	Enabled : BOOL; // tot wird nicht mehr benötigt
 	Id : INT;	// <> 0 Workpiece Present 
 	Error : BOOL;
 	SerialNumber : STRING;

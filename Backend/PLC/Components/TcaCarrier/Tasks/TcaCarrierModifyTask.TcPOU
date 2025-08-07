@@ -43,14 +43,12 @@ END_VAR
 		FOR _i := LOWER_BOUND(inoArrayOfWorkpiecePlaces,1) TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
 			inoArrayOfWorkpiecePlaces[_i].Restore();
 			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := _StatusOfPlace;
-			inoArrayOfWorkpiecePlaces[_i].Enabled := TRUE;
 			inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
 		END_FOR
 		
 		FOR _i := _WorkpiecePlaces TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
 			inoArrayOfWorkpiecePlaces[_i].Restore();
 			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := eTcaWorkpiecePlaceStatus.undefined;
-			inoArrayOfWorkpiecePlaces[_i].Enabled := FALSE;
 			inoArrayOfWorkpiecePlaces[_i].Id := -1;
 		END_FOR
 			
@@ -58,7 +56,6 @@ END_VAR
 	eTcaCarrierCmd.fillPlaces : 
 		FOR _i := LOWER_BOUND(inoArrayOfWorkpiecePlaces,1) TO _WorkpiecePlaces-1 DO
 			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := _StatusOfPlace;
-			inoArrayOfWorkpiecePlaces[_i].Enabled := TRUE;
 			inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
 		END_FOR
 		

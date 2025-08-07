@@ -4,15 +4,7 @@ var TcHmi;
     (function (Functions) {
         let TcHmiProject2;
         (function (TcHmiProject2) {
-            function TcaStorageRefresh(container) {
-                function getColor(status) {
-                    switch (status) {
-                        case 2: return 'orange'; // error
-                        case 3: return 'red'; // belegt
-                        case 1: return 'green'; // frei
-                        default: return 'gray'; // unbekannt
-                    }
-                }
+            function TcaStorageRefresh(container, statusColors) {
                 const parent = container.getParent()?.getParent();
                 const parentId = parent?.getId();
                 const content = container?.getElement()?.[0]?.querySelector('svg');
@@ -22,7 +14,7 @@ var TcHmi;
                             var circle = content?.getElementById(`circle${i}`);
                             if (circle) {
                                 var status = data.value[i]?.CurrentStatus ?? 0;
-                                circle.setAttribute('fill', getColor(status));
+                                circle.setAttribute('fill', statusColors[status].color);
                             }
                         }
                     }

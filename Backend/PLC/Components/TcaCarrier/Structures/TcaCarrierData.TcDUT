@@ -7,15 +7,6 @@ STRUCT
 	Id : INT;
 	Logging : WSTRING;	// Information in csv, xml or json Format
 	Error : BOOL;	
-
-	/// Geometry
-	//eConfiguration : eTcaCarrierConfig;		
-	//PositionsInRow : INT;			// Numbers of Positions in first Row
-	//RowDistance : REAL;		// Distance from one Row to the other
-	//PositionsInColumn : INT;			// Numbers of Positions in one Column
-	//ColumnDistance : REAL;		// Distance from one Column to the other
-	//CoordinateFirstWorkpiece : ST_Coordinate;
-	//CoordinateLastWorkpiece : ST_Coordinate;
 	
 	InitialStatus : eTcaWorkpiecePlaceStatus;
 	RequestStatus : eTcaWorkpiecePlaceStatus;	
