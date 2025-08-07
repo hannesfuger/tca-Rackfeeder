@@ -1,0 +1,9 @@
+<div id="SequencerStep_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="431" data-tchmi-height="28" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+<div id="TcHmiTextblock_7" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="28" data-tchmi-height-unit="px" data-tchmi-left="137" data-tchmi-left-unit="px" data-tchmi-text="%pp%StepDetails::Description%/pp%" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="294" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiTextblock_8" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="28" data-tchmi-height-unit="px" data-tchmi-left="53" data-tchmi-left-unit="px" data-tchmi-text="%pp%StepDetails::Duration%/pp%" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="84" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center" data-tchmi-opacity="0.5">
+</div>
+<div id="TcHmiTextblock_9" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="28" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-text="%pp%StepDetails::ID%/pp%" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="40" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-text-horizontal-alignment="Center">
+</div>
+</div>

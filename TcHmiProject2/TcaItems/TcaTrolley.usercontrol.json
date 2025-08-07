@@ -1,5 +1,75 @@
 {
-  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.2.110/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
   "parameters": [
-  ]
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setNumberOfStorage",
+      "propertyGetterName": "getNumberOfStorage",
+      "refTo": "",
+      "name": "data-tchmi-numberofstorage",
+      "displayName": "numberOfStorage",
+      "visible": true,
+      "type": "tchmi:general#/definitions/INT",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "numberOfStorage"
+    },
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setCoordinateFirstStorage",
+      "propertyGetterName": "getCoordinateFirstStorage",
+      "refTo": "",
+      "name": "data-tchmi-coordinatefirststorage",
+      "displayName": "coordinateFirstStorage",
+      "visible": true,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "coordinateFirstStorage"
+    },
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setCoordinateLastStorage",
+      "propertyGetterName": "getCoordinateLastStorage",
+      "refTo": "",
+      "name": "data-tchmi-coordinatelaststorage",
+      "displayName": "coordinateLastStorage",
+      "visible": true,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "coordinateLastStorage"
+    },
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setDivisionOfRacks",
+      "propertyGetterName": "getDivisionOfRacks",
+      "refTo": "",
+      "name": "data-tchmi-divisionofracks",
+      "displayName": "divisionOfRacks",
+      "visible": true,
+      "type": "tchmi:general#/definitions/LREAL",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "divisionOfRacks"
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.2.110/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
 }

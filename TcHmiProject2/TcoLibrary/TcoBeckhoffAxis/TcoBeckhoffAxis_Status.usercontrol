@@ -1,0 +1,84 @@
+<div id="TcoBeckhoffAxis_Status" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+<div id="TcHmiTextblock_51" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Actual Position" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiNumericInput_32" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="true" data-tchmi-decimal-digits="0" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-reset-to-last-valid-value="true" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-value="%pp%Status::ActPos%/pp%" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-ignore-invalid-values="false" data-tchmi-min-value="0" data-tchmi-is-enabled="false">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+</div>
+<div id="TcHmiTextblock_52" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Actual Velocity" data-tchmi-top="26" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiNumericInput_33" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="true" data-tchmi-decimal-digits="0" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-reset-to-last-valid-value="true" data-tchmi-top="26" data-tchmi-top-unit="px" data-tchmi-value="%pp%Status::ActVelo%/pp%" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-ignore-invalid-values="false" data-tchmi-min-value="0" data-tchmi-is-enabled="false">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+</div>
+<div id="TcHmiRadioButton_5" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-text="" data-tchmi-top="199" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::Homed%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_55" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Error" data-tchmi-top="52" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiTextblock_56" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Calibrated" data-tchmi-top="199" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_6" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="85" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%f%!%pp%Status::Moving%/pp%%/f%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_57" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Not Moving" data-tchmi-top="85" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiNumericInput_36" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="true" data-tchmi-decimal-digits="0" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-reset-to-last-valid-value="true" data-tchmi-top="52" data-tchmi-top-unit="px" data-tchmi-value="%pp%Status::ErrorId%/pp%" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-ignore-invalid-values="false" data-tchmi-min-value="0" data-tchmi-is-enabled="false">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+</div>
+<div id="TcHmiRadioButton_7" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="225" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::HasJob%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_58" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Has Job" data-tchmi-top="225" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_8" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="287" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::InTargetPosition%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_59" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="In Target Position" data-tchmi-top="287" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_9" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="313" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::InPositionArea%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_60" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="In Position Range" data-tchmi-top="313" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_10" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="261" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::SynchronizedMotion%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_61" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Coupled Mode" data-tchmi-top="261" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_11" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="173" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::Operational%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_62" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Ready" data-tchmi-top="173" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_12" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="111" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::PositiveDirection%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_63" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Moving Forward" data-tchmi-top="111" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiRadioButton_13" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="137" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-text-position="Right" data-tchmi-state-symbol="%pp%Status::NegativeDirection%/pp%" data-tchmi-is-enabled="false">
+</div>
+<div id="TcHmiTextblock_64" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="Moving Backward" data-tchmi-top="137" data-tchmi-top-unit="px" data-tchmi-width="120" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center">
+</div>
+</div>

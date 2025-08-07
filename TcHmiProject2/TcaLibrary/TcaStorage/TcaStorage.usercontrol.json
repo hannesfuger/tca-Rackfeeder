@@ -1,0 +1,58 @@
+{
+  "parameters": [
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setData",
+      "propertyGetterName": "getData",
+      "refTo": "",
+      "name": "data-tchmi-data",
+      "displayName": "data",
+      "visible": true,
+      "type": "tchmi:server#/definitions/ADS-PLC.TcaCarrierData",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "data"
+    },
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": false,
+      "propertySetterName": "set_workpiecePlaceId",
+      "propertyGetterName": "get_workpiecePlaceId",
+      "refTo": "",
+      "name": "data-tchmi-_workpieceplaceid",
+      "displayName": "_workpiecePlaceId",
+      "visible": false,
+      "type": "tchmi:general#/definitions/INT",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "_workpiecePlaceId"
+    },
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": false,
+      "propertySetterName": "set_wpcdata",
+      "propertyGetterName": "get_wpcdata",
+      "refTo": "",
+      "name": "data-tchmi-_wpcdata",
+      "displayName": "_wpcdata",
+      "visible": false,
+      "type": "tchmi:server#/definitions/ADS-PLC.TcaWorkpiecePlaceData",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "_wpcdata"
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../Packages/Beckhoff.TwinCAT.HMI.Framework.14.2.110/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

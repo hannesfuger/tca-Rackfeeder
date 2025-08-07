@@ -1,0 +1,474 @@
+<div id="Storage_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="14" data-tchmi-width-unit="%" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500" data-tchmi-width-mode="Value" data-tchmi-height-mode="Value" data-tchmi-creator-locked="False" data-tchmi-is-enabled="true" data-tchmi-creator-visibility="Visible">
+<div id="WorkpieceCarrier" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height-unit="px" data-tchmi-left="2" data-tchmi-left-unit="px" data-tchmi-text="%pp%Carrier::nCarrierID%/pp%" data-tchmi-top="2" data-tchmi-top-unit="px" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-font-size="8" data-tchmi-height="10" data-tchmi-right="2" data-tchmi-bottom="2" data-tchmi-text-horizontal-alignment="Left">
+
+
+
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(210, 210, 210, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%CarrierPresent%/pp%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": false,
+        "sourceLines": [
+          "// read Properties",
+          "let tmpArray = new TcHmi.Symbol('%s%PLC1.GVL.stSetting::astWorkpiecePlaceStates[0]::aColor%/s%');",
+          "let Array = tmpArray.read();",
+          "console.log(Array);",
+          "",
+          "let tmpIndex = new TcHmi.Symbol('%pp%Carrier::nPrimaryState%/pp%');",
+          "let Index = tmpIndex.read();",
+          "console.log(Index);",
+          "",
+          "",
+          "//let color = TcHmi.Functions.TcHmiProject2.WorkpieceColor(Array[Index]);",
+          "//console.log(color);"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      },
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%pp%CarrierPresent%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::BackgroundColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "None"
+                  }
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Opacity%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Fraction",
+                  "value": 0.5
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiEllipse::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiEllipse_1::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::BackgroundColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(244, 244, 244, 1)"
+                  }
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Opacity%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Fraction",
+                  "value": 1.0
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "Condition",
+                "active": true,
+                "parts": [
+                  {
+                    "if": [
+                      {
+                        "compare1": {
+                          "objectType": "Symbol",
+                          "valueType": "tchmi:general#/definitions/INT",
+                          "symbolExpression": "%pp%Carrier::nPrimaryState%/pp%"
+                        },
+                        "compare2": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:general#/definitions/INT",
+                          "value": 0
+                        },
+                        "compareOperator": "==",
+                        "logic": null
+                      }
+                    ],
+                    "then": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%ctrl%TcHmiEllipse::Visibility%/ctrl%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/Visibility",
+                          "value": "Hidden"
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  },
+                  {
+                    "else": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%ctrl%TcHmiEllipse::Visibility%/ctrl%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/Visibility",
+                          "value": "Visible"
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  }
+                ],
+                "asyncWait": true
+              },
+              {
+                "objectType": "Condition",
+                "active": true,
+                "parts": [
+                  {
+                    "if": [
+                      {
+                        "compare1": {
+                          "objectType": "Symbol",
+                          "valueType": "tchmi:general#/definitions/INT",
+                          "symbolExpression": "%pp%Carrier::nSecondaryState%/pp%"
+                        },
+                        "compare2": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:general#/definitions/INT",
+                          "value": 0
+                        },
+                        "compareOperator": "==",
+                        "logic": null
+                      }
+                    ],
+                    "then": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%ctrl%TcHmiEllipse_1::Visibility%/ctrl%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/Visibility",
+                          "value": "Hidden"
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  },
+                  {
+                    "else": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%ctrl%TcHmiEllipse_1::Visibility%/ctrl%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/Visibility",
+                          "value": "Visible"
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%CarrierPresent%/pp%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%f%!%pp%CarrierPresent%/pp%%/f%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "None"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-padding" type="application/json">
+{
+  "left": 10,
+  "right": 0,
+  "top": 0,
+  "bottom": 0,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+</div>
+<div id="TcHmiEllipse" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiEllipse" data-tchmi-height="10" data-tchmi-height-unit="px" data-tchmi-left-unit="px" data-tchmi-top="2" data-tchmi-top-unit="px" data-tchmi-width="10" data-tchmi-width-unit="px" data-tchmi-right="3" data-tchmi-stroke-thickness="0.5" data-tchmi-fill-color="%f%TcHmi.Functions.TcHmiProject2.GetColor(%s%PLC1.GVL.stSetting::astWorkpiecePlaceStates%/s%, %pp%Carrier::nPrimaryState%/pp%)%/f%" data-tchmi-zindex="1">
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "None"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%Carrier::nPrimaryState%/pp%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/INT",
+                  "symbolExpression": "%pp%Carrier::nPrimaryState%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT",
+                  "value": 0
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseClick",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%Carrier::eCmd%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.E_WorkpieceCarrierCmd",
+          "value": 1
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiEllipse_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiEllipse" data-tchmi-height="10" data-tchmi-height-unit="px" data-tchmi-left-unit="px" data-tchmi-top="2" data-tchmi-top-unit="px" data-tchmi-width="10" data-tchmi-width-unit="px" data-tchmi-right="8" data-tchmi-stroke-thickness="0.5" data-tchmi-fill-color="%f%TcHmi.Functions.TcHmiProject2.GetColor(%s%PLC1.GVL.stSetting::astWorkpiecePlaceStates%/s%, %pp%Carrier::nSecondaryState%/pp%)%/f%">
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "None"
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%Carrier::nSecondaryState%/pp%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/INT",
+                  "symbolExpression": "%pp%Carrier::nSecondaryState%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT",
+                  "value": 0
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+</div>

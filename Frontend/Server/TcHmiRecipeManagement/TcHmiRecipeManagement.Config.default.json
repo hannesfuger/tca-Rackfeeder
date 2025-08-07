@@ -1,4 +1,16 @@
 {
-    "recipeList": {},
-    "recipeTypeList": {}
+    "recipeList": {
+        "test": {}
+    },
+    "recipeTypeList": {
+        "test": {
+            "test": {
+                "members": {},
+                "options": {
+                    "enabled": "None"
+                },
+                "recipeTypeNames": []
+            }
+        }
+    }
 }

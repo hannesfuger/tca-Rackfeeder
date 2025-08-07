@@ -1,0 +1,31 @@
+<div id="Workpiece_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="375" data-tchmi-height="261" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500" data-tchmi-width-mode="Value" data-tchmi-height-mode="Value">
+
+<div id="TcHmiEllipse_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiEllipse" data-tchmi-height="100" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px">
+</div>
+<div id="TcHmiTextblock_65" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="241" data-tchmi-height-unit="px" data-tchmi-left="120" data-tchmi-left-unit="px" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="245" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%pp%data::Logging%/pp%">
+</div>
+<div id="TcHmiNumericInput_39" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="True" data-tchmi-decimal-digits="0" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-max-value="100" data-tchmi-min-value="0" data-tchmi-reset-to-last-valid-value="True" data-tchmi-top="120" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-value="%pp%data::RequestStatus|BindingMode=TwoWay|BindingEvent=onValueChanged%/pp%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+</div>
+<div id="TcHmiNumericInput_40" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="True" data-tchmi-decimal-digits="0" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-max-value="100" data-tchmi-min-value="0" data-tchmi-reset-to-last-valid-value="True" data-tchmi-top="156" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-value="%pp%data::CurrentStatus|BindingMode=TwoWay|BindingEvent=onValueChanged%/pp%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+</div>
+<div id="TcHmiRadioButton_14" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRadioButton" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Error" data-tchmi-top="192" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-state-symbol="%f%TcHmi.Functions.Beckhoff.ConvertBooleanToEnum(%pp%data::Error%/pp%, &quot;Active&quot;, &quot;Normal&quot;)%/f%">
+</div>
+</div>

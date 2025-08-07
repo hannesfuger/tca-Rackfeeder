@@ -1,0 +1,92 @@
+<div id="Storage_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="440" data-tchmi-height="344" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500" data-tchmi-width-mode="Value" data-tchmi-height-mode="Value" data-tchmi-creator-locked="False" data-tchmi-is-enabled="true" data-tchmi-creator-visibility="Visible">
+<div id="TcHmiContainer" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="337" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="429" data-tchmi-width-unit="px" data-tchmi-is-enabled="true" data-tchmi-opacity="1" data-tchmi-width-mode="Value" data-tchmi-height-mode="Value">
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%WorkpieceCarrier::nChangeToggle%/pp%",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "var storage = TcHmi.Controls.get('TcHmiContainer');",
+          "var id = storage.__id;",
+          "var workpieces = TcHmi.Controls.get(id).__children;",
+          "",
+          "console.log(storage);",
+          "console.log(workpieces);",
+          "",
+          "// destroy old workpieces ",
+          "var workpieceCount = workpieces.length;",
+          "for (let j = 0; j < workpieceCount; j++) {",
+          "\tworkpieces[0].destroy();",
+          " }",
+          "",
+          "// read Properties",
+          "let tmpRowIndex = new TcHmi.Symbol('%pp%WorkpieceCarrier::nPosInRow%/pp%');",
+          "let rowIndex = tmpRowIndex.read();",
+          "",
+          "let tmpColumnIndex = new TcHmi.Symbol('%pp%WorkpieceCarrier::nPosInColumn%/pp%');",
+          "let columnIndex = tmpColumnIndex.read();",
+          "",
+          "// calculate Size of Workpiecethumb",
+          "var scale = Math.min(storage.__height/(rowIndex+1), storage.__width/(columnIndex+1));",
+          "",
+          "var workpieceIndex = 0;",
+          "",
+          "for (let i = 0; i < rowIndex; i++) {\t",
+          "\tfor (let ii = 0; ii < columnIndex; ii++) {",
+          "\t",
+          "\t\tvar workpiece = TcHmi.ControlFactory.createEx(",
+          "\t\t        'TcHmi.Controls.System.TcHmiUserControlHost',",
+          "\t\t        id + ii + i,",
+          "\t\t        {",
+          "\t\t            'data-tchmi-top': scale*i, ",
+          "\t\t            'data-tchmi-left': scale*ii, ",
+          "\t\t            'data-tchmi-width-mode': 'Value', ",
+          "\t\t            'data-tchmi-height-mode': 'Value',",
+          "\t\t            'data-tchmi-width-unit': 'px', ",
+          "\t\t            'data-tchmi-height-unit': 'px',",
+          "\t\t            'data-tchmi-width': scale, ",
+          "\t\t            'data-tchmi-height': scale,",
+          "\t\t\t\t\t'data-tchmi-target-user-control': 'Items/WorkpieceThumb.usercontrol',",
+          "\t                'data-tchmi-workpiece': '%pp%WorkpieceCarrier::aPlaces[' + workpieceIndex + ']%/pp%' ",
+          "\t\t        },",
+          "\t\t        storage",
+          "\t\t    \t); ",
+          "\t",
+          "\t\tif (storage && workpiece) {",
+          "\t    \tstorage.addChild(workpiece); ",
+          "\t    \tworkpieceIndex = workpieceIndex + 1;",
+          "\t\t\t}\t\t",
+          "\t }",
+          "}"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%WorkpieceCarrier::nChangeToggle%/pp%",
+        "value": {
+          "objectType": "FunctionExpression",
+          "functionExpression": "%pp%WorkpieceCarrier::nChangeToggle%/pp%+1"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+</div>

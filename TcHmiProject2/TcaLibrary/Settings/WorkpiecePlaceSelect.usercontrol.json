@@ -1,0 +1,41 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-array",
+      "displayName": "Array",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:server#/definitions/PLC1.ARRAY_0..15_OF-ST_WorkpiecePlaceState",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Array",
+      "propertySetterName": "setArray",
+      "propertyGetterName": "getArray",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-selectedid",
+      "displayName": "SelectedId",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:general#/definitions/INT",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "SelectedId",
+      "propertySetterName": "setSelectedId",
+      "propertyGetterName": "getSelectedId",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.48/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

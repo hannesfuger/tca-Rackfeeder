@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Clean;Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props')" />
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <TcHmiDirectory>$(registry:HKEY_CURRENT_USER\Software\Beckhoff\TwinCAT3\3.1@InstallDir)\..\Functions\TE2000-HMI-Engineering</TcHmiDirectory>
@@ -22,11 +22,12 @@
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>False</TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>
     <Name>HMI_SANDBOX</Name>
-    <HmiCommunicationRouterPort>10105</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10112</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13002</HmiCommunicationServerAuthPort>
     <HmiInitial>14.2.116.1</HmiInitial>
-    <HmiRecent>14.3.221.1</HmiRecent>
+    <HmiRecent>14.3.337.1</HmiRecent>
     <HmiServerNodeAdvancedView>False</HmiServerNodeAdvancedView>
+    <HmiServerNodeAdvancedSettingsView>True</HmiServerNodeAdvancedSettingsView>
   </PropertyGroup>
   <PropertyGroup>
     <TwinCATHmi_Tasks>$(TcHmiDirectory)\MSBuild\Beckhoff.TwinCAT.HMI.tasks</TwinCATHmi_Tasks>
@@ -122,6 +123,31 @@
   <Target Name="Clean" DependsOnTargets="$(CleanDependsOn)" />
   <Target Name="ReBuild" DependsOnTargets="Clean; Build" />
   <ItemGroup>
+    <Content Include="CodeBehindJs1.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\TcaCarrier.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="JavaScript1.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiLua\TcHmiLua.Config.test.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Config.test.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Config.test.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaItems\TcaCarrier.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaItems\TcaCarrier.js</DependentUpon>
+    </Content>
+    <Content Include="TcaItems\TcaCarrier.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="TcaItems\TcaCarrier_embed.usercontrol">
       <SubType>Content</SubType>
     </Content>
@@ -136,12 +162,255 @@
       <SubType>Content</SubType>
       <DependentUpon>TcaItems\TcaCarrier_iFrame.usercontrol</DependentUpon>
     </Content>
-    <Content Include="TcaItems\TcaCarrier_object.usercontrol">
+    <Content Include="TcaItems\TcaCarrier.usercontrol">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="TcaItems\TcaCarrier_object.usercontrol.json">
+    <Content Include="TcaItems\TcaCarrier.usercontrol.json">
       <SubType>Content</SubType>
-      <DependentUpon>TcaItems\TcaCarrier_object.usercontrol</DependentUpon>
+      <DependentUpon>TcaItems\TcaCarrier.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\Settings\WorkpiecePlaceSelect.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\Settings\WorkpiecePlaceSelect.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\Settings\WorkpiecePlaceSelect.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\Settings\WorkpiecePlaceState.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\Settings\WorkpiecePlaceState.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\Settings\WorkpiecePlaceState.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\Settings\WorkpiecePlaceStateEdit.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\Settings\WorkpiecePlaceStateEdit.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\Settings\WorkpiecePlaceStateEdit.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaRackFeeder\RackFeeder.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaRackFeeder\RackFeeder.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaRackFeeder\RackFeeder.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaRackFeeder\StorageDock.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaRackFeeder\StorageDock.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaRackFeeder\StorageDock.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaRackFeeder\TeachTrolleyDock.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaRackFeeder\TeachTrolleyDock.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaRackFeeder\TeachTrolleyDock.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStorage.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStorage.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaStorage\TcaStorage.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStorageDraw.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaStorage\TcaStorageDraw.ts</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStorageDraw.ts">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStoragePopupBinding.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaStorage\TcaStoragePopupBinding.ts</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStoragePopupBinding.ts">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStoragePopup.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaStorage\TcaStoragePopup.ts</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStoragePopup.ts">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStorageRefresh.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaStorage\TcaStorageRefresh.ts</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaStorage\TcaStorageRefresh.ts">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaTrolley\Trolley.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaTrolley\Trolley.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaTrolley\Trolley.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpieceCarrier\WorkpieceCarrier.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpieceCarrier\WorkpieceCarrier.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaWorkpieceCarrier\WorkpieceCarrier.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpieceCarrier\WorkpieceCarrierThumb.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpieceCarrier\WorkpieceCarrierThumb.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaWorkpieceCarrier\WorkpieceCarrierThumb.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpiecePlace\TcaWorkpiecePlaceThumb.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpiecePlace\TcaWorkpiecePlaceThumb.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaWorkpiecePlace\TcaWorkpiecePlaceThumb.usercontrol</DependentUpon>
+      <PreloadingContent>True</PreloadingContent>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpiecePlace\TcaWorkpiecePlace.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpiecePlace\TcaWorkpiecePlace.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaWorkpiecePlace\TcaWorkpiecePlace.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpiecePlace\WorkpieceInfo.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcaLibrary\TcaWorkpiecePlace\WorkpieceInfo.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcaLibrary\TcaWorkpiecePlace\WorkpieceInfo.usercontrol</DependentUpon>
+      <PreloadingContent>True</PreloadingContent>
+    </Content>
+    <Content Include="TcHmi.ts">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Halt.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Halt.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Halt.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Home.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Home.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Home.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Jogging.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Jogging.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Jogging.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveAbsolute.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveAbsolute.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveAbsolute.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveModulo.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveModulo.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveModulo.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveRelative.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveRelative.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveRelative.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveVelocity.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveVelocity.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_MoveVelocity.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Power.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Power.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Power.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Reset.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Reset.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Reset.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Status.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Status.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Status.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Stop.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Stop.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoBeckhoffAxis\TcoBeckhoffAxis_Stop.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoDialog\Dialog.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoDialog\Dialog.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoDialog\Dialog.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoSequencer\Sequencer.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoSequencer\Sequencer.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoSequencer\Sequencer.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoSequencer\SequencerStep.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoSequencer\SequencerStep.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoSequencer\SequencerStep.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoTask\TcoTask_Control.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoTask\TcoTask_Control.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoTask\TcoTask_Control.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoTask\TcoTask_InvokeButton.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoTask\TcoTask_InvokeButton.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoTask\TcoTask_InvokeButton.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="TcoLibrary\TcoTask\TcoToggleTask_Button.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TcoLibrary\TcoTask\TcoToggleTask_Button.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>TcoLibrary\TcoTask\TcoToggleTask_Button.usercontrol</DependentUpon>
     </Content>
     <Content Include="View1.view">
       <SubType>Content</SubType>
@@ -161,6 +430,22 @@
     <Folder Include="Server\TcHmiSrv\" />
     <Folder Include="Server\TcHmiUserManagement\" />
     <Folder Include="TcaItems" />
+    <Folder Include="TcaLibrary" />
+    <Folder Include="TcaLibrary\Settings" />
+    <Folder Include="TcaLibrary\TcaIndicator" />
+    <Folder Include="TcaLibrary\TcaPushButton" />
+    <Folder Include="TcaLibrary\TcaRackFeeder" />
+    <Folder Include="TcaLibrary\TcaSafetyGate" />
+    <Folder Include="TcaLibrary\TcaStorage" />
+    <Folder Include="TcaLibrary\TcaTrolley" />
+    <Folder Include="TcaLibrary\TcaTwinSafeMain" />
+    <Folder Include="TcaLibrary\TcaWorkpieceCarrier" />
+    <Folder Include="TcaLibrary\TcaWorkpiecePlace" />
+    <Folder Include="TcoLibrary" />
+    <Folder Include="TcoLibrary\TcoBeckhoffAxis" />
+    <Folder Include="TcoLibrary\TcoDialog" />
+    <Folder Include="TcoLibrary\TcoSequencer" />
+    <Folder Include="TcoLibrary\TcoTask" />
     <Folder Include="Themes" />
     <Folder Include="Themes\Base-Dark\Images\" />
     <Folder Include="Themes\Base-Dark\Images\Events\" />
@@ -240,13 +525,6 @@
     <Content Include="TcaItems\TcaCarrier_svg.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>TcaItems\TcaCarrier_svg.usercontrol</DependentUpon>
-    </Content>
-    <Content Include="TcaItems\TcaCarrierv2.usercontrol">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="TcaItems\TcaCarrierv2.usercontrol.json">
-      <SubType>Content</SubType>
-      <DependentUpon>TcaItems\TcaCarrierv2.usercontrol</DependentUpon>
     </Content>
     <Content Include="TcaItems\TcaTrolley.usercontrol">
       <SubType>Content</SubType>
@@ -525,8 +803,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props'))" />
-    <Error Condition="!Exists('$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets'))" />
   </Target>
-  <Import Project="$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('$(SolutionDir)\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets')" />
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.3.2\build\Microsoft.TypeScript.MSBuild.targets')" />
 </Project>

@@ -79,13 +79,19 @@
     },
     "BorderRadius": {
       "type": "object",
+      "engineeringColumns": [
+        "topLeft",
+        "topRight",
+        "bottomRight",
+        "bottomLeft"
+      ],
       "propertiesMeta": [
         {
           "name": "topLeft",
           "category": "general",
           "displayName": "Top Left",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top left corner radius of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -95,7 +101,7 @@
           "refTo": "topLeft",
           "displayName": "Top Left Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top left corner radius unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -104,7 +110,7 @@
           "category": "general",
           "displayName": "Top Right",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top right corner radius of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -114,7 +120,7 @@
           "refTo": "topRight",
           "displayName": "Top Right Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top right corner radius unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -123,7 +129,7 @@
           "category": "general",
           "displayName": "Bottom Right",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom right corner radius of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -133,7 +139,7 @@
           "refTo": "bottomRight",
           "displayName": "Bottom Right Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom right corner radius unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -142,7 +148,7 @@
           "category": "general",
           "displayName": "Bottom Left",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom left corner radius of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -152,7 +158,7 @@
           "refTo": "bottomLeft",
           "displayName": "Bottom Left Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom left corner radius unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         }
@@ -233,6 +239,12 @@
         }
       },
       "type": "object",
+      "engineeringColumns": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
       "properties": {
         "left": {
           "$ref": "#/definitions/BorderStyle/definitions/style"
@@ -256,15 +268,20 @@
       ]
     },
     "BorderWidth": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "object",
+      "engineeringColumns": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
       "propertiesMeta": [
         {
           "name": "left",
           "category": "general",
           "displayName": "Left",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the left border width of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -274,7 +291,7 @@
           "refTo": "left",
           "displayName": "Left Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the left border width unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -283,7 +300,7 @@
           "category": "general",
           "displayName": "Top",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top border width of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -293,7 +310,7 @@
           "refTo": "top",
           "displayName": "Top Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top border width unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -302,7 +319,7 @@
           "category": "general",
           "displayName": "Right",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the right border width of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -312,7 +329,7 @@
           "refTo": "right",
           "displayName": "Right Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the right border width unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -321,7 +338,7 @@
           "category": "general",
           "displayName": "Bottom",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom border width of the element.",
           "defaultValue": null,
           "defaultValueInternal": null
         },
@@ -331,7 +348,7 @@
           "refTo": "bottom",
           "displayName": "Bottom Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom border width unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         }
@@ -399,11 +416,15 @@
       ]
     },
     "BoxShadowList": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "array",
       "items": {
         "title": "BoxShadow definition",
         "type": "object",
+        "engineeringColumns": [
+          "color",
+          "offsetX",
+          "offsetY"
+        ],
         "propertiesMeta": [
           {
             "name": "color",
@@ -537,7 +558,6 @@
       "minItems": 0
     },
     "ClassNameList": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "array",
       "items": {
         "type": "string"
@@ -559,16 +579,13 @@
       "default": null
     },
     "ContentPath": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "minLength": 1
     },
     "ContextReference": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "object"
     },
     "Control": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "object",
       "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
       "frameworkControlType": "TcHmiControl",
@@ -620,7 +637,6 @@
       "type": "string"
     },
     "ControlNamespace": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "minLength": 1
     },
@@ -628,19 +644,33 @@
       "type": "string"
     },
     "ControlType": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "minLength": 1
     },
     "Empty": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "enum": [
         ""
       ]
     },
+    "EnumMapping": {
+      "type": "object",
+      "patternProperties": {
+        "^-?\\d+$": {
+          "type": "string"
+        }
+      }
+    },
+    "FilterStrategy": {
+      "title": "Filter Strategy",
+      "description": "The strategy to use while filtering a tree structure.",
+      "type": "string",
+      "enum": [
+        "DepthFirst",
+        "BreadthFirst"
+      ]
+    },
     "FontFamily": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string"
     },
     "FontSizeUnit": {
@@ -671,13 +701,11 @@
       "default": "Normal"
     },
     "Fraction": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "number",
       "minimum": 0,
       "maximum": 1
     },
     "Function": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "object",
       "definitions": {
         "value": {
@@ -713,13 +741,15 @@
                   ]
                 },
                 "valueType": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 6,
+                  "pattern": "^tchmi:",
+                  "description": "Information about the used type as a tchmi reference name for re-edit scenarios."
                 }
               },
               "required": [
                 "objectType",
-                "value",
-                "valueType"
+                "value"
               ],
               "additionalProperties": false
             },
@@ -747,6 +777,7 @@
             {
               "title": "ControlApiFunction",
               "type": "object",
+              "description": "Defines an API of the control.",
               "properties": {
                 "objectType": {
                   "description": "An enum defining the variable type.",
@@ -799,7 +830,7 @@
         "symbolExpression": {
           "title": "SymbolExpression",
           "type": "string",
-          "pattern": "^%(s|i|l|pp|tp|f|ctrl|ctx|tr)%.+%\\1%$"
+          "pattern": "^%(s|i|l|pp|tp|f|ctrl|ctx|tr|t)%.+%\\/\\1%$"
         }
       },
       "properties": {
@@ -832,14 +863,12 @@
       ]
     },
     "FunctionList": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "array",
       "items": {
         "$ref": "#/definitions/Function"
       }
     },
     "HorizontalAlignment": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "enum": [
         "Left",
@@ -848,7 +877,6 @@
       ]
     },
     "Id": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "minLength": 1
     },
@@ -873,11 +901,12 @@
       ],
       "default": "text"
     },
+    "Interval": {
+      "type": "string",
+      "frameworkMetaType": "IntervalName"
+    },
     "LinearGradientColor": {
       "type": "object",
-      "engineeringColumns": [
-        "angle"
-      ],
       "propertiesMeta": [
         {
           "name": "angle",
@@ -944,8 +973,28 @@
     "MeasurementValue": {
       "type": "number"
     },
+    "MultipleRecipeReferences": {
+      "description": "Refers to one or more recipe types of the server.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RecipeReference"
+      }
+    },
+    "MultipleRecipeTypeReferences": {
+      "description": "Refers to one or more recipe types of the server.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RecipeTypeReference"
+      }
+    },
     "Padding": {
       "type": "object",
+      "engineeringColumns": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
       "propertiesMeta": [
         {
           "name": "left",
@@ -962,7 +1011,7 @@
           "refTo": "left",
           "displayName": "Left Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the left padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -981,7 +1030,7 @@
           "refTo": "top",
           "displayName": "Top Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -1000,7 +1049,7 @@
           "refTo": "right",
           "displayName": "Right Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the right padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -1019,7 +1068,7 @@
           "refTo": "bottom",
           "displayName": "Bottom Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         }
@@ -1087,12 +1136,17 @@
       ]
     },
     "Path": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "minLength": 1
     },
     "PixelPadding": {
       "type": "object",
+      "engineeringColumns": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
       "propertiesMeta": [
         {
           "name": "left",
@@ -1109,7 +1163,7 @@
           "refTo": "left",
           "displayName": "Left Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the left padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -1128,7 +1182,7 @@
           "refTo": "top",
           "displayName": "Top Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the top padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -1147,7 +1201,7 @@
           "refTo": "right",
           "displayName": "Right Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the right padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         },
@@ -1166,7 +1220,7 @@
           "refTo": "bottom",
           "displayName": "Bottom Unit",
           "displayPriority": 10,
-          "description": "",
+          "description": "Sets the bottom padding unit of the element.",
           "defaultValue": null,
           "defaultValueInternal": "px"
         }
@@ -1234,7 +1288,6 @@
       ]
     },
     "PixelUnit": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "enum": [
         "px"
@@ -1255,24 +1308,10 @@
       "type": "string",
       "minLength": 1
     },
-    "MultipleRecipeReferences": {
-      "description": "Refers to one or more recipe types of the server.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/RecipeReference"
-      }
-    },
     "RecipeTypeReference": {
       "description": "Refers to one recipe type of the server.",
       "type": "string",
       "minLength": 1
-    },
-    "MultipleRecipeTypeReferences": {
-      "description": "Refers to one or more recipe types of the server.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/RecipeTypeReference"
-      }
     },
     "ScaleMode": {
       "type": "string",
@@ -1286,7 +1325,6 @@
       "default": "None"
     },
     "ScrollMode": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "enum": [
         "No",
@@ -1562,10 +1600,6 @@
     "StopPoint": {
       "title": "StopPoint definition",
       "type": "object",
-      "engineeringColumns": [
-        "color",
-        "stop"
-      ],
       "properties": {
         "color": {
           "description": "Defining a color as CSS color: #-hexadecimal, rgb(), rgba(), hsl(), hsla(), lowercase css color keyword or transparent.",
@@ -1583,7 +1617,6 @@
       ]
     },
     "Symbol": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "object",
       "frameworkInstanceOf": "TcHmi.Symbol"
     },
@@ -1600,7 +1633,6 @@
       "default": "Normal"
     },
     "TransformList": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "definitions": {
         "transform": {
           "anyOf": [
@@ -1613,7 +1645,7 @@
                   "category": "general",
                   "displayName": "Transform Type",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the type of transform to be applied to the element.",
                   "defaultValue": "Translate",
                   "defaultValueInternal": "Translate"
                 },
@@ -1622,7 +1654,7 @@
                   "category": "general",
                   "displayName": "X",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x translation of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1632,7 +1664,7 @@
                   "refTo": "x",
                   "displayName": "X Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x translation unit of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 },
@@ -1641,7 +1673,7 @@
                   "category": "general",
                   "displayName": "Y",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y translation of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1651,7 +1683,7 @@
                   "refTo": "y",
                   "displayName": "Y Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y translation unit of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 },
@@ -1660,7 +1692,7 @@
                   "category": "general",
                   "displayName": "Z",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the z translation of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1670,7 +1702,7 @@
                   "refTo": "z",
                   "displayName": "Z Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the z translation unit of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 }
@@ -1715,7 +1747,7 @@
                   "category": "general",
                   "displayName": "Transform Type",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the type of transform to be applied to the element.",
                   "defaultValue": "Rotate",
                   "defaultValueInternal": "Rotate"
                 },
@@ -1724,7 +1756,7 @@
                   "category": "general",
                   "displayName": "Angle",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the angle of rotation of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1734,7 +1766,7 @@
                   "refTo": "angle",
                   "displayName": "Angle Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the angle unit of rotation of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "deg"
                 },
@@ -1743,7 +1775,7 @@
                   "category": "General",
                   "displayName": "Vector",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the vector of rotation of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 }
@@ -1770,7 +1802,7 @@
                       "category": "general",
                       "displayName": "X",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the x component of the vector of rotation applied to the element.",
                       "defaultValue": null,
                       "defaultValueInternal": null
                     },
@@ -1779,7 +1811,7 @@
                       "category": "general",
                       "displayName": "Y",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the y component of the vector of rotation applied to the element.",
                       "defaultValue": null,
                       "defaultValueInternal": null
                     },
@@ -1788,7 +1820,7 @@
                       "category": "general",
                       "displayName": "Z",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the z component of the vector of rotation applied to the element.",
                       "defaultValue": null,
                       "defaultValueInternal": null
                     }
@@ -1827,7 +1859,7 @@
                   "category": "general",
                   "displayName": "Transform Type",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the type of transform to be applied to the element.",
                   "defaultValue": "Scale",
                   "defaultValueInternal": "Scale"
                 },
@@ -1836,7 +1868,7 @@
                   "category": "general",
                   "displayName": "X",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x scale of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1845,7 +1877,7 @@
                   "category": "general",
                   "displayName": "Y",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y scale of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1854,7 +1886,7 @@
                   "category": "general",
                   "displayName": "Z",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the z scale of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 }
@@ -1890,7 +1922,7 @@
                   "category": "general",
                   "displayName": "Transform Type",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the type of transform to be applied to the element.",
                   "defaultValue": "Skew",
                   "defaultValueInternal": "Skew"
                 },
@@ -1899,7 +1931,7 @@
                   "category": "general",
                   "displayName": "X Angle",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x angle of skew of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1909,7 +1941,7 @@
                   "refTo": "xAngle",
                   "displayName": "X Angle Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x angle unit of skew of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "deg"
                 },
@@ -1918,7 +1950,7 @@
                   "category": "general",
                   "displayName": "Y Angle",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y angle of skew of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1928,7 +1960,7 @@
                   "refTo": "yAngle",
                   "displayName": "Y Angle Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y angle unit of skew of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "deg"
                 }
@@ -1967,7 +1999,7 @@
                   "category": "general",
                   "displayName": "Transform Type",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the type of transform to be applied to the element.",
                   "defaultValue": "Origin",
                   "defaultValueInternal": "Origin"
                 },
@@ -1976,7 +2008,7 @@
                   "category": "general",
                   "displayName": "X",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x origin of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -1986,7 +2018,7 @@
                   "refTo": "x",
                   "displayName": "X Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the x origin unit of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 },
@@ -1995,7 +2027,7 @@
                   "category": "general",
                   "displayName": "Y",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y origin of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -2005,7 +2037,7 @@
                   "refTo": "y",
                   "displayName": "Y Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the y origin unit of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 },
@@ -2014,7 +2046,7 @@
                   "category": "general",
                   "displayName": "Z",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the z origin of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -2024,7 +2056,7 @@
                   "refTo": "z",
                   "displayName": "Z Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the z origin unit of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 }
@@ -2069,7 +2101,7 @@
                   "category": "general",
                   "displayName": "Transform Type",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the type of transform to be applied to the element.",
                   "defaultValue": "Perspective",
                   "defaultValueInternal": "Perspective"
                 },
@@ -2078,7 +2110,7 @@
                   "category": "general",
                   "displayName": "Distance",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the distance of the perspective of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 },
@@ -2088,7 +2120,7 @@
                   "refTo": "distance",
                   "displayName": "Distance Unit",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the distance unit of the perspective of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": "px"
                 },
@@ -2097,7 +2129,7 @@
                   "category": "General",
                   "displayName": "Origin",
                   "displayPriority": 10,
-                  "description": "",
+                  "description": "Sets the origin of the perspective of the element.",
                   "defaultValue": null,
                   "defaultValueInternal": null
                 }
@@ -2124,7 +2156,7 @@
                       "category": "general",
                       "displayName": "X",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the x origin of the perspective of the element.",
                       "defaultValue": null,
                       "defaultValueInternal": null
                     },
@@ -2134,7 +2166,7 @@
                       "refTo": "x",
                       "displayName": "X Unit",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the x origin unit of the perspective of the element.",
                       "defaultValue": null,
                       "defaultValueInternal": "px"
                     },
@@ -2143,7 +2175,7 @@
                       "category": "general",
                       "displayName": "Y",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the y origin of the perspective of the element.",
                       "defaultValue": null,
                       "defaultValueInternal": null
                     },
@@ -2153,7 +2185,7 @@
                       "refTo": "y",
                       "displayName": "Y Unit",
                       "displayPriority": 10,
-                      "description": "",
+                      "description": "Sets the y origin unit of the perspective of the element.",
                       "defaultValue": null,
                       "defaultValueInternal": "px"
                     }
@@ -2199,7 +2231,6 @@
       }
     },
     "Trigger": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "definitions": {
         "action": {
           "anyOf": [
@@ -2553,7 +2584,7 @@
             {
               "title": "ControlApiFunction",
               "type": "object",
-              "description": "",
+              "description": "Defines an API of the control.",
               "properties": {
                 "objectType": {
                   "type": "string",
@@ -2650,27 +2681,9 @@
                     "Comment"
                   ]
                 },
-                "target": {
-                  "$ref": "#/definitions/Trigger/definitions/comment"
-                },
-                "success": {
-                  "$ref": "#/definitions/Trigger/definitions/actionList"
-                },
-                "error": {
-                  "$ref": "#/definitions/Trigger/definitions/actionList"
-                },
-                "active": {
-                  "type": "boolean",
-                  "description": "Should action be active? Defaults to true.",
-                  "default": true
-                },
-                "collapsed": {
-                  "type": "boolean",
-                  "description": "Should action be collapsed? Not used in runtime",
-                  "default": false
-                },
-                "asyncWait": {
-                  "type": "boolean"
+                "comment": {
+                  "type": "string",
+                  "description": "Free comment. Will be ignored on runtime."
                 }
               },
               "required": [
@@ -2718,13 +2731,15 @@
                   ]
                 },
                 "valueType": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 6,
+                  "pattern": "^tchmi:",
+                  "description": "Information about the used type as a tchmi reference name for re-edit scenarios while Engineering."
                 }
               },
               "required": [
                 "objectType",
-                "value",
-                "valueType"
+                "value"
               ],
               "additionalProperties": false
             },
@@ -2733,10 +2748,17 @@
               "type": "object",
               "properties": {
                 "objectType": {
+                  "description": "Value referenced via a Symbol",
                   "type": "string",
                   "enum": [
                     "Symbol"
                   ]
+                },
+                "valueType": {
+                  "type": "string",
+                  "minLength": 6,
+                  "pattern": "^tchmi:",
+                  "description": "Information about the expected type as a tchmi reference name."
                 },
                 "symbolExpression": {
                   "$ref": "#/definitions/Trigger/definitions/symbolExpression"
@@ -2799,7 +2821,7 @@
             {
               "title": "ControlAttributeBindingTarget",
               "type": "object",
-              "description": "",
+              "description": "a ControlAttributeBindingTarget",
               "properties": {
                 "objectType": {
                   "type": "string",
@@ -2895,11 +2917,13 @@
         },
         "symbolExpression": {
           "title": "SymbolExpression",
+          "description": "Reference to a Symbol Expression",
           "type": "string",
-          "pattern": "^%(s|i|l|pp|tp|f|ctrl|ctx|tr)%.+%\\1%$"
+          "pattern": "^%(s|i|l|pp|tp|f|ctrl|ctx|tr|t)%.+%\\/\\1%$"
         },
         "controlSymbolExpression": {
           "title": "controlSymbolExpression",
+          "description": "Reference to a Control Symbol Expression",
           "type": "string",
           "pattern": "^%(ctrl)%.+%\\1%$"
         },
@@ -2913,6 +2937,7 @@
       "properties": {
         "event": {
           "type": "string",
+          "description": "Event name",
           "minLength": 1
         },
         "preventDefault": {
@@ -2926,6 +2951,7 @@
         "actions": {
           "type": "array",
           "minItems": 1,
+          "description": "List of actions to trigger.",
           "items": {
             "$ref": "#/definitions/Trigger/definitions/action"
           }
@@ -2938,7 +2964,6 @@
       ]
     },
     "TriggerList": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "array",
       "items": {
         "$ref": "#/definitions/Trigger"
@@ -2946,16 +2971,13 @@
       "minItems": 1
     },
     "TypeRef": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string"
     },
     "UserControlPath": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "minLength": 1
     },
     "VerticalAlignment": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "string",
       "enum": [
         "Top",
@@ -2964,7 +2986,6 @@
       ]
     },
     "VirtualControlRightMappingList": {
-      "$schema": "http://json-schema.org/draft-04/schema",
       "type": "array",
       "items": {
         "type": "object",
@@ -3001,23 +3022,6 @@
         "Collapsed"
       ],
       "default": "Visible"
-    },
-    "EnumMapping": {
-      "type": "object",
-      "patternProperties": {
-        "^-?\\d+$": {
-          "type": "string"
-        }
-      }
-    },
-    "DataPrecedence": {
-      "$schema": "http://json-schema.org/draft-04/schema",
-      "type": "string",
-      "enum": [
-        "Data",
-        "UserInput",
-        "ChangedDataOnly"
-      ]
     },
     "TcHmi.Controls.System.TcHmiControl": {
       "$schema": "http://json-schema.org/draft-04/schema",
@@ -3744,7 +3748,7 @@
             "category": "Layout",
             "displayName": "Max Width Unit",
             "displayPriority": 60,
-            "description": "",
+            "description": "Max Width Unit of the column.",
             "defaultValueInternal": "px"
           },
           {
@@ -3761,7 +3765,7 @@
             "category": "Layout",
             "displayName": "Min Width Unit",
             "displayPriority": 61,
-            "description": "",
+            "description": "Min Width Unit of the column.",
             "defaultValueInternal": "px"
           },
           {
@@ -3843,7 +3847,7 @@
               },
               {
                 "title": "MaxWidthUnit",
-                "description": "",
+                "description": "Max Width Unit of the column.",
                 "default": "px",
                 "category": "Layout",
                 "displayPriority": 60,
@@ -3872,7 +3876,7 @@
               },
               {
                 "title": "MinWidthUnit",
-                "description": "",
+                "description": "Min Width Unit of the column.",
                 "default": "px",
                 "refTo": "minWidth",
                 "category": "Layout",
@@ -3963,7 +3967,7 @@
             "category": "Layout",
             "displayName": "Max Height Unit",
             "displayPriority": 60,
-            "description": "",
+            "description": "Max Height Unit of the row.",
             "defaultValueInternal": "px"
           },
           {
@@ -3980,7 +3984,7 @@
             "category": "Layout",
             "displayName": "Min Height Unit",
             "displayPriority": 61,
-            "description": "",
+            "description": "Min Height Unit of the row.",
             "defaultValueInternal": "px"
           },
           {
@@ -4063,7 +4067,7 @@
               },
               {
                 "title": "MaxHeightUnit",
-                "description": "",
+                "description": "Max Height Unit of the row.",
                 "default": "px",
                 "category": "Layout",
                 "displayPriority": 60
@@ -4091,7 +4095,7 @@
               },
               {
                 "title": "MinHeightUnit",
-                "description": "",
+                "description": "Min Height Unit of the row.",
                 "default": "px",
                 "refTo": "minHeight",
                 "category": "Layout",

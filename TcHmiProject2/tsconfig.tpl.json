@@ -5,7 +5,11 @@
     "module": "none",
     "target": "ES2022",
     "skipLibCheck": true,
-    "lib": [ "DOM", "DOM.Iterable", "ES2023" ],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2023"
+    ],
     "types": [],
     "declaration": true,
     "sourceMap": true,
@@ -23,5 +27,12 @@
   ],
   "include": [
     "$(Beckhoff.TwinCAT.HMI.Framework).InstallPath/TcHmi.d.ts"
+  ],
+  "files": [
+    "TcaLibrary/TcaStorage/TcaStorageDraw.ts",
+    "TcaLibrary/TcaStorage/TcaStoragePopup.ts",
+    "TcaLibrary/TcaStorage/TcaStoragePopupBinding.ts",
+    "TcaLibrary/TcaStorage/TcaStorageRefresh.ts",
+    "TcHmi.ts"
   ]
 }

@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setWorkpiece",
+      "propertyGetterName": "getWorkpiece",
+      "refTo": "",
+      "name": "data-tchmi-workpiece",
+      "displayName": "workpiece",
+      "visible": true,
+      "type": "tchmi:project#/definitions/Workpiece",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "workpiece"
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.48/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": "Workpiece"
+}

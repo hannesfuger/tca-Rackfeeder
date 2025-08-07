@@ -7,10 +7,11 @@
 TYPE eTcaWorkpiecePlaceStatus :
 (
 	undefined := 0,
-	Ready,
-	Prepared,
-	Loaded,
-	Locked,
+	noProcessDone,
+	laserProcessDone,
+	bondingAgentProcessDone,
+	castingProcessDone,
+	finishProcessDone,
 	
 	MAXSIZE
 );

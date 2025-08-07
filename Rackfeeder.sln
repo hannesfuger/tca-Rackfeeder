@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# TcXaeShell Solution File, Format Version 11.00
+# Visual Studio Version 17
 VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FE7A1B72-C5B7-4D7C-BB7D-76384D4DE8E1}") = "HMI_SANDBOX", "TcHmiProject2\HMI_SANDBOX.hmiproj", "{11F2B907-B50A-43D6-99BA-16EA31880185}"

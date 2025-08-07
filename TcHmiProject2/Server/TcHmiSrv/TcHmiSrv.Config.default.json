@@ -6,7 +6,7 @@
     "CACHEENABLED": true,
     "CACHEMAXAGE": "P30D",
     "CACHEMAXENTRYSIZE": 1048576,
-    "CACHEMAXSIZE": 2097152,
+    "CACHEMAXSIZE": 4097152,
     "CERTIFICATE": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR2VENDQXFXZ0F3SUJBZ0lKQUxTQ1VoRG43R3g3TUEwR0NTcUdTSWIzRFFFQkN3VUFNRVF4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R0RBV0JnTlZCQU1NRDJGegpiV0V0Ym1Jd05UQmZjbTl2ZERBZ0Z3MHlOVEF6TVRReE1qRTFNREphR0E4eU1EWXpNRGN4TXpFeU1UVXdNbG93ClB6RUxNQWtHQTFVRUJoTUNSRVV4R3pBWkJnTlZCQW9NRWxSM2FXNURRVlFnU0UxSklGTmxjblpsY2pFVE1CRUcKQTFVRUF3d0tZWE50WVMxdVlqQTFNRENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQgpBTDZvaTBRc0FWOGxyN2JBWEJ4d1JuYnZBWW83bFpCR3BrdzNFcGsxbHJjSjB5clgzODN5N21iOUxEWGx4MjVYCjU0VTAvODk5WUlTYXp0c2duUXBxdzV5Y0Vrd3F1bGMzL2ZRa3p3Y3dJbHBXRjZkSm9zOTVyZlhlYnROZ1MvdWIKbngwWTY1T2VwWnAzNE9Jb3FoVW5KVE9OZ0d3NE1yZmZTV0VpaWE2TExuWUhhUEY2bElsdnV2bWEwWUhVTXduUApKZEZmeG1XT1VUb090UWlDYUl5Rm5yS3lzbENTSWdld01yWWtVY1dGeG4yYUpWdmZuOUJjNEdlUVRwdnZ0bDFjCkFUTnVBdWxJNytkN1hpYnU0T3lpNys4d2szWG8vSWlYb3U0cTZWYjdKdU5NYm1DVlJDbm5vNllucUd0SDNVTjkKdXduanBUY0VLUDhZY3NKOXJKQ1JyL1VDQXdFQUFhT0J0RENCc1RDQmdRWURWUjBSQkhvd2VJSUpiRzlqWVd4bwpiM04waHdSL0FBQUJoeEFBQUFBQUFBQUFBQUFBQUFBQUFBQUJnZ3BoYzIxaExXNWlNRFV3Z2hkaGMyMWhMVzVpCk1EVXdMbUZ6YldFdVlYTnRZUzVoZEljRXJCekFBWWNFckI4V0FZY1Evb0FBQUFBQUFBQlVFZEM4aVE3YzI0Y1EKL29BQUFBQUFBQUFMSndXZksrS3Y4VEFkQmdOVkhRNEVGZ1FVa291TDhzUWhIT0VNWHU5am8xSXJTMWFHNzZrdwpEQVlEVlIwVEFRSC9CQUl3QURBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQVhJN0YySDhTdXFabXFKSmdqN1piCktGbWlRMldtMkRxVG5zK1JVZFJMUFkwY1hESjZ5emtYaExlN0w5c0t3NTlYZy8vaDNheVU0Q2RzTmxWWktMNHgKZDRDMDYrNiswSlFpczlLTGV5WENzcGpjZ0FGSThqa3I4YjNYL01DWEJKa25FSkthVlZKaTNNb1RNZTZwV29BQwpFVTRCNXFHcE1WclhtM3k2UzB2UE1JQnJuaVBEV3BoTThka0RQTGk5N2FzalFNYmRiTFp1YThFTUVVVmN6NnF4CkNrVndxdDJpaFlJYWZtU2ZmNlMyRHpNLzVTTmVOUklzWHhtZ2lZWEFZTDhCT05EbndFR01GZGF3YncxMUZEdjUKOUEra1I4YkVmeHJkbnMxZzdFNHdRS1ZrRE95akhMV0VWVzZiR3pOaWhVYWVhSURsTGJTYzg4eE1UYllRamxIUQprUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR4VENDQXEyZ0F3SUJBZ0lKQU1ZdXZUNUF5RDdGTUEwR0NTcUdTSWIzRFFFQkN3VUFNRVF4Q3pBSkJnTlYKQkFZVEFrUkZNUnN3R1FZRFZRUUtEQkpVZDJsdVEwRlVJRWhOU1NCVFpYSjJaWEl4R0RBV0JnTlZCQU1NRDJGegpiV0V0Ym1Jd05UQmZjbTl2ZERBZ0Z3MHlOVEF6TVRReE1qRTFNREphR0E4eU1EWXpNRGN4TXpFeU1UVXdNbG93ClJERUxNQWtHQTFVRUJoTUNSRVV4R3pBWkJnTlZCQW9NRWxSM2FXNURRVlFnU0UxSklGTmxjblpsY2pFWU1CWUcKQTFVRUF3d1BZWE50WVMxdVlqQTFNRjl5YjI5ME1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQgpDZ0tDQVFFQXRZRHJSSzM5dlJqN21LYnNkbXErUnRPb2hHWmcwQ1JXQXhUdTVNa01YMTBYVld5LzVLRmxzQ0lnCmJUMzliSG5tUTBqTWozNnF3R2VBcTBaTUt6RE1DWVVGNTNacEdxbWJGY1FwN3piNTBjRUlXREhSbGcraG1ib0YKd2pkZHJOeG5Qc1RXVER1OW90TjZtZHRiakppZ2poWWhFRFAwZytRWFd2NXRyTXlkbXpOenBvVFVUV0MzNkM1NApza0JkeWVIWEptRjl2UGZ2ZS85ZHBkQm5GQ0xlQXJUYlNQbk9FckV6bFNiVGpVbG1SRk9SYmJBOEhOd3YwSzlSCnN5UHNxMVpnSC9wOVRRenpKanczK0tKK3dJa05YUndTd2F5anNwNWNlMzh1Y3dkNU5QZzJzM0VCYnphRlRDc24KZmlGS2NEOEVweHZVNUpvRUdBTXVJTW95T1ZCTmdRSURBUUFCbzRHM01JRzBNSUdCQmdOVkhSRUVlakI0Z2dscwpiMk5oYkdodmMzU0hCSDhBQUFHSEVBQUFBQUFBQUFBQUFBQUFBQUFBQUFHQ0NtRnpiV0V0Ym1Jd05UQ0NGMkZ6CmJXRXRibUl3TlRBdVlYTnRZUzVoYzIxaExtRjBod1NzSE1BQmh3U3NIeFlCaHhEK2dBQUFBQUFBQUZRUjBMeUoKRHR6Ymh4RCtnQUFBQUFBQUFBc25CWjhyNHEveE1CMEdBMVVkRGdRV0JCUTM4dW5tQkd6bVFOR1ZCQ01zbHpGVQppM1dqUmpBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCWThGNkhDdlFyCkplYXAwbnF4ajk4QnJxV1haSEovRUtVOUdxQmwya0ZtckFYRndTZXVROUNZSVVndFc2Y3VOT1VjZVBkTTI3ZUQKNDN4UFRWSjMvVjZha05HSU4vYUZuR0NOeCtWM1lEWFRveG5JbGQ2YWR5TVd6N3hGTlVPQVVmRmlxQ1YwUWpXMQp4amVpZ0R6Sk5ISW1DbEdmaEFaUVhQdzJYZW1Ka1V1NjZLSkdCVmZVak9sb0YwNk01U1JMVlV4Qkw3eVNEbzZ6CllhRUtzYStKM0Y3ZmJBRU5oV0hRMGRyZDNKT2QrS0g2alBkQmFpU2JrSjhWZ0toUG5pc0FucncyL2lzRGhPT3AKcEsxaG5mbHQvS2ZkamU3SHN6SWptMHlwOTVFcmcwVlllNFJjY2xWdDJCK3FIUllZVno3eXB5U2RMcUZFUFl0NgozdlkrWW5DTGF2Mk8KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
     "CERTIFICATEEXPIRATION": "P14000D",
     "CHECKSUMENABLED": true,
@@ -27,7 +27,613 @@
     "DEFAULTLOCALE": "client",
     "DEFAULTTIMEFORMATLOCALE": "client",
     "DEFAULTTIMEZONE": "client",
-    "DEFINITIONS": {},
+    "DEFINITIONS": {
+        "ADS": {
+            "ADS-PLC.ARRAY_0..127_OF-BOOL": {
+                "items": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "maxItems": 128,
+                "minItems": 128,
+                "type": "array"
+            },
+            "ADS-PLC.ARRAY_0..127_OF-ST_Coordinate": {
+                "items": {
+                    "$ref": "tchmi:server#/definitions/ADS-PLC.ST_Coordinate"
+                },
+                "maxItems": 128,
+                "minItems": 128,
+                "type": "array"
+            },
+            "ADS-PLC.ARRAY_0..127_OF-TcaWorkpiecePlaceData": {
+                "items": {
+                    "$ref": "tchmi:server#/definitions/ADS-PLC.TcaWorkpiecePlaceData"
+                },
+                "maxItems": 128,
+                "minItems": 128,
+                "type": "array"
+            },
+            "ADS-PLC.ARRAY_0..63_OF-TcaCarrierData": {
+                "items": {
+                    "$ref": "tchmi:server#/definitions/ADS-PLC.TcaCarrierData"
+                },
+                "maxItems": 64,
+                "minItems": 64,
+                "type": "array"
+            },
+            "ADS-PLC.ST_Coordinate": {
+                "additionalProperties": false,
+                "attributes": {
+                    "pack_mode": "2"
+                },
+                "properties": {
+                    "fRx": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/LREAL"
+                            },
+                            {
+                                "propertyOrder": 4
+                            }
+                        ]
+                    },
+                    "fRy": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/LREAL"
+                            },
+                            {
+                                "propertyOrder": 5
+                            }
+                        ]
+                    },
+                    "fRz": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/LREAL"
+                            },
+                            {
+                                "propertyOrder": 6
+                            }
+                        ]
+                    },
+                    "fX": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/LREAL"
+                            },
+                            {
+                                "propertyOrder": 1
+                            }
+                        ]
+                    },
+                    "fY": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/LREAL"
+                            },
+                            {
+                                "propertyOrder": 2
+                            }
+                        ]
+                    },
+                    "fZ": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/LREAL"
+                            },
+                            {
+                                "propertyOrder": 3
+                            }
+                        ]
+                    },
+                    "nOriginId": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/INT"
+                            },
+                            {
+                                "propertyOrder": 7
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "fX",
+                    "fY",
+                    "fZ",
+                    "fRx",
+                    "fRy",
+                    "fRz",
+                    "nOriginId"
+                ],
+                "type": "object"
+            },
+            "ADS-PLC.TcaCarrierData": {
+                "additionalProperties": false,
+                "properties": {
+                    "Enabled": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/BOOL"
+                            },
+                            {
+                                "propertyOrder": 1
+                            }
+                        ]
+                    },
+                    "Error": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/BOOL"
+                            },
+                            {
+                                "propertyOrder": 4
+                            }
+                        ]
+                    },
+                    "Id": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/INT"
+                            },
+                            {
+                                "propertyOrder": 2
+                            }
+                        ]
+                    },
+                    "InitialStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceStatus"
+                            },
+                            {
+                                "comment": "Geometry",
+                                "propertyOrder": 5
+                            }
+                        ]
+                    },
+                    "Logging": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.WSTRING-80"
+                            },
+                            {
+                                "comment": "Information in csv, xml or json Format",
+                                "propertyOrder": 3
+                            }
+                        ]
+                    },
+                    "RequestStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceStatus"
+                            },
+                            {
+                                "propertyOrder": 6
+                            }
+                        ]
+                    },
+                    "WorkpiecesCoordinate": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ARRAY_0..127_OF-ST_Coordinate"
+                            },
+                            {
+                                "propertyOrder": 8
+                            }
+                        ]
+                    },
+                    "WorkpiecesData": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ARRAY_0..127_OF-TcaWorkpiecePlaceData"
+                            },
+                            {
+                                "propertyOrder": 9
+                            }
+                        ]
+                    },
+                    "WorkpiecesEnabled": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ARRAY_0..127_OF-BOOL"
+                            },
+                            {
+                                "propertyOrder": 7
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "Enabled",
+                    "Id",
+                    "Logging",
+                    "Error",
+                    "InitialStatus",
+                    "RequestStatus",
+                    "WorkpiecesEnabled",
+                    "WorkpiecesCoordinate",
+                    "WorkpiecesData"
+                ],
+                "type": "object"
+            },
+            "ADS-PLC.TcaTrolleyData": {
+                "additionalProperties": false,
+                "properties": {
+                    "CarrierData": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ARRAY_0..63_OF-TcaCarrierData"
+                            },
+                            {
+                                "propertyOrder": 10
+                            }
+                        ]
+                    },
+                    "CoordinateFirstCarrier": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ST_Coordinate"
+                            },
+                            {
+                                "propertyOrder": 6
+                            }
+                        ]
+                    },
+                    "CoordinateLastCarrier": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ST_Coordinate"
+                            },
+                            {
+                                "propertyOrder": 7
+                            }
+                        ]
+                    },
+                    "Enabled": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/BOOL"
+                            },
+                            {
+                                "propertyOrder": 1
+                            }
+                        ]
+                    },
+                    "Error": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/BOOL"
+                            },
+                            {
+                                "propertyOrder": 4
+                            }
+                        ]
+                    },
+                    "Id": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/INT"
+                            },
+                            {
+                                "propertyOrder": 2
+                            }
+                        ]
+                    },
+                    "InitialStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceStatus"
+                            },
+                            {
+                                "propertyOrder": 8
+                            }
+                        ]
+                    },
+                    "Logging": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.WSTRING-80"
+                            },
+                            {
+                                "comment": "Information in csv, xml or json Format",
+                                "propertyOrder": 3
+                            }
+                        ]
+                    },
+                    "NumberOfCarriers": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/INT"
+                            },
+                            {
+                                "comment": "Geometry",
+                                "propertyOrder": 5
+                            }
+                        ]
+                    },
+                    "RequestStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceStatus"
+                            },
+                            {
+                                "propertyOrder": 9
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "Enabled",
+                    "Id",
+                    "Logging",
+                    "Error",
+                    "NumberOfCarriers",
+                    "CoordinateFirstCarrier",
+                    "CoordinateLastCarrier",
+                    "InitialStatus",
+                    "RequestStatus",
+                    "CarrierData"
+                ],
+                "type": "object"
+            },
+            "ADS-PLC.TcaWorkpiecePlaceData": {
+                "additionalProperties": false,
+                "properties": {
+                    "CurrentStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceStatus"
+                            },
+                            {
+                                "propertyOrder": 5
+                            }
+                        ]
+                    },
+                    "Enabled": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/BOOL"
+                            },
+                            {
+                                "comment": "tot wird nicht mehr benötigt",
+                                "propertyOrder": 1
+                            }
+                        ]
+                    },
+                    "Error": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/BOOL"
+                            },
+                            {
+                                "propertyOrder": 3
+                            }
+                        ]
+                    },
+                    "Id": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/INT"
+                            },
+                            {
+                                "comment": "<> 0 Workpiece Present",
+                                "propertyOrder": 2
+                            }
+                        ]
+                    },
+                    "Logging": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.WSTRING-80"
+                            },
+                            {
+                                "comment": "Information in csv, xml or json Format",
+                                "propertyOrder": 9
+                            }
+                        ]
+                    },
+                    "RequestStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceStatus"
+                            },
+                            {
+                                "propertyOrder": 6
+                            }
+                        ]
+                    },
+                    "SerialNumber": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                            },
+                            {
+                                "propertyOrder": 4
+                            }
+                        ]
+                    },
+                    "Shape": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.eTcaWorkpiecePlaceShape"
+                            },
+                            {
+                                "propertyOrder": 7
+                            }
+                        ]
+                    },
+                    "Volume": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:server#/definitions/ADS-PLC.ST_Coordinate"
+                            },
+                            {
+                                "propertyOrder": 8
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "Enabled",
+                    "Id",
+                    "Error",
+                    "SerialNumber",
+                    "CurrentStatus",
+                    "RequestStatus",
+                    "Shape",
+                    "Volume",
+                    "Logging"
+                ],
+                "type": "object"
+            },
+            "ADS-PLC.WSTRING-80": {
+                "$ref": "tchmi:general#/definitions/STRING%2880%29"
+            },
+            "ADS-PLC.eTcaCarrierConfig": {
+                "attributes": {
+                    "generate_implicit_init_function": "",
+                    "qualified_only": ""
+                },
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ],
+                "options": [
+                    {
+                        "label": "undefined",
+                        "value": 0
+                    },
+                    {
+                        "label": "Layout1",
+                        "value": 1
+                    },
+                    {
+                        "label": "Layout2",
+                        "value": 2
+                    },
+                    {
+                        "label": "Layout3",
+                        "value": 3
+                    },
+                    {
+                        "label": "Layout4",
+                        "value": 4
+                    },
+                    {
+                        "label": "Layout5",
+                        "value": 5
+                    },
+                    {
+                        "label": "Bulk",
+                        "value": 6
+                    }
+                ],
+                "type": "integer"
+            },
+            "ADS-PLC.eTcaWorkpiecePlaceShape": {
+                "attributes": {
+                    "generate_implicit_init_function": "",
+                    "qualified_only": "",
+                    "strict": "",
+                    "to_string": "",
+                    "to_string_function": "__TO_STRING__3152",
+                    "to_wstring_function": "__TO_WSTRING__3152"
+                },
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                "options": [
+                    {
+                        "label": "undefined",
+                        "value": 0
+                    },
+                    {
+                        "label": "roll",
+                        "value": 1
+                    },
+                    {
+                        "label": "ring",
+                        "value": 2
+                    },
+                    {
+                        "label": "plate",
+                        "value": 3
+                    },
+                    {
+                        "label": "other",
+                        "value": 4
+                    },
+                    {
+                        "label": "MAXSIZE",
+                        "value": 5
+                    }
+                ],
+                "type": "integer"
+            },
+            "ADS-PLC.eTcaWorkpiecePlaceStatus": {
+                "attributes": {
+                    "generate_implicit_init_function": "",
+                    "qualified_only": "",
+                    "strict": "",
+                    "to_string": "",
+                    "to_string_function": "__TO_STRING__3065",
+                    "to_wstring_function": "__TO_WSTRING__3065"
+                },
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ],
+                "options": [
+                    {
+                        "label": "undefined",
+                        "value": 0
+                    },
+                    {
+                        "label": "noProcessDone",
+                        "value": 1
+                    },
+                    {
+                        "label": "laserProcessDone",
+                        "value": 2
+                    },
+                    {
+                        "label": "bondingAgentProcessDone",
+                        "value": 3
+                    },
+                    {
+                        "label": "castingProcessDone",
+                        "value": 4
+                    },
+                    {
+                        "label": "finishProcessDone",
+                        "value": 5
+                    },
+                    {
+                        "label": "MAXSIZE",
+                        "value": 6
+                    }
+                ],
+                "type": "integer"
+            }
+        }
+    },
     "DEFLATECOMPRESSIONLEVEL": 5,
     "DIAGNOSTICS_DOMAINS": [],
     "DISABLED_CONFIGURATION_HINTS": [],
@@ -238,7 +844,7 @@
     ],
     "FLOODPROTECTION": 500,
     "FLOODPROTECTION_LOG_INTERVAL": "PT1M",
-    "GLOBALHTTPHEADERS": "{LASTMODIFIED}\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nX-Content-Type-Options: nosniff",
+    "GLOBALHTTPHEADERS": "{LASTMODIFIED}\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nX-Content-Type-Options: nosniff",
     "GZIPENABLED": true,
     "GZIPMINSIZE": 800,
     "HTTP_FLOODPROTECTION": 100,
@@ -251,7 +857,7 @@
     "MAXREQUESTSIZE": 1048576,
     "MAXSESSIONS": 128,
     "PERMESSAGEDEFLATEENABLED": true,
-    "PROJECTNAME": "HMI_SANDBOX",
+    "PROJECTNAME": "FRONTEND",
     "PROJECTVERSION": "1.0.0.0",
     "REMOTESERVERS": {},
     "REMOTESERVERS_CERTIFICATES": [],
@@ -691,6 +1297,41 @@
             "OPTIONS": {},
             "SCHEMA": {
                 "function": true
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC.MAIN._Peripherie._Carrier._data": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC::MAIN::_Peripherie::_Carrier::_data",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC.TcaCarrierData"
+                    },
+                    {
+                        "propertyOrder": 6
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC.MAIN._Peripherie._Trolley._data": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC::MAIN::_Peripherie::_Trolley::_data",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC.TcaTrolleyData"
+                    },
+                    {
+                        "propertyOrder": 5
+                    }
+                ]
             },
             "USEMAPPING": true
         },
@@ -2813,6 +3454,42 @@
             },
             "USEMAPPING": true
         },
+        "StorageCol": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/INT"
+                    },
+                    {
+                        "default": 0.0
+                    }
+                ]
+            },
+            "USEMAPPING": false
+        },
+        "StorageRow": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/INT"
+                    },
+                    {
+                        "default": 0
+                    }
+                ]
+            },
+            "USEMAPPING": false
+        },
         "SubscribeEvents": {
             "ACCESS": 3,
             "DOMAIN": "TcHmiSrv",
@@ -3527,9 +4204,128 @@
             },
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
+        },
+        "WpcStates": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:project#/definitions/Array_0..100_OF-INT"
+                    },
+                    {
+                        "default": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            "USEMAPPING": false
         }
     },
-    "SYMBOL_COMPLEXITY_LIMIT": 100,
+    "SYMBOL_COMPLEXITY_LIMIT": 1000,
     "TEMPDH": "",
     "THREADPOOLSIZE": 32,
     "UPLOADTIMEOUT": "PT20S",
@@ -3586,6 +4382,8 @@
                 "ADS.AdsSyncReadStateReq": 3,
                 "ADS.CheckLicense": 3,
                 "ADS.Diagnostics": 3,
+                "ADS.PLC.MAIN._Peripherie._Carrier._data": 3,
+                "ADS.PLC.MAIN._Peripherie._Trolley._data": 3,
                 "ChangeUserSettings": 3,
                 "ConfirmAlarm": 3,
                 "CreateEvent": 3,
@@ -3610,6 +4408,8 @@
                 "Login": 3,
                 "Logout": 3,
                 "SetLocale": 3,
+                "StorageCol": 3,
+                "StorageRow": 3,
                 "SubscribeEvents": 3,
                 "TcHmiSqliteLogger.Diagnostics": 3,
                 "TcHmiUserManagement.ChangePassword": 3,
@@ -3621,6 +4421,8 @@
                 "UnsubscribeEvents": 3,
                 "UpdateEventsSubscription": 3,
                 "UserSelectType": 1,
+                "WpcState": 3,
+                "WpcStates": 3,
                 "test2": 3
             }
         }
@@ -3665,7 +4467,7 @@
         "/": "..\\..\\TcHmiProject2\\",
         "/Beckhoff.TwinCAT.HMI.BaseTemplate": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BaseTemplate.14.2.90\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Controls": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Controls.14.2.110\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.Framework": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Framework.14.2.110\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.Framework": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Framework.14.3.212\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Functions": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Functions.14.2.90\\runtimes\\native1.12-tchmi",
         "/bin": "..\\..\\TcHmiProject2\\bin\\"
     }

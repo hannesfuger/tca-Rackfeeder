@@ -42,13 +42,13 @@ END_IF
 CASE _cmd OF
 	
 	eTcaStorageCmd.FillCarrier:
-		AddCarrier().FillWithWorkpieces_InitialState();
+		AddCarrier().FillWithWorkpieces_InitialStatus();
 			
 	eTcaStorageCmd.RemoveCarrier:
 		RemoveCarrier();
 	
 	eTcaStorageCmd.EmptyCarrier:
-		AddCarrier().EmptyPlaces();
+		;
 	
 END_CASE
 	

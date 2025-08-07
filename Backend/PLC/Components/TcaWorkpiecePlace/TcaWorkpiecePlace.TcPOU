@@ -3,11 +3,15 @@
   <POU Name="TcaWorkpiecePlace" Id="{88b54fc1-c764-4e55-91e0-41355c6fc81a}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK TcaWorkpiecePlace EXTENDS TcoCore.TcoComponent
 
+VAR CONSTANT
+	MAX_PROGRESSSTEPS : INT := 127;
+END_VAR
+
 VAR PERSISTENT
     _carrier : ITcaCarrier;	
-	_status : TcaWorkpiecePlaceStatus;
-	_config : TcaWorkpiecePlaceConfig;
-	_service : TcaWorkpiecePlaceService;
+	_data : TcaWorkpiecePlaceData;
+	//_config : TcaWorkpiecePlaceConfig;
+	//_service : TcaWorkpiecePlaceService;
 END_VAR
 
 VAR
@@ -46,22 +50,44 @@ END_IF]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="Config" Id="{9d9fc5a5-0119-42b4-9e97-22354530292a}">
-      <Declaration><![CDATA[PROPERTY Config : REFERENCE TO TcaWorkpiecePlaceConfig]]></Declaration>
-      <Get Name="Get" Id="{987eb8a5-2841-4c23-a883-0cc4da36aef9}">
+    <Property Name="Data" Id="{99ce2bae-a321-4331-b87b-978f3400ce63}">
+      <Declaration><![CDATA[PROPERTY Data : REFERENCE TO TcaWorkpiecePlaceData]]></Declaration>
+      <Get Name="Get" Id="{3fc9a77a-d15a-4c8d-99ed-0d3eb787d30b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Config Ref= _config;]]></ST>
+          <ST><![CDATA[Data REF= _data;
+]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{0f834ccc-a2ba-431f-9d35-ca74e2536e90}">
+      <Set Name="Set" Id="{6d1e37c2-b013-4df2-80a1-3c3d2be5c9ba}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_data := Data;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Enabled" Id="{a10182b8-25f7-49ea-88c0-e250392fe105}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Enabled : BOOL]]></Declaration>
+      <Get Name="Get" Id="{21fdbbe5-d4ac-4a8e-af71-c6604aef0f1e}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_config := Config;]]></ST>
+          <ST><![CDATA[Enabled := _data.Enabled;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{021773e2-d595-45ad-a213-db2178a8672d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_data.Enabled := Enabled;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -72,7 +98,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Error := _status.Progress = eTcaWorkpiecePlaceProgress.Error ;]]></ST>
+          <ST><![CDATA[Error := _data.Error;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{4b8ad9a7-3593-4c07-9dbf-f33732b3428c}">
@@ -80,8 +106,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_status.Progress := eTcaWorkpiecePlaceProgress.Error;
-_modifyTask.Invoke();]]></ST>
+          <ST><![CDATA[_data.Error := Error;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -111,7 +136,7 @@ END_IF
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Id := _status.Id;]]></ST>
+          <ST><![CDATA[Id := _data.Id;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{dd8d68ac-dd73-4c8b-bee2-4d9571948dcf}">
@@ -119,28 +144,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_status.Id := Id;
-_modifyTask.Invoke();]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
-    <Property Name="Lock" Id="{10197547-5b24-4425-9716-8dc0673e94fc}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Lock : BOOL]]></Declaration>
-      <Get Name="Get" Id="{5d40ab24-9965-493a-9cf4-e092e676dba9}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Lock := _status.PlaceStatus = eTcaWorkpiecePlaceStatus.Locked;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{1dee0530-70e7-42d7-bd32-6cac44f47f9b}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_status.PlaceStatus := eTcaWorkpiecePlaceStatus.Locked;
-_modifyTask.Invoke();]]></ST>
+          <ST><![CDATA[_data.Id := Id;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -155,46 +159,6 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="Prepared" Id="{cd7f5c8c-5124-4418-92d3-33e630a24e75}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Prepared : BOOL]]></Declaration>
-      <Get Name="Get" Id="{6833c534-8ddd-470f-b7c5-c9eaf44f4749}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Prepared := _status.PlaceStatus = eTcaWorkpiecePlaceStatus.Prepared;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{fa9015dd-82d1-4ad5-9815-692821e8b56c}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_status.PlaceStatus := eTcaWorkpiecePlaceStatus.Prepared;
-_modifyTask.Invoke();]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
-    <Property Name="Progress" Id="{cef8ac48-bcad-464f-8d09-5aac3cbf8e14}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Progress : eTcaWorkpiecePlaceProgress]]></Declaration>
-      <Get Name="Get" Id="{7ad1dbd0-f340-4a25-a8aa-5a13d6874740}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Progress := _status.Progress;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{3019f628-a3b5-409b-83c0-192c2a2d05a7}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_status.Progress := Progress;
-_modifyTask.Invoke();]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
     <Method Name="Restore" Id="{17c4b26e-274d-46c5-b092-a85d78b47c89}">
       <Declaration><![CDATA[(*~
 	<docu>
@@ -208,10 +172,9 @@ METHOD  Restore : ITcoRestorable
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Status.PlaceStatus := eTcaWorkpiecePlaceProgress.blank;
-_Status.Progress := eTcaWorkpiecePlaceStatus.Ready;
-_modifyTask.Invoke();
-]]></ST>
+        <ST><![CDATA[_data.Error := FALSE;
+_data.SerialNumber := '';
+_data.Logging := "";]]></ST>
       </Implementation>
     </Method>
     <Method Name="ServiceMode" Id="{6206ecb8-8730-4604-94b3-735e78449b40}">
@@ -229,18 +192,6 @@ METHOD PROTECTED  ServiceMode
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Status" Id="{99ce2bae-a321-4331-b87b-978f3400ce63}">
-      <Declaration><![CDATA[PROPERTY Status : REFERENCE TO TcaWorkpiecePlaceStatus]]></Declaration>
-      <Get Name="Get" Id="{3fc9a77a-d15a-4c8d-99ed-0d3eb787d30b}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Status REF= _status;
-]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Property Name="WorkpiecePresent" Id="{55b71031-93f1-4f0a-8686-8f48dd99401d}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY WorkpiecePresent : BOOL]]></Declaration>
       <Get Name="Get" Id="{995fd6e1-6f02-49c6-a414-403831a5cc29}">
@@ -248,18 +199,9 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[WorkpiecePresent := _status.PlaceStatus = eTcaWorkpiecePlaceStatus.Loaded;]]></ST>
+          <ST><![CDATA[WorkpiecePresent := _data.Id <> 0;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{cd182c3d-c523-43bd-9b59-379e864c594a}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_status.PlaceStatus := eTcaWorkpiecePlaceStatus.Loaded;
-_modifyTask.Invoke();]]></ST>
-        </Implementation>
-      </Set>
     </Property>
   </POU>
 </TcPlcObject>

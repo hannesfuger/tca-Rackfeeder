@@ -1,0 +1,43 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-workpiececarrier",
+      "displayName": "WorkpieceCarrier",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:server#/definitions/PLC1.FB_WorkpieceCarrier",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "WorkpieceCarrier",
+      "propertySetterName": "setWorkpieceCarrier",
+      "propertyGetterName": "getWorkpieceCarrier",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-refresh",
+      "displayName": "Refresh",
+      "allowSymbolExpressionsInObject": true,
+      "visible": true,
+      "type": "tchmi:general#/definitions/BOOL",
+      "category": "",
+      "description": "internal",
+      "defaultValue": true,
+      "defaultValueInternal": true,
+      "requiredOnCompile": false,
+      "readOnly": true,
+      "bindable": false,
+      "heritable": true,
+      "propertyName": "Refresh",
+      "propertySetterName": "setRefresh",
+      "propertyGetterName": "getRefresh",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.48/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

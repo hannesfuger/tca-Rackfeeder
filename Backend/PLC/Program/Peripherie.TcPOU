@@ -5,6 +5,13 @@
 VAR
 	_Handling : Handling(THIS^);
 	
+	_Trolley : TcaTrolley(THIS^);
+	
+	_Carrier : TcaCarrier(THIS^);
+END_VAR
+
+VAR
+	apply				: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -20,10 +27,17 @@ END_VAR
 		</summary>
 	</docu>
 ~*)
-METHOD PROTECTED  Main]]></Declaration>
+METHOD PROTECTED  Main
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.RtcSynchronize(TRUE, '', 60);
-_Handling();]]></ST>
+_Handling();
+
+IF apply THEN
+	apply := FALSE;
+	_Carrier.ApplyConfig();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
   </POU>

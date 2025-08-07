@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaTrolleyData" Id="{ebcaced8-06e8-4fa3-a118-151208d8871a}">
+    <Declaration><![CDATA[TYPE TcaTrolleyData : 
+STRUCT
+	Enabled : BOOL;
+	Id : INT;
+	Logging : WSTRING;	// Information in csv, xml or json Format
+	Error : BOOL;
+	
+	/// Geometry
+	NumberOfCarriers : INT;	// Numbers of Positions in first Row
+	CoordinateFirstCarrier : ST_Coordinate;
+	CoordinateLastCarrier : ST_Coordinate;
+		
+	InitialStatus : eTcaWorkpiecePlaceStatus;
+	RequestStatus : eTcaWorkpiecePlaceStatus;	
+		
+	CarrierData : ARRAY[0..TcaTrolley.MAX_CARRIERPLACES] OF TcaCarrierData;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

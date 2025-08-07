@@ -15,20 +15,12 @@
         "TcHmiSymbol.AddSymbol.UserGroups.Read",
         "TcHmiSymbol.AddSymbol.Hidden"
     ],
-    "NEW_HANDLES_PER_SUM_REQUEST_LIMIT": 100,
-    "RESPONSE_SIZE_LIMIT": 2097152,
+    "NEW_HANDLES_PER_SUM_REQUEST_LIMIT": 1000,
+    "RESPONSE_SIZE_LIMIT": 4097152,
     "RUNTIMES": {
         "PLC": {
             "ENABLED": true,
-            "NETID": "5.24.124.74.1.1",
-            "PORT": 851,
-            "READ_ONLY": false,
-            "SYMBOLS": {},
-            "USE_WHITELISTING": false
-        },
-        "PLC1": {
-            "ENABLED": true,
-            "NETID": "127.0.0.1.1.1",
+            "NETID": "41.249.230.93.1.1",
             "PORT": 851,
             "READ_ONLY": false,
             "SYMBOLS": {},
@@ -45,8 +37,8 @@
     },
     "RUNTIME_STATE_CHECK_INTERVAL": "PT2S",
     "RUNTIME_STATE_CHECK_TIMEOUT": "PT5S",
-    "SUM_REQUEST_LIMIT": 500,
-    "TIMEOUT": "PT1S",
+    "SUM_REQUEST_LIMIT": 1000,
+    "TIMEOUT": "PT3S",
     "VISIBLE_RUNTIME_PORTS": [
         301,
         302,

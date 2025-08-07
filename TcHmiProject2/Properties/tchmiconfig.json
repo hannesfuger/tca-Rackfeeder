@@ -1,5 +1,5 @@
 {
-  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.2.110/runtimes/native1.12-tchmi/Schema/TchmiConfig.Schema.json",
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.3.212/runtimes/native1.12-tchmi/Schema/TchmiConfig.Schema.json",
   "basePath": "./Beckhoff.TwinCAT.HMI.Framework",
   "scaleMode": "None",
   "startupView": "View1.view",
@@ -19,14 +19,14 @@
     "Base-Dark": {
       "resources": [
         {
-          "name": "Themes/Base-Dark/Base-DarkStyle.css",
-          "description": "",
-          "type": "Stylesheet"
-        },
-        {
           "name": "Themes/Base-Dark/Base-Dark.theme",
           "description": "",
           "type": "ThemedValues"
+        },
+        {
+          "name": "Themes/Base-Dark/Base-DarkStyle.css",
+          "description": "",
+          "type": "Stylesheet"
         }
       ],
       "replacesThemeForControls": [],
@@ -51,12 +51,55 @@
   },
   "dependencyFiles": [
     {
+      "name": "TcaItems/TcaCarrier.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "CodeBehindJs1.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "JavaScript1.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
       "name": "Fonts/Fonts.css",
       "description": "",
       "type": "Stylesheet"
+    },
+    {
+      "name": "TcaLibrary/TcaStorage/TcaStorageDraw.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "TcaLibrary/TcaStorage/TcaStoragePopup.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "TcaLibrary/TcaStorage/TcaStoragePopupBinding.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "TcaLibrary/TcaStorage/TcaStorageRefresh.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "TcHmi.js",
+      "description": "",
+      "type": "JavaScript"
     }
   ],
   "userControls": [
+    {
+      "url": "TcaItems/TcaCarrier.usercontrol"
+    },
     {
       "url": "TcaItems/TcaCarrier_embed.usercontrol"
     },
@@ -64,16 +107,100 @@
       "url": "TcaItems/TcaCarrier_iFrame.usercontrol"
     },
     {
-      "url": "TcaItems/TcaCarrier_object.usercontrol"
-    },
-    {
       "url": "TcaItems/TcaCarrier_svg.usercontrol"
     },
     {
-      "url": "TcaItems/TcaCarrierv2.usercontrol"
+      "url": "TcaItems/TcaTrolley.usercontrol"
     },
     {
-      "url": "TcaItems/TcaTrolley.usercontrol"
+      "url": "TcaLibrary/Settings/WorkpiecePlaceSelect.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/Settings/WorkpiecePlaceState.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/Settings/WorkpiecePlaceStateEdit.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaRackFeeder/RackFeeder.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaRackFeeder/StorageDock.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaRackFeeder/TeachTrolleyDock.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaStorage/TcaStorage.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaTrolley/Trolley.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpieceCarrier/WorkpieceCarrier.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpieceCarrier/WorkpieceCarrierThumb.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpiecePlace/TcaWorkpiecePlace.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpiecePlace/TcaWorkpiecePlaceThumb.usercontrol"
+    },
+    {
+      "url": "TcaLibrary/TcaWorkpiecePlace/WorkpieceInfo.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Halt.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Home.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Jogging.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_MoveAbsolute.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_MoveModulo.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_MoveRelative.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_MoveVelocity.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Power.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Reset.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Status.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoBeckhoffAxis/TcoBeckhoffAxis_Stop.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoDialog/Dialog.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoSequencer/Sequencer.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoSequencer/SequencerStep.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoTask/TcoTask_Control.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoTask/TcoTask_InvokeButton.usercontrol"
+    },
+    {
+      "url": "TcoLibrary/TcoTask/TcoToggleTask_Button.usercontrol"
     }
   ],
   "content": [
@@ -107,7 +234,23 @@
       "preloadBindings": false
     }
   ],
-  "userFunctions": [],
+  "userFunctions": [
+    {
+      "url": "TcaItems/TcaCarrier.js"
+    },
+    {
+      "url": "TcaLibrary/TcaStorage/TcaStorageDraw.js"
+    },
+    {
+      "url": "TcaLibrary/TcaStorage/TcaStoragePopup.js"
+    },
+    {
+      "url": "TcaLibrary/TcaStorage/TcaStoragePopupBinding.js"
+    },
+    {
+      "url": "TcaLibrary/TcaStorage/TcaStorageRefresh.js"
+    }
+  ],
   "symbols": {
     "internal": {
       "MediaQueryList": {
@@ -218,6 +361,16 @@
         },
         "type": "tchmi:framework#/definitions/LinearGradientColor",
         "persist": false,
+        "readonly": false
+      },
+      "StorageRow": {
+        "type": "tchmi:general#/definitions/INT",
+        "persist": true,
+        "readonly": false
+      },
+      "StorageCol": {
+        "type": "tchmi:general#/definitions/INT",
+        "persist": true,
         "readonly": false
       }
     },
@@ -373,6 +526,13 @@
           "Base": "Themes/Base/Images/Settings/settings_active.svg",
           "Base-Dark": "Themes/Base-Dark/Images/Settings/settings_active.svg"
         }
+      },
+      "TcaCarrierImage": {
+        "type": "tchmi:framework#/definitions/Path",
+        "values": {
+          "Base": "Images/TcaCarrier.svg",
+          "Base-Dark": null
+        }
       }
     },
     "timer": {}
@@ -426,7 +586,7 @@
     }
   ],
   "systemKeyboard": {
-    "providerName": "",
+    "providerName": "Beckhoff.TcHmiKeyboard",
     "autoOpen": false,
     "projectKeyboardMapping": {
       "de": {

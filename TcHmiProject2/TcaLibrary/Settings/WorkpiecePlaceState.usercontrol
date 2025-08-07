@@ -1,0 +1,32 @@
+<div id="UserControl1_6" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="653" data-tchmi-height="418" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+<div id="TcHmiVnColor_2" data-tchmi-type="TcHmi.Controls.Beckhoff.Vision.TcHmiVnColor" data-tchmi-height="25" data-tchmi-height-unit="px" data-tchmi-left="34" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-box-usage="Editable" data-tchmi-color-symbol="%pp%struct::aColor%/pp%" data-tchmi-orientation="Vertical" data-tchmi-values-usage="Hide" data-tchmi-slider-usage="Hide" data-tchmi-width="25">
+<script data-tchmi-target-attribute="data-tchmi-box-color-conversion" type="application/json">
+{
+  "objectType": "Function",
+  "fn": "BoxColorConverter",
+  "fnParams": [
+    {
+      "objectType": "StaticValue",
+      "valueType": "tchmi:framework#/definitions/TcHmi.Controls.Beckhoff.Vision.Color.Space",
+      "value": "RGB"
+    }
+  ]
+}
+</script>
+
+</div>
+<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="25" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-text="%pp%struct::id%/pp%" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="34" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-horizontal-alignment="Center">
+</div>
+<div id="TcHmiInput" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiInput" data-tchmi-auto-focus-out="true" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="69" data-tchmi-left-unit="px" data-tchmi-text="%pp%struct::text|BindingMode=TwoWay%/pp%" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="196" data-tchmi-width-unit="px">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+</div>
+</div>

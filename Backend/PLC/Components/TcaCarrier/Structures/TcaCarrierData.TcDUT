@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcaCarrierData" Id="{7f561e39-db64-406d-92fe-c6dddfbcdc12}">
+    <Declaration><![CDATA[TYPE TcaCarrierData :
+STRUCT	
+	Enabled : BOOL;
+	Id : INT;
+	Logging : WSTRING;	// Information in csv, xml or json Format
+	Error : BOOL;	
+
+	/// Geometry
+	//eConfiguration : eTcaCarrierConfig;		
+	//PositionsInRow : INT;			// Numbers of Positions in first Row
+	//RowDistance : REAL;		// Distance from one Row to the other
+	//PositionsInColumn : INT;			// Numbers of Positions in one Column
+	//ColumnDistance : REAL;		// Distance from one Column to the other
+	//CoordinateFirstWorkpiece : ST_Coordinate;
+	//CoordinateLastWorkpiece : ST_Coordinate;
+	
+	InitialStatus : eTcaWorkpiecePlaceStatus;
+	RequestStatus : eTcaWorkpiecePlaceStatus;	
+
+	WorkpiecesEnabled : ARRAY[0..TcaCarrier.MAX_WORKPIECEPLACES] OF BOOL;
+	WorkpiecesCoordinate : ARRAY[0..TcaCarrier.MAX_WORKPIECEPLACES] OF ST_Coordinate;
+	WorkpiecesData : ARRAY[0..TcaCarrier.MAX_WORKPIECEPLACES] OF TcaWorkpiecePlaceData;
+	
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

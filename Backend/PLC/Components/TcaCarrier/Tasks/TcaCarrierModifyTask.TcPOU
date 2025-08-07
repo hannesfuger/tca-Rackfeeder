@@ -9,13 +9,9 @@ VAR_IN_OUT
 	inoArrayOfWorkpiecePlaces : ARRAY[*] OF TcaWorkpiecePlace(THIS^);	
 END_VAR
 VAR
-    {attribute addProperty Name "<#Command#>"}
 	_Command : eTcaCarrierCmd;
-    {attribute addProperty Name "<#StatusOfWorkpiece#>"}
-	_StatusOfWorkpiece : eTcaWorkpiecePlaceProgress;
 	_StatusOfPlace : eTcaWorkpiecePlaceStatus;
-    {attribute addProperty Name "<#CarrierConfig#>"}
-	_CarrierConfig : TcaCarrierConfig;
+	_CarrierData : TcaCarrierData;
 END_VAR
 VAR
     {attribute 'hide'}
@@ -30,16 +26,14 @@ END_VAR
 	
 	// Change of Config -> set to empty Place
 	IF _Command = eTcaCarrierCmd.ConfigCarrier THEN
-		Carrier.Config := _CarrierConfig;
+		Carrier.Data := _CarrierData;
 		_Command := eTcaCarrierCmd.emptyPlaces;
-		_StatusOfPlace := eTcaWorkpiecePlaceStatus.Ready;
-		_StatusOfWorkpiece := eTcaWorkpiecePlaceProgress.blank;
+		_StatusOfPlace := eTcaWorkpiecePlaceStatus.undefined;
 	END_IF
 	
 	Carrier.RefreshStatus();
-	_WorkpiecePlaces := Carrier.Status.WorkpiecePlaces;
 	
-	IF _WorkpiecePlaces = 0 THEN
+	IF Carrier.WorkpiecePlaces = 0 THEN
 		RETURN;
 	END_IF
 
@@ -47,32 +41,30 @@ END_VAR
 
 	eTcaCarrierCmd.emptyPlaces : 
 		FOR _i := LOWER_BOUND(inoArrayOfWorkpiecePlaces,1) TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
-			inoArrayOfWorkpiecePlaces[_i].WorkpiecePresent := FALSE;
-			inoArrayOfWorkpiecePlaces[_i].Status.PlaceStatus := _StatusOfPlace;
-			inoArrayOfWorkpiecePlaces[_i].Status.Progress := _StatusOfWorkpiece;
-			//inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
+			inoArrayOfWorkpiecePlaces[_i].Restore();
+			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := _StatusOfPlace;
+			inoArrayOfWorkpiecePlaces[_i].Enabled := TRUE;
+			inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
 		END_FOR
 		
 		FOR _i := _WorkpiecePlaces TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
 			inoArrayOfWorkpiecePlaces[_i].Restore();
-			inoArrayOfWorkpiecePlaces[_i].Status.PlaceStatus := eTcaWorkpiecePlaceProgress.undefined;
-			inoArrayOfWorkpiecePlaces[_i].Status.Progress := eTcaWorkpiecePlaceStatus.undefined;
-			//inoArrayOfWorkpiecePlaces[_i].Id := -1;
+			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := eTcaWorkpiecePlaceStatus.undefined;
+			inoArrayOfWorkpiecePlaces[_i].Enabled := FALSE;
+			inoArrayOfWorkpiecePlaces[_i].Id := -1;
 		END_FOR
 			
 
 	eTcaCarrierCmd.fillPlaces : 
 		FOR _i := LOWER_BOUND(inoArrayOfWorkpiecePlaces,1) TO _WorkpiecePlaces-1 DO
-			inoArrayOfWorkpiecePlaces[_i].WorkpiecePresent := TRUE;
-			inoArrayOfWorkpiecePlaces[_i].Status.PlaceStatus := _StatusOfPlace;
-			inoArrayOfWorkpiecePlaces[_i].Status.Progress := _StatusOfWorkpiece;
-			//inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
+			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := _StatusOfPlace;
+			inoArrayOfWorkpiecePlaces[_i].Enabled := TRUE;
+			inoArrayOfWorkpiecePlaces[_i].Id := TO_INT(_i)+1;
 		END_FOR
 		
 		FOR _i := _WorkpiecePlaces TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
 			inoArrayOfWorkpiecePlaces[_i].Restore();
-			inoArrayOfWorkpiecePlaces[_i].Status.PlaceStatus := eTcaWorkpiecePlaceProgress.undefined;
-			inoArrayOfWorkpiecePlaces[_i].Status.Progress := eTcaWorkpiecePlaceStatus.undefined;
+			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := eTcaWorkpiecePlaceStatus.undefined;
 			//inoArrayOfWorkpiecePlaces[_i].Id := -1;
 		END_FOR
 	
@@ -80,9 +72,7 @@ END_VAR
 		FOR _i := LOWER_BOUND(inoArrayOfWorkpiecePlaces,1) TO UPPER_BOUND(inoArrayOfWorkpiecePlaces,1) DO
 			inoArrayOfWorkpiecePlaces[_i].Restore();
 			//inoArrayOfWorkpiecePlaces[_i].Id := -1;
-			inoArrayOfWorkpiecePlaces[_i].WorkpiecePresent := FALSE;
-			inoArrayOfWorkpiecePlaces[_i].Status.PlaceStatus := eTcaWorkpiecePlaceProgress.blank;
-			inoArrayOfWorkpiecePlaces[_i].Status.Progress := eTcaWorkpiecePlaceStatus.Ready;
+			inoArrayOfWorkpiecePlaces[_i].Data.CurrentStatus := eTcaWorkpiecePlaceStatus.undefined;
 		END_FOR
 
 	END_CASE
@@ -108,27 +98,27 @@ END_IF
         </Implementation>
       </Get>
     </Property>
-    <Method Name="InvokeCarrierConfig" Id="{f0ddff61-467c-4dc6-a67f-f53b038e0e0a}">
-      <Declaration><![CDATA[METHOD InvokeCarrierConfig : ITcoTaskStatus
+    <Method Name="InvokeCarrierData" Id="{f0ddff61-467c-4dc6-a67f-f53b038e0e0a}">
+      <Declaration><![CDATA[METHOD InvokeCarrierData : ITcoTaskStatus
 VAR_INPUT
-	inConfig : TcaCarrierConfig;
+	inData : TcaCarrierData;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_CarrierConfig := inConfig;
-InvokeCarrierConfig := This^.Invoke();]]></ST>
+        <ST><![CDATA[_CarrierData := inData;
+InvokeCarrierData := This^.Invoke();]]></ST>
       </Implementation>
     </Method>
     <Method Name="InvokeWorkpieceCommand" Id="{edfa2f08-1f3a-48d3-aa43-f51812325b33}">
       <Declaration><![CDATA[METHOD InvokeWorkpieceCommand : ITcoTaskStatus
 VAR_INPUT
 	inCommand : eTcaCarrierCmd;
-	inStatusOfWorkpiece : eTcaWorkpiecePlaceProgress;
+	inStatusOfWorkpiece : eTcaWorkpiecePlaceStatus;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_Command := inCommand;
-_StatusOfWorkpiece := inStatusOfWorkpiece;
+_StatusOfPlace := inStatusOfWorkpiece;
 InvokeWorkpieceCommand := This^.Invoke();]]></ST>
       </Implementation>
     </Method>

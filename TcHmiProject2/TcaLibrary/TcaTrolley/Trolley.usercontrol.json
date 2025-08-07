@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "allowSymbolExpressionsInObject": false,
+      "requiredOnCompile": false,
+      "bindable": true,
+      "propertySetterName": "setTrolley",
+      "propertyGetterName": "getTrolley",
+      "refTo": "",
+      "name": "data-tchmi-trolley",
+      "displayName": "Trolley",
+      "visible": true,
+      "type": "tchmi:project#/definitions/TcaTrolley",
+      "category": "",
+      "description": "",
+      "readOnly": false,
+      "heritable": true,
+      "propertyName": "Trolley"
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.48/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

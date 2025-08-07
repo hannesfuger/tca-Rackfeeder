@@ -1,0 +1,426 @@
+<div id="UserControl2_7" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="473" data-tchmi-height="190" data-tchmi-width-unit="px" data-tchmi-height-unit="px" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+<div id="TcHmiButton_7" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="31" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Yes" data-tchmi-top="145" data-tchmi-top-unit="px" data-tchmi-width="105" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%TcoDialog::_hasYes%/pp%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%pp%TcoDialog::_hasYes%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_7::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_7::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseClick",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_answer%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.TcoCore.eDialogAnswer",
+          "value": 20
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_restoreRequest%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "let tmpStartSignature = new TcHmi.Symbol('%pp%TcoDialog::_startSignature%/pp%');",
+          "let StartSignature = tmpStartSignature.read();",
+          "//console.log(StartSignature);",
+          "",
+          "popup = document.getElementById(StartSignature +\".UserControlHost\");",
+          "popup.parentElement.parentElement.remove();"
+        ],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiButton_8" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="31" data-tchmi-height-unit="px" data-tchmi-left="125" data-tchmi-left-unit="px" data-tchmi-text="No" data-tchmi-top="145" data-tchmi-top-unit="px" data-tchmi-width="105" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%TcoDialog::_hasNo%/pp%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%pp%TcoDialog::_hasNo%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_8::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_8::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseClick",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_answer%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.TcoCore.eDialogAnswer",
+          "value": 30
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_restoreRequest%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "let tmpStartSignature = new TcHmi.Symbol('%pp%TcoDialog::_startSignature%/pp%');",
+          "let StartSignature = tmpStartSignature.read();",
+          "//console.log(StartSignature);",
+          "",
+          "popup = document.getElementById(StartSignature +\".UserControlHost\");",
+          "popup.parentElement.parentElement.remove();"
+        ],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiButton_9" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="31" data-tchmi-height-unit="px" data-tchmi-left="240" data-tchmi-left-unit="px" data-tchmi-text="Cancel" data-tchmi-top="145" data-tchmi-top-unit="px" data-tchmi-width="105" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%TcoDialog::_hasCancel%/pp%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%pp%TcoDialog::_hasCancel%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_9::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_9::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseClick",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_answer%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.TcoCore.eDialogAnswer",
+          "value": 40
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_restoreRequest%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "let tmpStartSignature = new TcHmi.Symbol('%pp%TcoDialog::_startSignature%/pp%');",
+          "let StartSignature = tmpStartSignature.read();",
+          "//console.log(StartSignature);",
+          "",
+          "popup = document.getElementById(StartSignature +\".UserControlHost\");",
+          "popup.parentElement.parentElement.remove();"
+        ],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiButton_10" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="31" data-tchmi-height-unit="px" data-tchmi-left="355" data-tchmi-left-unit="px" data-tchmi-text="OK" data-tchmi-top="145" data-tchmi-top-unit="px" data-tchmi-width="105" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%pp%TcoDialog::_hasOK%/pp%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%pp%TcoDialog::_hasOK%/pp%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_10::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmiButton_10::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Hidden"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseClick",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_answer%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:server#/definitions/PLC1.TcoCore.eDialogAnswer",
+          "value": 10
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%pp%TcoDialog::_restoreRequest%/pp%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "let tmpStartSignature = new TcHmi.Symbol('%pp%TcoDialog::_startSignature%/pp%');",
+          "let StartSignature = tmpStartSignature.read();",
+          "//console.log(StartSignature);",
+          "",
+          "popup = document.getElementById(StartSignature +\".UserControlHost\");",
+          "popup.parentElement.parentElement.remove();"
+        ],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]</script>
+</div>
+<div id="TcHmiTextblock_6" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="125" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="%pp%TcoDialog::_text%/pp%" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="453" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+
+
+</div>

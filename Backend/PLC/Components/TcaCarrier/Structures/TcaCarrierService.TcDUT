@@ -4,8 +4,6 @@
     <Declaration><![CDATA[TYPE TcaCarrierService :
 STRUCT
 	WorkpiecePlaces : INT; // starts with 1
-	PrimaryWorkpieceStatus : eTcaWorkpiecePlaceProgress;
-	SecondaryWorkpieceStatus : eTcaWorkpiecePlaceProgress;
 	PrimaryWorkpieceStatusCount : INT;
 	SecondaryWorkpieceStatusCount : INT;
 	PrimaryWorkpieceStatusColor : COLOR;

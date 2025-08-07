@@ -255,4 +255,6 @@
 }
 </script>
 </div>
+<div id="TcHmiMotionControl_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiMotion.TcHmiMotionControl" data-tchmi-height="510" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-main-nc="NC" data-tchmi-nc-task="NC-Task1" data-tchmi-top="119" data-tchmi-top-unit="px" data-tchmi-width="744" data-tchmi-width-unit="px">
+</div>
 </div>
